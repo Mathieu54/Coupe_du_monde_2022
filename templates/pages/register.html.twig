@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <section class="vh-100 bg-image">
+        <div class="d-flex align-items-center h-100">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">Créer un compte</h2>
+                                {{ form_start(registrationForm) }}
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example1cg">Prénom :</label>
+                                    {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                    {{ form_errors(registrationForm.name) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example3cg">Email :</label>
+                                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                    {{ form_errors(registrationForm.email) }}
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example4cg">Mot de passe :</label>
+                                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                    {{ form_errors(registrationForm.plainPassword) }}
+                                </div>
+                                <div class="form-check d-flex flex-column justify-content-center mb-5">
+                                    <div class="d-flex flex-row">
+                                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input me-2'}}) }}
+                                    <label class="form-check-label" for="form2Example3g">
+                                        J'ai bien connaissance du traitement relatif à mes <a href="#!" class="text-body"><u>données personnelles</u></a>.
+                                    </label>
+                                    </div>
+                                    <div>
+                                        {{ form_errors(registrationForm.agreeTerms) }}
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
+                                        Créer mon compte
+                                    </button>
+                                </div>
+                                <p class="text-center text-muted mt-5 mb-0">J'ai déjà un compte ? <a href="#!" class="fw-bold text-body"><u>Se connecter</u></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </section>
+{% endblock %}

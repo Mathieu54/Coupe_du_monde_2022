@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -16,4 +17,23 @@
     <body>
         {% block body %}{% endblock %}
     </body>
+    <style>
+        @media (min-width: 576px) {
+            body {
+                background: -webkit-linear-gradient(to right, rgb(137, 9, 47), rgb(51, 1, 18)) !important;
+                background: linear-gradient(to right, rgb(137, 9, 47), rgb(51, 1, 18)) !important;
+            }
+        }
+        body {
+            background: rgb(137, 9, 47);
+        }
+        .btn-bordeaux {
+            background: rgb(137, 9, 47);
+            color: white;
+        }
+        .btn-bordeaux:hover {
+            background: rgb(120, 5, 40);
+            color: white;
+        }
+    </style>
 </html>
