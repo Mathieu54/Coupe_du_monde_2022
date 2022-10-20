@@ -17,6 +17,7 @@
         "symfony/framework-bundle": "6.1.*",
         "symfony/proxy-manager-bridge": "6.1.*",
         "symfony/runtime": "6.1.*",
+        "symfony/security-bundle": "6.1.*",
         "symfony/twig-bundle": "6.1.*",
         "symfony/webpack-encore-bundle": "^1.16",
         "symfony/yaml": "6.1.*",
@@ -74,5 +75,8 @@
             "allow-contrib": false,
             "require": "6.1.*"
         }
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.47"
     }
 }
