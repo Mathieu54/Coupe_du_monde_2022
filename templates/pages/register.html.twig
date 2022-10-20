@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'enregistrer{% endblock %}
 
 {% block body %}
     <section class="vh-100 bg-image">
@@ -43,7 +43,7 @@
                                         Créer mon compte
                                     </button>
                                 </div>
-                                <p class="text-center text-muted mt-5 mb-0">J'ai déjà un compte ? <a href="#!" class="fw-bold text-body"><u>Se connecter</u></a></p>
+                                <p class="text-center text-muted mt-5 mb-0">J'ai déjà un compte ?<br><a href="{{ path('app_login') }}" class="fw-bold text-body"><u>Se connecter</u></a></p>
                             </div>
                         </div>
                     </div>
