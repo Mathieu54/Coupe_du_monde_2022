@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+<!--TODO CHANGE HERE-->
+{% block title %}Choix d'un groupe de parie{% endblock %}
+
+{% block body %}
+    {% set trans_day_hash = {
+        "Monday": "Lundi",
+        "Tuesday": "Mardi",
+        "Wednesday": "Mercredi",
+        "Thursday": "Jeudi",
+        "Friday": "Vendredi",
+        "Saturday": "Samedi",
+        "Sunday": "Dimanche"
+    }
+    %}
+    {% set trans_month_hash = {
+        "January": "Janvier",
+        "February": "Février",
+        "March": "Mars",
+        "April": "Avril",
+        "May": "Mai",
+        "June": "Juin",
+        "July": "Juillet",
+        "August": "Août",
+        "September": "Septembre",
+        "October": "Octobre",
+        "November": "Novembre",
+        "December": "Décembre"
+    }
+    %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item"><a href="{{ path("app_bet") }}">Parie</a></li>
+                            <li class="breadcrumb-item" aria-current="page">1er Journée Phases de groupes</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
