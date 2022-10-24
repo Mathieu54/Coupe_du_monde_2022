@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MatchesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,14 @@ class Matches
 
     #[ORM\Column]
     private ?int $type_match = null;
+
+    #[ORM\OneToMany(mappedBy: 'matches', targetEntity: BetUser::class, orphanRemoval: true)]
+    private Collection $betUsers;
+
+    public function __construct()
+    {
+        $this->betUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +115,36 @@ class Matches
     public function setTypeMatch(int $type_match): self
     {
         $this->type_match = $type_match;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BetUser>
+     */
+    public function getBetUsers(): Collection
+    {
+        return $this->betUsers;
+    }
+
+    public function addBetUser(BetUser $betUser): self
+    {
+        if (!$this->betUsers->contains($betUser)) {
+            $this->betUsers->add($betUser);
+            $betUser->setMatches($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBetUser(BetUser $betUser): self
+    {
+        if ($this->betUsers->removeElement($betUser)) {
+            // set the owning side to null (unless already changed)
+            if ($betUser->getMatches() === $this) {
+                $betUser->setMatches(null);
+            }
+        }
 
         return $this;
     }

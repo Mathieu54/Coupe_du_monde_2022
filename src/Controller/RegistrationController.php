@@ -32,8 +32,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            //TODO CHANGE HERE TO PROFIL USER
-            return $this->redirectToRoute('_preview_error');
+            return $this->redirectToRoute('app_profil');
         }
 
         return $this->render('pages/register.html.twig', [
