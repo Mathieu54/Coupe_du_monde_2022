@@ -22,11 +22,17 @@
                 <span class="nav__text">Parier</span>
             </a>
         {% endif %}
-
-            <a href="#" class="nav__link nav__link--active">
+        {% if (app.request.attributes.get('_route') == "app_leadboard") %}
+            <a href="{{ path("app_leadboard") }}" class="nav__link nav__link--active">
                 <i class="nav__icon fa-solid fa-ranking-star"></i>
                 <span class="nav__text">Classements</span>
             </a>
+        {% else %}
+            <a href="{{ path("app_leadboard") }}" class="nav__link">
+                <i class="nav__icon fa-solid fa-ranking-star"></i>
+                <span class="nav__text">Classements</span>
+            </a>
+        {% endif %}
     </nav>
 {% endif %}
 <style>
