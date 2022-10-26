@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix d'un groupe de parie{% endblock %}
+
+{% block body %}
+    {% set trans_day_hash = {
+        "Monday": "Lundi",
+        "Tuesday": "Mardi",
+        "Wednesday": "Mercredi",
+        "Thursday": "Jeudi",
+        "Friday": "Vendredi",
+        "Saturday": "Samedi",
+        "Sunday": "Dimanche"
+    } %}
+    {% set trans_month_hash = {
+        "January": "Janvier",
+        "February": "Février",
+        "March": "Mars",
+        "April": "Avril",
+        "May": "Mai",
+        "June": "Juin",
+        "July": "Juillet",
+        "August": "Août",
+        "September": "Septembre",
+        "October": "Octobre",
+        "November": "Novembre",
+        "December": "Décembre"
+    } %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item"><a href="{{ path("app_bet") }}">Parie</a></li>
+                            <li class="breadcrumb-item" aria-current="page">1er Journée Phases de groupes</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            {% set type_match_7 = false %}
+            {% set type_match_6 = false %}
+            {% set type_match_5 = false %}
+            {% set type_match_4 = false %}
+            {% set type_match_3 = false %}
+            {% set type_match_2 = false %}
+            {% set type_match_1 = false %}
+            {% if matche.type_match == 7 and type_match_7 == false %}
+                {% set type_match_7 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Phase de groupes - Journée 1/3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if matche.type_match == 6 and type_match_6 == false %}
+                {% set type_match_6 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Phase de groupes - Journée 2/3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if matche.type_match == 5 and type_match_5 == false %}
+                {% set type_match_5 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Phase de groupes - Journée 3/3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if matche.type_match == 4 and type_match_4 == false %}
+                {% set type_match_4 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Huitièmes de finale</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if matche.type_match == 3 and type_match_3 == false %}
+                {% set type_match_3 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Quarts de finale</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if matche.type_match == 2 and type_match_2 == false %}
+                {% set type_match_2 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Demi-finales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if matche.type_match == 1 and type_match_1 == false %}
+                {% set type_match_1 = true %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="m-0">Finale</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    {{ form_start(bet_form) }}
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <span class="flag-style fi fi-{{ matche.countrie_1_flag }}"></span>
+                            <p>{{ matche.countrie_1 }}</p>
+                            {{ form_widget(bet_form.score_countrie_1, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        </div>
+                        <div class="col-2 col-md-4">
+                            <p>VS</p>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <span class="flag-style fi fi-{{ matche.countrie_2_flag }}"></span>
+                            <p>{{ matche.countrie_2 }}</p>
+                            {{ form_widget(bet_form.score_countrie_2, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
+                                Valider le parie
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(bet_form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        @media (min-width: 576px) {
+            .flag-style {
+                width: 100px !important;
+                height: 100px !important;
+            }
+        }
+
+        .flag-style {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+{% endblock %}
