@@ -225,10 +225,10 @@
                                     {% if matche.countrie_1 != "null" or matche.countrie_2 != "null" %}
                                         {% if date("now") <= matche.date %}
                                             {% if(matche.score_countrie_1_user == "null" or matche.score_countrie_2_user == "null") %}
-                                                <button type="button" class="btn btn-bordeaux btn-lg">Parier ce match</button>
+                                                <a href="{{ path("app_add_bet", {id: matche.id}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier ce match</a>
                                                 <p class="mb-0 mt-3">Le parie se termine le 15 Novembre à 10h00</p>
                                             {% else %}
-                                                <button type="button" class="btn btn-yellow-modif btn-lg">Modifier le parie</button>
+                                                <a href="{{ path("app_edit_bet", {id: matche.id}) }}" class="btn btn-yellow-modif btn-lg">Modifier le parie</a>
                                                 <p class="mb-0 mt-3">Le parie se termine le 15 Novembre à 10h00</p>
                                             {% endif %}
                                         {% endif %}
