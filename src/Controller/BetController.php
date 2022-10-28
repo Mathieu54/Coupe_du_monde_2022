@@ -77,7 +77,7 @@ class BetController extends AbstractController
                     $bet->setUser($this->getUser());
                     $entityManager->persist($bet);
                     $entityManager->flush();
-                    return $this->redirectToRoute('app_bet');
+                    return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id]);
                 }
                 return $this->render('pages/bet_form.html.twig', ['matche' => $matche_res, "bet_form" => $form->createView()]);
             }
@@ -112,7 +112,7 @@ class BetController extends AbstractController
                     $bet_matche->setScoreCountrie2($form->get('score_countrie_2')->getData());
                     $entityManager->persist($bet_matche);
                     $entityManager->flush();
-                    return $this->redirectToRoute('app_bet');
+                    return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id] );
                 }
                 return $this->render('pages/bet_form.html.twig', ['matche' => $matche_res, "bet_form" => $form->createView()]);
             }
