@@ -11,27 +11,29 @@
                 <span class="nav__text">Mon profil</span>
             </a>
         {% endif %}
-        {% if (app.request.attributes.get('_route') == "app_bet") %}
-            <a href="{{ path("app_bet") }}" class="nav__link nav__link--active">
-                <i class="nav__icon fa-solid fa-sack-dollar"></i>
-                <span class="nav__text">Parier</span>
-            </a>
-        {% else %}
-            <a href="{{ path("app_bet") }}" class="nav__link">
-                <i class="nav__icon fa-solid fa-sack-dollar"></i>
-                <span class="nav__text">Parier</span>
-            </a>
-        {% endif %}
-        {% if (app.request.attributes.get('_route') == "app_leadboard") %}
-            <a href="{{ path("app_leadboard") }}" class="nav__link nav__link--active">
-                <i class="nav__icon fa-solid fa-ranking-star"></i>
-                <span class="nav__text">Classements</span>
-            </a>
-        {% else %}
-            <a href="{{ path("app_leadboard") }}" class="nav__link">
-                <i class="nav__icon fa-solid fa-ranking-star"></i>
-                <span class="nav__text">Classements</span>
-            </a>
+        {% if (app.user.valideRegister == true) %}
+            {% if (app.request.attributes.get('_route') == "app_bet") %}
+                <a href="{{ path("app_bet") }}" class="nav__link nav__link--active">
+                    <i class="nav__icon fa-solid fa-sack-dollar"></i>
+                    <span class="nav__text">Parier</span>
+                </a>
+            {% else %}
+                <a href="{{ path("app_bet") }}" class="nav__link">
+                    <i class="nav__icon fa-solid fa-sack-dollar"></i>
+                    <span class="nav__text">Parier</span>
+                </a>
+            {% endif %}
+            {% if (app.request.attributes.get('_route') == "app_leadboard") %}
+                <a href="{{ path("app_leadboard") }}" class="nav__link nav__link--active">
+                    <i class="nav__icon fa-solid fa-ranking-star"></i>
+                    <span class="nav__text">Classements</span>
+                </a>
+            {% else %}
+                <a href="{{ path("app_leadboard") }}" class="nav__link">
+                    <i class="nav__icon fa-solid fa-ranking-star"></i>
+                    <span class="nav__text">Classements</span>
+                </a>
+            {% endif %}
         {% endif %}
     </nav>
 {% endif %}

@@ -21,6 +21,10 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($_ENV["REGISTER_ACTIVE"] == "false") {
+                return $this->render('bundles/TwigBundle/error403.html.twig');
+            }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -28,11 +32,14 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setGroupes(null);
+            $user->setPaid(false);
+            $user->setValideRegister(false);
+            $user->setUrlPicture("https://xsgames.co/randomusers/assets/avatars/pixel/" . rand(0,53) . ".jpg");
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_profil');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('pages/register.html.twig', [

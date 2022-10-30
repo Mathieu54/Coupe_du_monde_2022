@@ -17,6 +17,9 @@ class LeadboardController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
         $all_user = $doctrine->getRepository(User::class)->findAll();
         $leadboard_final = [];
         foreach ($all_user as $user) {
