@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte avec cette adresse email')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -37,6 +39,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: BetUser::class, orphanRemoval: true)]
     private Collection $betUsers;
+
+    #[ORM\Column]
+    private ?bool $valide_register = null;
+
+    #[ORM\Column]
+    private ?bool $paid = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $url_picture = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?UserGroups $groupes = null;
 
     public function __construct()
     {
@@ -151,6 +166,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $betUser->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isValideRegister(): ?bool
+    {
+        return $this->valide_register;
+    }
+
+    public function setValideRegister(bool $valide_register): self
+    {
+        $this->valide_register = $valide_register;
+
+        return $this;
+    }
+
+    public function isPaid(): ?bool
+    {
+        return $this->paid;
+    }
+
+    public function setPaid(bool $paid): self
+    {
+        $this->paid = $paid;
+
+        return $this;
+    }
+
+    public function getUrlPicture(): ?string
+    {
+        return $this->url_picture;
+    }
+
+    public function setUrlPicture(?string $url_picture): self
+    {
+        $this->url_picture = $url_picture;
+
+        return $this;
+    }
+
+    public function getGroupes(): ?UserGroups
+    {
+        return $this->groupes;
+    }
+
+    public function setGroupes(?UserGroups $groupes): self
+    {
+        $this->groupes = $groupes;
 
         return $this;
     }

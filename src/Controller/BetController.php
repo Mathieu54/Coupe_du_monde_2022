@@ -21,6 +21,9 @@ class BetController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
         $matches_type_7 = $doctrine->getRepository(Matches::class)->findAll();
         $list_matches_bet = [];
         foreach ($matches_type_7 as $matche) {
@@ -50,6 +53,9 @@ class BetController extends AbstractController
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
         }
         $matche = $doctrine->getRepository(Matches::class)->findOneBy(['id' => $id]);
         if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie1() == null) {
@@ -89,6 +95,9 @@ class BetController extends AbstractController
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
         }
         $matche = $doctrine->getRepository(Matches::class)->findOneBy(['id' => $id]);
         if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie1() == null) {;
