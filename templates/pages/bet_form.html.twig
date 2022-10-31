@@ -137,7 +137,7 @@
                         <div class="col-5 col-md-4">
                             <span class="flag-style fi fi-{{ matche.countrie_1_flag }}"></span>
                             <p>{{ matche.countrie_1 }}</p>
-                            {{ form_widget(bet_form.score_countrie_1, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                            {{ form_widget(bet_form.score_countrie_1, {'attr': {'class': 'form-control form-control-lg', 'inputmode' : 'numeric', 'pattern' : '[0-9]*'}}) }}
                         </div>
                         <div class="col-2 col-md-4">
                             <p>VS</p>
@@ -145,12 +145,15 @@
                         <div class="col-5 col-md-4">
                             <span class="flag-style fi fi-{{ matche.countrie_2_flag }}"></span>
                             <p>{{ matche.countrie_2 }}</p>
-                            {{ form_widget(bet_form.score_countrie_2, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                            {{ form_widget(bet_form.score_countrie_2, {'attr': {'class': 'form-control form-control-lg', 'inputmode' : 'numeric', 'pattern' : '[0-9]*'}}) }}
                         </div>
                         <div class="col-12 col-md-12">
                             <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
-                                Valider le parie
+                                Valider
                             </button>
+                            <a href="{{ path("app_bet") }}" class="btn btn-bordeaux btn-block btn-lg">
+                                Annuler
+                            </a>
                         </div>
                     </div>
                     {{ form_end(bet_form) }}

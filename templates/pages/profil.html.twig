@@ -96,37 +96,43 @@
                                     <ul class="list-group list-group-flush rounded-3">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i class="fas fa-globe fa-lg text-warning"></i>
+                                                <i class="fa-solid fa-star"></i>
                                                 <p class="mb-0">Comment sont comptés les points ?</p>
                                             </li>
                                         </a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                                                <i class="fa-solid fa-clock"></i>
+                                                <p class="mb-0">Combien de temps j'ai pour parier un match ?</p>
+                                            </li>
+                                        </a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#compteValide">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                                <i class="fa-solid fa-lock"></i>
                                                 <p class="mb-0">Mon compte n'est pas validé ? Pourquoi ?</p>
                                             </li>
                                         </a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                                                <i class="fa-solid fa-bug"></i>
                                                 <p class="mb-0">J'ai un soucis ou j'ai trouvé un bug que faire ?</p>
                                             </li>
                                         </a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                                                <i class="fa-solid fa-people-group"></i>
                                                 <p class="mb-0">Je ne suis dans aucun groupe pourquoi ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#participation2euros">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                                                <i class="fa-solid fa-coins"></i>
                                                 <p class="mb-0">C'est quoi la participation à 2€ ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#changerAvatar">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                                                <i class="fa-solid fa-image"></i>
                                                 <p class="mb-0">Peut on changer son avatar ?</p>
                                             </li>
                                         </a>
@@ -142,20 +148,63 @@
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <!-- Modal lien utile -->
+        <div class="modal modal-xl fade" id="changerAvatar" tabindex="-1" aria-labelledby="changerAvatar" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title">Comment sont comptés les points ?</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        ...
+                    <div class="modal-body text-center">
+                        <p>Malheuresement pour l'instant il est impossible de changer d'avatar. Un avatar aléatoire vous ai attribué.</p>
+                        <p>Nous tenons à vous rappeler que le site est en version alpha.</p>
+                        <p>Cette ajout sera peut étre réalisé dans un futur proche.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="participation2euros" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Comment sont comptés les points ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Lors de votre inscription vous devez payer à l'organisateur 2€ pour participer sous peine de ne pas pouvoir parier.</p>
+                        <ul>
+                            <li>1€ permet de faire gagner une petite somme aux 1er, 2ème et 3ème du classement global.</li>
+                            <li>1€ permet de financer l'hébergement du site (serveur, ram, base de donnée...)</li>
+                        </ul>
+                        <p>Certains sont peut-etre inquiet à l'idée de donner 2€ euros. L'organisateur garanti en cas de soucis d'un crash du site, un bug, score erroné du à une mauvaise programmation.</p>
+                        <p>Les utilisateurs se reverront rembourser leur somme dans l'intégralité.</p>
+                        <p>De plus les scores des joueurs seront revérifié à la fin de la coupe du monde.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="compteValide" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mon compte n'est pas validé ? Pourquoi ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Un compte crée doit être approuvé par l'organisateur pour accéder aux paries. Cela permet de vérifier l'authenticité de la personne (famille, amis...).</p>
+                        <p>Une vérification prend environ entre 24 heures et 48 heures.</p>
+                        <p>Si votre compte n'est toujours pas actif et que vous pensez que c'est une erreur.</p>
+                        <p>Contacter l'organisateur pour voir avec lui.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
                     </div>
                 </div>
             </div>

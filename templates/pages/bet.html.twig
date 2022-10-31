@@ -27,7 +27,7 @@
                     {% if matche.type_match == 7 and type_match_7 == false %}
                         {% set type_match_7 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-7">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Phase de groupes - Journée 1/3</p>
@@ -39,7 +39,7 @@
                     {% if matche.type_match == 6 and type_match_6 == false %}
                         {% set type_match_6 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-6">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Phase de groupes - Journée 2/3</p>
@@ -51,7 +51,7 @@
                     {% if matche.type_match == 5 and type_match_5 == false %}
                         {% set type_match_5 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-5">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Phase de groupes - Journée 3/3</p>
@@ -63,7 +63,7 @@
                     {% if matche.type_match == 4 and type_match_4 == false %}
                         {% set type_match_4 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-4">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Huitièmes de finale</p>
@@ -75,7 +75,7 @@
                     {% if matche.type_match == 3 and type_match_3 == false %}
                         {% set type_match_3 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-3">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Quarts de finale</p>
@@ -87,7 +87,7 @@
                     {% if matche.type_match == 2 and type_match_2 == false %}
                         {% set type_match_2 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-2">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Demi-finales</p>
@@ -99,7 +99,7 @@
                     {% if matche.type_match == 1 and type_match_1 == false %}
                         {% set type_match_1 = true %}
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col select-type-match-1">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="m-0">Finale</p>
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="card mb-4" id="matche_number_{{ matche.id }}">
+                    <div class="card mb-4 type_match_{{ matche.type_match }}" id="matche_number_{{ matche.id }}">
                         <div class="card-body text-center">
                             <div class="row">
                                 <div class="col-12 col-md-6">
@@ -258,4 +258,33 @@
             height: 50px;
         }
     </style>
+    <script>
+        $('.type_match_6').toggle();
+        $('.type_match_5').toggle();
+        $('.type_match_4').toggle();
+        $('.type_match_3').toggle();
+        $('.type_match_2').toggle();
+        $('.type_match_1').toggle();
+        $('.select-type-match-7').click(function(){
+            $('.type_match_7').toggle();
+        });
+        $('.select-type-match-6').click(function(){
+            $('.type_match_6').toggle();
+        });
+        $('.select-type-match-5').click(function(){
+            $('.type_match_5').toggle();
+        });
+        $('.select-type-match-4').click(function(){
+            $('.type_match_4').toggle();
+        });
+        $('.select-type-match-3').click(function(){
+            $('.type_match_3').toggle();
+        });
+        $('.select-type-match-2').click(function(){
+            $('.type_match_2').toggle();
+        });
+        $('.select-type-match-1').click(function(){
+            $('.type_match_1').toggle();
+        });
+    </script>
 {% endblock %}

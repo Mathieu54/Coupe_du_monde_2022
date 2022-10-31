@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
         <link rel="icon" type="image/x-icon" href="{{ asset("images/favicon.ico") }}">
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset("images/apple-touch-icon.png") }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset("images/favicon-32x32.png") }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset("images/favicon-16x16.png") }}">
         <link rel="manifest" href="{{ asset("images/site.webmanifest") }}">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
