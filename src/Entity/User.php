@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: true)]
     private ?UserGroups $groupes = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserScores $userScores = null;
+
     public function __construct()
     {
         $this->betUsers = new ArrayCollection();
@@ -214,6 +217,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGroupes(?UserGroups $groupes): self
     {
         $this->groupes = $groupes;
+
+        return $this;
+    }
+
+    public function getUserScores(): ?UserScores
+    {
+        return $this->userScores;
+    }
+
+    public function setUserScores(UserScores $userScores): self
+    {
+        // set the owning side of the relation if necessary
+        if ($userScores->getUser() !== $this) {
+            $userScores->setUser($this);
+        }
+
+        $this->userScores = $userScores;
 
         return $this;
     }

@@ -27,6 +27,9 @@ class BetUser
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?bool $calculate = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class BetUser
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isCalculate(): ?bool
+    {
+        return $this->calculate;
+    }
+
+    public function setCalculate(bool $calculate): self
+    {
+        $this->calculate = $calculate;
 
         return $this;
     }

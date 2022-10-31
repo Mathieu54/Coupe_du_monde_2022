@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserScores;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +37,11 @@ class RegistrationController extends AbstractController
             $user->setPaid(false);
             $user->setValideRegister(false);
             $user->setUrlPicture("https://xsgames.co/randomusers/assets/avatars/pixel/" . rand(0,53) . ".jpg");
+            $user_score = new UserScores();
+            $user_score->setUser($user);
+            $user_score->setScores(0);
             $entityManager->persist($user);
+            $entityManager->persist($user_score);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_login');
