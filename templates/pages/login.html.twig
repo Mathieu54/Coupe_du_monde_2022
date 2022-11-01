@@ -29,13 +29,14 @@
                                         <label class="form-label" for="form3Example3cg">Mot de passe :</label>
                                         <input type="password" name="password" id="inputPassword" class="form-control form-control-lg" autocomplete="current-password" required>
                                     </div>
-                                    <div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center flex-row">
                                         <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
                                             Me connecter
                                         </button>
                                     </div>
+                                    <p class="text-center m-0 mt-2"><a href="{{ path("app_reset_password") }}" class="fw-bold text-body"><u>J'ai oublié mon mot de passe</u></a></p>
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                    <p class="text-center text-muted mt-5 mb-0">Vous n'avez pas de compte ?<br><a href="{{ path('app_register') }}" class="fw-bold text-body"><u>Créer votre compte</u></a></p>
+                                    <p class="text-center text-muted mt-4 mb-0">Vous n'avez pas de compte ?<br><a href="{{ path('app_register') }}" class="fw-bold text-body"><u>Créer votre compte</u></a></p>
                                 </form>
                             </div>
                         </div>
