@@ -5,9 +5,12 @@ services:
     restart: always
     container_name: cdm_mailhog
     ports:
+      - '1025:1025'
       - '9001:8025'
     networks:
       - symfony
+    external_links:
+      - mailhog
   mysql:
     image: 'mysql:8.0.31'
     working_dir: /application
