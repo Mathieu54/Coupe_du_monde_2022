@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221021122746 extends AbstractMigration
+final class Version20221101151953 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -19,11 +19,6 @@ final class Version20221021122746 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE countries_teams (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, iso_flag VARCHAR(20) NOT NULL, categories VARCHAR(3) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE matches (id INT AUTO_INCREMENT NOT NULL, countrie_1_id INT DEFAULT NULL, countrie_2_id INT DEFAULT NULL, date DATETIME NOT NULL, score_countrie_1 INT DEFAULT NULL, score_countrie_2 INT DEFAULT NULL, type_match INT NOT NULL, INDEX IDX_62615BAC829810E (countrie_1_id), INDEX IDX_62615BADA9C2EE0 (countrie_2_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE matches ADD CONSTRAINT FK_62615BAC829810E FOREIGN KEY (countrie_1_id) REFERENCES countries_teams (id)');
-        $this->addSql('ALTER TABLE matches ADD CONSTRAINT FK_62615BADA9C2EE0 FOREIGN KEY (countrie_2_id) REFERENCES countries_teams (id)');
         $this->addSql("INSERT INTO `countries_teams` (`id`, `name`, `iso_flag`, `categories`) VALUES (NULL, 'Qatar', 'qa', 'A'), (NULL, 'Équateur', 'ec', 'A'),
                                                                               (NULL, 'Sénégal', 'sn', 'A'), (NULL, 'Pays-Bas', 'nl', 'A'), 
                                                                               (NULL, 'Angleterre', 'gb', 'B'), (NULL, 'Iran', 'ir', 'B'),
@@ -108,10 +103,5 @@ final class Version20221021122746 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE matches DROP FOREIGN KEY FK_62615BAC829810E');
-        $this->addSql('ALTER TABLE matches DROP FOREIGN KEY FK_62615BADA9C2EE0');
-        $this->addSql('DROP TABLE countries_teams');
-        $this->addSql('DROP TABLE matches');
     }
 }
