@@ -7,11 +7,13 @@ use App\Entity\UserScores;
 use App\Form\RegistrationFormType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,7 +30,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($_ENV["REGISTER_ACTIVE"] == "false") {
-                return $this->render('bundles/TwigBundle/error403.html.twig');
+                return $this->render('bundles/TwigBundle/Exception/error403.html.twig');
             }
             // encode the plain password
             $user->setPassword(
@@ -50,11 +52,21 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user_score);
             $entityManager->flush();
 
+            $email = (new TemplatedEmail())
+                ->from(new Address($_ENV["MAIL_BOT"], $_ENV["MAIL_BOT_NAME"]))
+                ->to($user->getEmail())
+                ->subject('Inscription Parie Coupe du Monde 2022')
+                ->htmlTemplate('mail/inscription.html.twig')
+            ;
+
+            $mailerInterface->send($email);
+
             return $this->redirectToRoute('app_login');
         }
 
         return $this->render('pages/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'registerActive' => $_ENV["REGISTER_ACTIVE"]
         ]);
     }
 }

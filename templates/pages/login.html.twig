@@ -27,14 +27,17 @@
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example3cg">Mot de passe :</label>
-                                        <input type="password" name="password" id="inputPassword" class="form-control form-control-lg" autocomplete="current-password" required>
+                                        <div class="input-group mb-3">
+                                            <input type="password" name="password" id="inputPassword" class="form-control form-control-lg" autocomplete="current-password" required>
+                                            <a class="text-decoration-none text-dark input-group-text" href="#" id="togglePassword"><i id="icon_see_password" class="fa-solid fa-eye"></i><i id="icon_not_see_password" class="fa-solid fa-eye-slash"></i></a>
+                                        </div>
                                     </div>
                                     <div class="d-flex justify-content-center flex-row">
                                         <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
                                             Me connecter
                                         </button>
                                     </div>
-                                    <p class="text-center m-0 mt-2"><a href="{{ path("app_reset_password") }}" class="fw-bold text-body"><u>J'ai oublié mon mot de passe</u></a></p>
+                                    <p class="text-center m-0 mt-2"><a href="{{ path("app_forgot_password_request") }}" class="fw-bold text-body"><u>J'ai oublié mon mot de passe</u></a></p>
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                     <p class="text-center text-muted mt-4 mb-0">Vous n'avez pas de compte ?<br><a href="{{ path('app_register') }}" class="fw-bold text-body"><u>Créer votre compte</u></a></p>
                                 </form>
@@ -45,4 +48,24 @@
             </div>
         </div>
     </section>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+
+        const password = document.querySelector('#inputPassword');
+        document.querySelector('#icon_not_see_password').style.display = "none";
+        document.querySelector('#icon_see_password').style.display = "block";
+        togglePassword.addEventListener('click', () => {
+
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            if(password.getAttribute('type') === 'password') {
+                document.querySelector('#icon_see_password').style.display = "block";
+                document.querySelector('#icon_not_see_password').style.display = "none";
+            } else {
+                document.querySelector('#icon_see_password').style.display = "none";
+                document.querySelector('#icon_not_see_password').style.display = "block";
+            }
+        });
+    </script>
 {% endblock %}
