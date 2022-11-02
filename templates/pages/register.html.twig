@@ -24,7 +24,10 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form3Example4cg">Mot de passe :</label>
-                                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                    <div class="input-group mb-3">
+                                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                        <a class="text-decoration-none text-dark input-group-text" href="#" id="togglePassword"><i id="icon_see_password" class="fa-solid fa-eye"></i><i id="icon_not_see_password" class="fa-solid fa-eye-slash"></i></a>
+                                    </div>
                                     {{ form_errors(registrationForm.plainPassword) }}
                                 </div>
                                 <div class="form-check d-flex flex-column justify-content-center mb-5">
@@ -39,9 +42,15 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
-                                        Créer mon compte
-                                    </button>
+                                    {% if (registerActive == "true") %}
+                                        <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
+                                            Créer mon compte
+                                        </button>
+                                    {% else %}
+                                        <a type="submit" class="btn-disabled btn btn-block btn-lg">
+                                            Créer mon compte
+                                        </a>
+                                    {% endif %}
                                 </div>
                                 <p class="text-center text-muted mt-5 mb-0">J'ai déjà un compte ?<br><a href="{{ path('app_login') }}" class="fw-bold text-body"><u>Se connecter</u></a></p>
                             </div>
@@ -52,4 +61,24 @@
             {{ form_end(registrationForm) }}
         </div>
     </section>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+
+        const password = document.querySelector('#registration_form_plainPassword');
+        document.querySelector('#icon_not_see_password').style.display = "none";
+        document.querySelector('#icon_see_password').style.display = "block";
+        togglePassword.addEventListener('click', () => {
+
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            if(password.getAttribute('type') === 'password') {
+                document.querySelector('#icon_see_password').style.display = "block";
+                document.querySelector('#icon_not_see_password').style.display = "none";
+            } else {
+                document.querySelector('#icon_see_password').style.display = "none";
+                document.querySelector('#icon_not_see_password').style.display = "block";
+            }
+        });
+    </script>
 {% endblock %}
