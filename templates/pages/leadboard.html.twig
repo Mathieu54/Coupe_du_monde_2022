@@ -16,7 +16,11 @@
                 </div>
             </div>
             <div class="row">
+                {% if (app.user.groupes != null) %}
                 <div class="col-6">
+                {% else %}
+                <div class="col-12">
+                {% endif %}
                     <div class="card mb-4">
                         <div class="card-body text-center">
                             <h2 class="text-center">Classement Global des Joueurs</h2>
@@ -29,24 +33,48 @@
                                         <th>Points</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-
-                                    <tr class="table-danger">
-                                        <td class="col-4"></td>
-                                        <td class="col-4"></td>
-                                        <td class="col-4"></td>
-                                    </tr>
-
+                                    <tbody class="fw-bold">
+                                    {% for res in leadboard %}
+                                        {% if (res.leadboard_number == "1") %}
+                                            <tr class="first_place">
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if (res.leadboard_number == "2") %}
+                                            <tr class="second_place">
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if(res.leadboard_number == "3") %}
+                                            <tr class="third_place">
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if(res.leadboard_number != "1" and res.leadboard_number != "2" and res.leadboard_number != "3") %}
+                                            <tr>
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% if (app.user.groupes != null) %}
                 <div class="col-6">
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <h2 class="text-center">Classement dans votre groupe :</h2>
+                            <h2 class="text-center">Classement Groupe {{ app.user.groupes.name }} :</h2>
                             <div class="table-responsive">
                                 <table class="table caption-top p-5">
                                     <thead>
@@ -56,21 +84,58 @@
                                         <th>Points</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-
-                                    <tr class="table-danger">
-                                        <td class="col-4"></td>
-                                        <td class="col-4"></td>
-                                        <td class="col-4"></td>
-                                    </tr>
-
+                                    <tbody class="fw-bold">
+                                    {% for res in leadboard_groups %}
+                                        {% if (res.leadboard_number == "1") %}
+                                            <tr class="first_place">
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if (res.leadboard_number == "2") %}
+                                            <tr class="second_place">
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if(res.leadboard_number == "3") %}
+                                            <tr class="third_place">
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if(res.leadboard_number != "1" and res.leadboard_number != "2" and res.leadboard_number != "3") %}
+                                            <tr>
+                                                <td class="col-4">{{ res.leadboard_number }}</td>
+                                                <td class="col-4">{{ res.name }}</td>
+                                                <td class="col-4">{{ res.scores }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
+    <style>
+        .first_place {
+            background-color: goldenrod;
+        }
+
+        .second_place {
+            background-color: silver;
+        }
+
+        .third_place {
+            background-color: #cc5905;
+        }
+    </style>
 {% endblock %}
