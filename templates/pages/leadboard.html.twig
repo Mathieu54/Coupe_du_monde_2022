@@ -16,32 +16,59 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                        <div class="card mb-4">
-                            <div class="card-body text-center">
-                                <h2 class="text-center">Classement Global des Joueurs</h2>
-                                <div class="table-responsive">
-                                    <table class="table caption-top p-5">
-                                        <thead>
-                                        <tr>
-                                            <th><i class="fa-solid fa-ranking-star"></i></th>
-                                            <th>Joueur</th>
-                                            <th>Points</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for key, user_score in leadboard %}
-                                                <tr class="table-danger">
-                                                    <td class="col-4">{{ key + 1 }}</td>
-                                                    <td class="col-4">{{ user_score.name }}</td>
-                                                    <td class="col-4">{{ user_score.score }}</td>
-                                                </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                <div class="col-6">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <h2 class="text-center">Classement Global des Joueurs</h2>
+                            <div class="table-responsive">
+                                <table class="table caption-top p-5">
+                                    <thead>
+                                    <tr>
+                                        <th><i class="fa-solid fa-ranking-star"></i></th>
+                                        <th>Joueur</th>
+                                        <th>Points</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="table-danger">
+                                        <td class="col-4"></td>
+                                        <td class="col-4"></td>
+                                        <td class="col-4"></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <h2 class="text-center">Classement dans votre groupe :</h2>
+                            <div class="table-responsive">
+                                <table class="table caption-top p-5">
+                                    <thead>
+                                    <tr>
+                                        <th><i class="fa-solid fa-ranking-star"></i></th>
+                                        <th>Joueur</th>
+                                        <th>Points</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="table-danger">
+                                        <td class="col-4"></td>
+                                        <td class="col-4"></td>
+                                        <td class="col-4"></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

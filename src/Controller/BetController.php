@@ -77,10 +77,14 @@ class BetController extends AbstractController
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
+                    if ($matche->getDate()) {
+                   // TODO A FAIRE ICI
+                    }
                     $bet->setMatches($matche);
                     $bet->setScoreCountrie1($form->get('score_countrie_1')->getData());
                     $bet->setScoreCountrie2($form->get('score_countrie_2')->getData());
                     $bet->setUser($this->getUser());
+                    $bet->setCalculate(false);
                     $entityManager->persist($bet);
                     $entityManager->flush();
                     return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id]);

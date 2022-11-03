@@ -23,21 +23,21 @@
                             <img src="{{ app.user.urlPicture }}" alt="avatar" class="rounded-circle img-fluid"
                                  style="width: 150px;">
                             <h5 class="my-3">{{ app.user.name }}</h5>
-                            <p class="mb-1">Votre email : <span class="text-muted">{{ app.user.email }}</span></p>
+                            <p class="mb-1">Votre email : <span class="text-muted fw-bold">{{ app.user.email }}</span></p>
                             {% if(app.user.valideRegister == false) %}
-                                <p class="mb-1">Compte : <span class="text-danger">Compte non validé</span></p>
+                                <p class="mb-1">Compte : <span class="text-danger fw-bold">Compte non validé</span></p>
                             {% else %}
-                                <p class="mb-1">Compte : <span class="text-muted">Compte validé</span></p>
+                                <p class="mb-1">Compte : <span class="text-success fw-bold">Compte validé</span></p>
                             {% endif %}
                             {% if(app.user.groupes == null) %}
-                                <p class="mb-1">Groupe : <span class="text-muted">Aucun groupe</span></p>
+                                <p class="mb-1">Groupe : <span class="text-muted fw-bold">Aucun groupe</span></p>
                             {% else %}
-                                <p class="mb-1">Groupe : <span class="text-muted">{{ app.user.groupes }}</span></p>
+                                <p class="mb-1">Groupe : <span class="text-muted fw-bold">{{ app.user.groupes }}</span></p>
                             {% endif %}
                             {% if(app.user.paid == false) %}
-                                <p class="mb-1">Participation 2€ : <span class="text-muted">Non</span></p>
+                                <p class="mb-1">Participation 2€ : <span class="text-danger fw-bold">Non</span></p>
                             {% else %}
-                                <p class="mb-1">Participation 2€ : <span class="text-muted">Oui</span></p>
+                                <p class="mb-1">Participation 2€ : <span class="text-success fw-bold">Oui</span></p>
                             {% endif %}
                             <a href="{{ path("app_logout") }}" class="btn btn-bordeaux btn-lg mt-3">Se déconnecter</a>
                         </div>
@@ -49,37 +49,47 @@
                             <div class="row">
                                 <div class="col-12 text-center">
                                     <p class="mb-0">Votre classement global :</p>
-                                    <p class="mb-0 fs-1">100</p>
+                                    {% if (position == 1) %}
+                                        <p class="mb-0 fs-1 first_place fw-bold">{{ position }}er</p>
+                                    {% else %}
+                                        {% if (position == 2) %}
+                                            <p class="mb-0 fs-1 second_place fw-bold">{{ position }}ème</p>
+                                        {% elseif (position == 3) %}
+                                            <p class="mb-0 fs-1 third_place fw-bold">{{ position }}ème</p>
+                                        {% else %}
+                                            <p class="mb-0 fs-1 fw-bold">{{ position }}ème</p>
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row mt-3 text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Matche parié : 78</p>
+                                    <p class="mb-0">Matches pariés : <span class="fw-bold">{{ number_bet_matche }}/63</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Parie réussie (scores exactes) : 5</p>
+                                    <p class="mb-0">Parie réussie (scores exactes) : <span class="fw-bold">{{ bet_win_bonus }}</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Parie réussie : 1</p>
+                                    <p class="mb-0">Parie réussie : <span class="fw-bold">{{ bet_win }}</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Parie perdu : 1</p>
+                                    <p class="mb-0">Parie perdu : <span class="fw-bold">{{ bet_loses }}</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-12 text-center">
                                     <p class="mb-0">Score actuel :</p>
-                                    <p class="mb-0 fs-1">501</p>
+                                    <p class="mb-0 fs-1 fw-bold">{{ scores }}</p>
                                 </div>
                             </div>
                         </div>
@@ -90,47 +100,47 @@
                         <div class="card-body p-0">
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    <p class="mb-0 fs-4">Liens utiles :</p>
+                                    <p class="my-3 fs-4">Liens utiles :</p>
                                 </div>
                                 <div class="col-12">
                                     <ul class="list-group list-group-flush rounded-3">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-star"></i>
                                                 <p class="mb-0">Comment sont comptés les points ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-clock"></i>
                                                 <p class="mb-0">Combien de temps j'ai pour parier un match ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#compteValide">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#compteValide">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-lock"></i>
                                                 <p class="mb-0">Mon compte n'est pas validé ? Pourquoi ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-bug"></i>
                                                 <p class="mb-0">J'ai un soucis ou j'ai trouvé un bug que faire ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-people-group"></i>
                                                 <p class="mb-0">Je ne suis dans aucun groupe pourquoi ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#participation2euros">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#participation2euros">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-coins"></i>
                                                 <p class="mb-0">C'est quoi la participation à 2€ ?</p>
                                             </li>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#changerAvatar">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#changerAvatar">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-image"></i>
                                                 <p class="mb-0">Peut on changer son avatar ?</p>
@@ -139,7 +149,8 @@
                                     </ul>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <p class="mb-0 fs-4">Contacter l'organisateur :</p>
+                                    <p class="my-3 fs-4">Contacter l'organisateur :</p>
+                                    <p><a class="mb-3 btn btn-bordeaux" href="mailto:no-reply@harmant-mathieu.fr">no-reply@harmant-mathieu.fr</a></p>
                                 </div>
                             </div>
                         </div>
@@ -210,5 +221,15 @@
             </div>
         </div>
     </section>
-
+    <style>
+        .first_place {
+            color: goldenrod;
+        }
+        .second_place {
+            color: silver;
+        }
+        .third_place {
+            color: #cc5905;
+        }
+    </style>
 {% endblock %}

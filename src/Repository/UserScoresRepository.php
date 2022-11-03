@@ -39,28 +39,15 @@ class UserScoresRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return UserScores[] Returns an array of UserScores objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?UserScores
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findPositionLeadboardUser(int $id_user): int
+    {
+        $qb = $this->createQueryBuilder('p')->select("p")->orderBy('p.scores', 'DESC');
+        $query = $qb->getQuery();
+        $query->execute();
+        foreach ($query->execute() as $key => $user) {
+            if($user->getUser()->getId() == $id_user) {
+                return $key + 1;
+            }
+        }
+    }
 }
