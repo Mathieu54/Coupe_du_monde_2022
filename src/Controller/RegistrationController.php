@@ -48,6 +48,9 @@ class RegistrationController extends AbstractController
             $user_score = new UserScores();
             $user_score->setUser($user);
             $user_score->setScores(0);
+            $user_score->setBetLose(0);
+            $user_score->setBetWin(0);
+            $user_score->setBetWinBonus(0);
             $entityManager->persist($user);
             $entityManager->persist($user_score);
             $entityManager->flush();
