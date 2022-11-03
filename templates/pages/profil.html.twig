@@ -32,7 +32,7 @@
                             {% if(app.user.groupes == null) %}
                                 <p class="mb-1">Groupe : <span class="text-muted fw-bold">Aucun groupe</span></p>
                             {% else %}
-                                <p class="mb-1">Groupe : <span class="text-muted fw-bold">{{ app.user.groupes }}</span></p>
+                                <p class="mb-1">Groupe : <span class="text-muted fw-bold">{{ app.user.groupes.name }}</span></p>
                             {% endif %}
                             {% if(app.user.paid == false) %}
                                 <p class="mb-1">Participation 2€ : <span class="text-danger fw-bold">Non</span></p>

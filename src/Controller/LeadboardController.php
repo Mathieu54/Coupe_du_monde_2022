@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\UserScores;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,16 +21,35 @@ class LeadboardController extends AbstractController
             return $this->redirectToRoute('app_profil');
         }
         $all_user_scores = $doctrine->getRepository(UserScores::class)->findBy([],['scores' => 'DESC']);
-
-        //TODO HERE REWORK LEADBOARD !!
-        foreach ($all_user_scores as $user) {
-
+        $user_list = [];
+        foreach ($all_user_scores as $key => $user) {
+            $user_list[] = [
+                "leadboard_number" => $key + 1,
+                "name" => $user->getUser()->getName(),
+                "scores" => $user->getScores(),
+                "bet_win" => $user->getBetWin(),
+                "bet_win_bonus" => $user->getBetWinBonus(),
+                "bet_loses" => $user->getBetLose(),
+            ];
         }
+        $user_list_groups = null;
         if ($this->getUser()->getGroupes() != null) {
-
+            $get_user_groups = $doctrine->getRepository(User::class)->findBy(['groupes' => $this->getUser()->getGroupes()]);
+            foreach ($get_user_groups as $key => $user) {
+                $user->getUserScores();
+                $user_list_groups[] = [
+                    "leadboard_number" => $key + 1,
+                    "name" => $user->getName(),
+                    "scores" => $user->getUserScores()->getScores(),
+                    "bet_win" => $user->getUserScores()->getBetWin(),
+                    "bet_win_bonus" => $user->getUserScores()->getBetWinBonus(),
+                    "bet_loses" => $user->getUserScores()->getBetLose(),
+                ];
+            }
         }
         return $this->render('pages/leadboard.html.twig', [
-            'leadboard' => [1],
+            'leadboard' => $user_list,
+            'leadboard_groups' => $user_list_groups
         ]);
     }
 }
