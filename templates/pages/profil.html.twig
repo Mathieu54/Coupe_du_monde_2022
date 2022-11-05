@@ -18,28 +18,43 @@
 
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <img src="{{ app.user.urlPicture }}" alt="avatar" class="rounded-circle img-fluid"
-                                 style="width: 150px;">
-                            <h5 class="my-3">{{ app.user.name }}</h5>
-                            <p class="mb-1">Votre email : <span class="text-muted fw-bold">{{ app.user.email }}</span></p>
-                            {% if(app.user.valideRegister == false) %}
-                                <p class="mb-1">Compte : <span class="text-danger fw-bold">Compte non validé</span></p>
-                            {% else %}
-                                <p class="mb-1">Compte : <span class="text-success fw-bold">Compte validé</span></p>
-                            {% endif %}
-                            {% if(app.user.groupes == null) %}
-                                <p class="mb-1">Groupe : <span class="text-muted fw-bold">Aucun groupe</span></p>
-                            {% else %}
-                                <p class="mb-1">Groupe : <span class="text-muted fw-bold">{{ app.user.groupes.name }}</span></p>
-                            {% endif %}
-                            {% if(app.user.paid == false) %}
-                                <p class="mb-1">Participation 2€ : <span class="text-danger fw-bold">Non</span></p>
-                            {% else %}
-                                <p class="mb-1">Participation 2€ : <span class="text-success fw-bold">Oui</span></p>
-                            {% endif %}
-                            <a href="{{ path("app_logout") }}" class="btn btn-bordeaux btn-lg mt-3">Se déconnecter</a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <img src="{{ app.user.urlPicture }}" alt="avatar" class="rounded-circle img-fluid"
+                                         style="width: 150px;">
+                                    <h5 class="my-3">{{ app.user.name }}</h5>
+                                    <p class="mb-1">Votre email : <span class="text-muted fw-bold">{{ app.user.email }}</span></p>
+                                    {% if(app.user.valideRegister == false) %}
+                                        <p class="mb-1">Compte : <span class="text-danger fw-bold">Compte non validé</span></p>
+                                    {% else %}
+                                        <p class="mb-1">Compte : <span class="text-success fw-bold">Compte validé</span></p>
+                                    {% endif %}
+                                    {% if(app.user.groupes == null) %}
+                                        <p class="mb-1">Groupe : <span class="text-muted fw-bold">Aucun groupe</span></p>
+                                    {% else %}
+                                        <p class="mb-1">Groupe : <span class="text-muted fw-bold">{{ app.user.groupes.name }}</span></p>
+                                    {% endif %}
+                                    {% if(app.user.paid == false) %}
+                                        <!--<p class="mb-1">Participation 2€ : <span class="text-danger fw-bold">Non</span></p>-->
+                                    {% else %}
+                                        <!--<p class="mb-1">Participation 2€ : <span class="text-success fw-bold">Oui</span></p>-->
+                                    {% endif %}
+                                    <a href="{{ path("app_logout") }}" class="btn btn-bordeaux btn-lg mt-3">Se déconnecter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <h3>News :</h3>
+                                    <p class="mb-0">Aucune pour le moment.</p>
+                                    <i class="text-danger fs-4 fa-solid fa-heart-crack"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,17 +115,17 @@
                         <div class="card-body p-0">
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    <p class="my-3 fs-4">Liens utiles :</p>
+                                    <h3 class="my-3">Liens utiles :</h3>
                                 </div>
                                 <div class="col-12">
                                     <ul class="list-group list-group-flush rounded-3">
-                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#pointsCalcul">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-star"></i>
                                                 <p class="mb-0">Comment sont comptés les points ?</p>
                                             </li>
                                         </a>
-                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#combiendetemps">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-clock"></i>
                                                 <p class="mb-0">Combien de temps j'ai pour parier un match ?</p>
@@ -122,34 +137,46 @@
                                                 <p class="mb-0">Mon compte n'est pas validé ? Pourquoi ?</p>
                                             </li>
                                         </a>
-                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#bug">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-bug"></i>
                                                 <p class="mb-0">J'ai un soucis ou j'ai trouvé un bug que faire ?</p>
                                             </li>
                                         </a>
-                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#aucunGroupe">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-people-group"></i>
                                                 <p class="mb-0">Je ne suis dans aucun groupe pourquoi ?</p>
                                             </li>
                                         </a>
-                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#participation2euros">
+                                        <!--<a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#participation2euros">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-coins"></i>
                                                 <p class="mb-0">C'est quoi la participation à 2€ ?</p>
                                             </li>
-                                        </a>
+                                        </a>-->
                                         <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#changerAvatar">
                                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                 <i class="fa-solid fa-image"></i>
                                                 <p class="mb-0">Peut on changer son avatar ?</p>
                                             </li>
                                         </a>
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#bet90minutes">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                                <i class="fa-solid fa-hourglass-end"></i>
+                                                <p class="mb-0">Peut on parier après les 90 minutes ?</p>
+                                            </li>
+                                        </a>
+                                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#suggestions">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                                <i class="fa-solid fa-comment"></i>
+                                                <p class="mb-0">J'ai une suggestion à faire ! Mais à qui ?</p>
+                                            </li>
+                                        </a>
                                     </ul>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <p class="my-3 fs-4">Contacter l'organisateur :</p>
+                                    <h3 class="my-3">Contacter l'organisateur :</h3>
                                     <p><a class="mb-3 btn btn-bordeaux" href="mailto:no-reply@harmant-mathieu.fr">no-reply@harmant-mathieu.fr</a></p>
                                 </div>
                             </div>
@@ -160,6 +187,40 @@
         </div>
 
         <!-- Modal lien utile -->
+        <div class="modal modal-xl fade" id="suggestions" tabindex="-1" aria-labelledby="bet90minutes" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">J'ai une suggestion à faire ! Mais à qui ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Contacter l'organisateur si vous avez des idées d'améliorations.</p>
+                        <p>Nous sommes ouverts aux avis, critiques qui sont constructifs</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="changerAvatar" tabindex="-1" aria-labelledby="bet90minutes" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Peut on parier après les 90 minutes ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Non pour l'instant il n'est pas possible de parier après les 90 minutes.</p>
+                        <p>Nous cherchons toujours un moyen de l'implémenter pour une future mise à jour ou pour une version de l'Euro 2024.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal modal-xl fade" id="changerAvatar" tabindex="-1" aria-labelledby="changerAvatar" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -194,6 +255,79 @@
                         <p>Certains sont peut-etre inquiet à l'idée de donner 2€ euros. L'organisateur garanti en cas de soucis d'un crash du site, un bug, score erroné du à une mauvaise programmation.</p>
                         <p>Les utilisateurs se reverront rembourser leur somme dans l'intégralité.</p>
                         <p>De plus les scores des joueurs seront revérifié à la fin de la coupe du monde.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="combiendetemps" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Combien de temps j'ai pour parier un match ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Chaque parie pour un match possède une date de validation de parie.</p>
+                        <p>Par exemple le 1er match de la coupe du monde commence le 20 Novembre 2022 à 17:00</p>
+                        <p>Après cette date aucun parie ou modification de parie ne pourra être fait !</p>
+                        <p>Un conseil parié l'ensemble des matches déjà disponible pour éviter des oublies !</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="pointsCalcul" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Comment sont comptés les points ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Un parie d'une victoire ou une égalité d'une équipe vous rapportes 1 point</p>
+                        <p>Si le scores du parie et le même que le résultat du match vous avez 2 points en plus.</p>
+                        <p>Vous pouvez gagner au maximum 3 points par parie !</p>
+                        <p>Des points peuvent être retiré pour (triche, usebug...)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="bug" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">J'ai un soucis ou j'ai trouvé un bug que faire ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Contacter l'organisateur en expliquant bien votre soucis ou les détails de l'apparition du bug.</p>
+                        <p>C'est une version alpha. Nous ne sommes jamais à l'abris d'une erreur de programmation.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal modal-xl fade" id="aucunGroupe" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Je ne suis dans aucun groupe pourquoi ?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Lors de votre inscription vous n'avez aucun groupe.</p>
+                        <p>C'est lors de votre vérification de compte qu'un groupe vous seras attribué.</p>
+                        <p>Si vous n'avez toujours aucun groupe vous pouvez faire une demande de création à l'organisateur.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">J'ai compris</button>
