@@ -258,21 +258,29 @@
                                     <div class="row">
                                         {% if date("now") >= matche.date %}
                                             {% if date("now") >= matche.date_2_hours %}
+                                                {% set lose = true %}
                                                 {% if((matche.score_countrie_1 == matche.score_countrie_1_user) and (matche.score_countrie_2 == matche.score_countrie_2_user)) %}
-                                                    <p>+10 points scores exactes</p>
+                                                    <p class="mb-0">+2 points scores exactes</p>
+                                                    {% set lose = false %}
                                                 {% endif %}
                                                 {% if(matche.score_countrie_1 == matche.score_countrie_2) %}
                                                     {% if(matche.score_countrie_1_user == matche.score_countrie_2_user) %}
-                                                        <p>+5 points égalité</p>
+                                                        <p class="mb-0">+1 point égalité</p>
+                                                        {% set lose = false %}
                                                     {% endif %}
                                                 {% elseif(matche.score_countrie_1 > matche.score_countrie_2) %}
                                                     {% if(matche.score_countrie_1_user > matche.score_countrie_2_user) %}
-                                                        <p>+5 points {{ matche.countrie_1 }} gagnant</p>
+                                                        <p class="mb-0">+1 point {{ matche.countrie_1 }} gagnant</p>
+                                                        {% set lose = false %}
                                                     {% endif %}
                                                 {% else %}
                                                     {% if(matche.score_countrie_1_user < matche.score_countrie_2_user) %}
-                                                        <p>+5 points {{ matche.countrie_2 }} gagnant</p>
+                                                        <p class="mb-0">+1 point {{ matche.countrie_2 }} gagnant</p>
+                                                        {% set lose = false %}
                                                     {% endif %}
+                                                {% endif %}
+                                                {% if lose == true %}
+                                                    <p class="mb-0">Perdu aucun point gagné</p>
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
