@@ -79,25 +79,25 @@
                             </div>
                             <div class="row mt-3 text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Matches pariés : <span class="fw-bold">{{ number_bet_matche }}/63</span></p>
+                                    <p class="mb-0">Nombres de paris : <span class="fw-bold">{{ number_bet_matche }}/63</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Parie réussie (scores exactes) : <span class="fw-bold">{{ bet_win_bonus }}</span></p>
+                                    <p class="mb-0">Pari(s) réussi(s) (scores exactes) : <span class="fw-bold">{{ bet_win_bonus }}</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Parie réussie : <span class="fw-bold">{{ bet_win }}</span></p>
+                                    <p class="mb-0">Pari(s) réussi(s) : <span class="fw-bold">{{ bet_win }}</span></p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Parie perdu : <span class="fw-bold">{{ bet_loses }}</span></p>
+                                    <p class="mb-0">Pari(s) perdue(s) : <span class="fw-bold">{{ bet_loses }}</span></p>
                                 </div>
                             </div>
                             <hr>
@@ -187,7 +187,7 @@
         </div>
 
         <!-- Modal lien utile -->
-        <div class="modal modal-xl fade" id="suggestions" tabindex="-1" aria-labelledby="bet90minutes" aria-hidden="true">
+        <div class="modal modal-xl fade" id="suggestions" tabindex="-1" aria-labelledby="suggestions" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -204,7 +204,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal modal-xl fade" id="changerAvatar" tabindex="-1" aria-labelledby="bet90minutes" aria-hidden="true">
+        <div class="modal modal-xl fade" id="bet90minutes" tabindex="-1" aria-labelledby="bet90minutes" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -270,9 +270,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-                        <p>Chaque parie pour un match possède une date de validation de parie.</p>
+                        <p>Chaque pari pour un match possède une date de validation de pari.</p>
                         <p>Par exemple le 1er match de la coupe du monde commence le 20 Novembre 2022 à 17:00</p>
-                        <p>Après cette date aucun parie ou modification de parie ne pourra être fait !</p>
+                        <p>Après cette date aucun pari ou modification de pari ne pourra être fait !</p>
                         <p>Un conseil parié l'ensemble des matches déjà disponible pour éviter des oublies !</p>
                     </div>
                     <div class="modal-footer">
@@ -289,9 +289,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-                        <p>Un parie d'une victoire ou une égalité d'une équipe vous rapportes 1 point</p>
-                        <p>Si le scores du parie et le même que le résultat du match vous avez 2 points en plus.</p>
-                        <p>Vous pouvez gagner au maximum 3 points par parie !</p>
+                        <p>Un pari d'une victoire ou une égalité d'une équipe vous rapportes 1 point</p>
+                        <p>Si le scores du pari et le même que le résultat du match vous avez 2 points en plus.</p>
+                        <p>Vous pouvez gagner au maximum 3 points par pari !</p>
                         <p>Des points peuvent être retiré pour (triche, usebug...)</p>
                     </div>
                     <div class="modal-footer">
@@ -343,7 +343,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-                        <p>Un compte crée doit être approuvé par l'organisateur pour accéder aux paries. Cela permet de vérifier l'authenticité de la personne (famille, amis...).</p>
+                        <p>Un compte crée doit être approuvé par l'organisateur pour accéder aux paris. Cela permet de vérifier l'authenticité de la personne (famille, amis...).</p>
                         <p>Une vérification prend environ entre 24 heures et 48 heures.</p>
                         <p>Si votre compte n'est toujours pas actif et que vous pensez que c'est une erreur.</p>
                         <p>Contacter l'organisateur pour voir avec lui.</p>
