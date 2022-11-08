@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from(new Address($_ENV["MAIL_BOT"], $_ENV["MAIL_BOT_NAME"]))
                 ->to($user->getEmail())
-                ->subject('Inscription Parie Coupe du Monde 2022')
+                ->subject('Inscription Paris Coupe du Monde 2022')
                 ->htmlTemplate('mail/inscription.html.twig')
             ;
 

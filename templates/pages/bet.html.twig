@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Choix d'un groupe de parie{% endblock %}
+{% block title %}Choix d'un groupe de pari{% endblock %}
 
 {% block body %}
     <section>
@@ -10,7 +10,7 @@
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">Accueil</li>
-                            <li class="breadcrumb-item" aria-current="page">Parie</li>
+                            <li class="breadcrumb-item" aria-current="page">Paris</li>
                         </ol>
                     </nav>
                 </div>
@@ -231,14 +231,14 @@
                                 <div class="col-12 col-md-6">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h6>Votre parie :</h6>
+                                            <h6>Votre pari :</h6>
                                         </div>
                                     </div>
                                     <div class="row">
                                         {% if(matche.score_countrie_1_user == "null" or matche.score_countrie_2_user == "null") %}
                                             <div class="col-12 g-0">
                                                 <p class="my-4 text-dark"><i class="fs-2 fa-solid fa-face-sad-tear"></i></p>
-                                                <p class="mb-0">Aucun parie sur ce match</p>
+                                                <p class="mb-0">Aucun pari sur ce match</p>
                                             </div>
                                         {% else %}
                                             <div class="col-4 text-center g-0">
@@ -293,16 +293,16 @@
                                         {% if date("now") <= matche.date %}
                                             {% if(matche.score_countrie_1_user == "null" or matche.score_countrie_2_user == "null") %}
                                                 <a href="{{ path("app_add_bet", {id: matche.id}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier ce match</a>
-                                                <p class="fs-4 mb-0 mt-3">Le parie se termine le :</p>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine le :</p>
                                                 <p class="mb-0">{{ trans_day_hash[matche.date|date("l")] }} {{ matche.date|date("j") }} {{ trans_month_hash[matche.date|date("F")] }} à {{ matche.date|date("H:i") }}</p>
                                             {% else %}
-                                                <a href="{{ path("app_edit_bet", {id: matche.id}) }}" class="btn btn-yellow-modif btn-lg">Modifier le parie</a>
-                                                <p class="fs-4 mb-0 mt-3">Le parie se termine le :</p>
+                                                <a href="{{ path("app_edit_bet", {id: matche.id}) }}" class="btn btn-yellow-modif btn-lg">Modifier le pari</a>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine le :</p>
                                                 <p class="mb-0">Le {{ trans_day_hash[matche.date|date("l")] }} {{ matche.date|date("j") }} {{ trans_month_hash[matche.date|date("F")] }} à {{ matche.date|date("H:i") }}</p>
                                             {% endif %}
                                         {% endif %}
                                     {% else %}
-                                        <button type="button" class="btn btn-disabled btn-lg">Parie indisponible</button>
+                                        <button type="button" class="btn btn-disabled btn-lg">Pari indisponible</button>
                                     {% endif %}
                                 </div>
                             </div>

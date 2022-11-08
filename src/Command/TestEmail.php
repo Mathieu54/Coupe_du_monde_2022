@@ -30,7 +30,7 @@ class TestEmail extends Command
         $email = (new TemplatedEmail())
             ->from(new Address($_ENV["MAIL_BOT"], $_ENV["MAIL_BOT_NAME"]))
             ->to("test@test.fr")
-            ->subject('Inscription Parie Coupe du Monde 2022')
+            ->subject('Inscription Paris Coupe du Monde 2022')
             ->htmlTemplate('mail/inscription.html.twig')
         ;
         try {

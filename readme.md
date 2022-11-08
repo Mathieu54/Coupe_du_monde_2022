@@ -1,8 +1,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
 
-# ⚽ Coupe du monde parie 2022
+# ⚽ Coupe du monde Qatar 2022
 
-Permet de faire des paries sur les matchs de la coupe du monde 2022 avec des amis.
+Permet de faire des paris sur les matchs de la coupe du monde 2022 avec des amis.
 
 ## ⚙️Installation
 
