@@ -44,9 +44,15 @@ class UserScoresRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('p')->select("p")->orderBy('p.scores', 'DESC');
         $query = $qb->getQuery();
         $query->execute();
+        $scores_save = 0;
+        $leadboard = 0;
         foreach ($query->execute() as $key => $user) {
+            if($user->getScores() != $scores_save) {
+                $scores_save = $user->getScores();
+                $leadboard++;
+            }
             if($user->getUser()->getId() == $id_user) {
-                return $key + 1;
+                return $leadboard;
             }
         }
     }

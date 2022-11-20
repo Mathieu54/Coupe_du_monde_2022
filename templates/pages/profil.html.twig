@@ -10,7 +10,7 @@
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">Accueil</li>
-                            <li class="breadcrumb-item" aria-current="page">Profile {{ app.user.name }}</li>
+                            <li class="breadcrumb-item" aria-current="page">Profil {{ app.user.name }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -51,8 +51,11 @@
                             <div class="card mb-4">
                                 <div class="card-body text-center">
                                     <h3>News :</h3>
-                                    <p class="mb-0">Aucune pour le moment.</p>
-                                    <i class="text-danger fs-4 fa-solid fa-heart-crack"></i>
+                                    <p class="mb-0 fw-bold">Mise à jour du 21 Novembre 2022</p>
+                                    <ul>
+                                        <li>Correction du classement si plusieurs personnes ont le même score.</li>
+                                        <li>Voir les paris cloturés des autres joueurs en cliquant sur le prénom du classement.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +100,7 @@
                             <hr>
                             <div class="row text-center">
                                 <div class="col-12">
-                                    <p class="mb-0">Pari(s) perdue(s) : <span class="fw-bold">{{ bet_loses }}</span></p>
+                                    <p class="mb-0">Pari(s) perdu(s) : <span class="fw-bold">{{ bet_loses }}</span></p>
                                 </div>
                             </div>
                             <hr>

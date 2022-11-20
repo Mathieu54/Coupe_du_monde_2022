@@ -22,9 +22,16 @@ class LeadboardController extends AbstractController
         }
         $all_user_scores = $doctrine->getRepository(UserScores::class)->findBy([],['scores' => 'DESC']);
         $user_list = [];
-        foreach ($all_user_scores as $key => $user) {
+        $scores_save = 0;
+        $leadboard = 0;
+        foreach ($all_user_scores as $user) {
+            if($user->getScores() != $scores_save) {
+                $scores_save = $user->getScores();
+                $leadboard++;
+            }
             $user_list[] = [
-                "leadboard_number" => $key + 1,
+                "leadboard_number" => $leadboard,
+                "id" => $user->getUser()->getId(),
                 "name" => $user->getUser()->getName(),
                 "scores" => $user->getScores(),
                 "bet_win" => $user->getBetWin(),
@@ -33,12 +40,17 @@ class LeadboardController extends AbstractController
             ];
         }
         $user_list_groups = null;
+        $scores_save = 0;
+        $leadboard = 0;
         if ($this->getUser()->getGroupes() != null) {
             $get_user_groups = $doctrine->getRepository(User::class)->findBy(['groupes' => $this->getUser()->getGroupes()]);
-            foreach ($get_user_groups as $key => $user) {
-                $user->getUserScores();
+            foreach ($get_user_groups as $user) {
+                if($user->getScores() != $scores_save) {
+                    $scores_save = $user->getScores();
+                    $leadboard++;
+                }
                 $user_list_groups[] = [
-                    "leadboard_number" => $key + 1,
+                    "leadboard_number" => $leadboard,
                     "name" => $user->getName(),
                     "scores" => $user->getUserScores()->getScores(),
                     "bet_win" => $user->getUserScores()->getBetWin(),

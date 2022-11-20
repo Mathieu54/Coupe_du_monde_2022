@@ -19,6 +19,9 @@ security:
             custom_authenticator: App\Security\LoginAuthenticator
             logout:
                 path: app_logout
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 7889400
                 # where to redirect after logout
                 # target: app_any_route
 
