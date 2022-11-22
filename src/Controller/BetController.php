@@ -32,6 +32,7 @@ class BetController extends AbstractController
             if(($matche->getDate()) > (new DateTime())) {
                 $list_matches_bet[$matche->getId()][] = [
                     "id" => $matche->getId(),
+                    "groupe" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getCategories(),
                     "countrie_1" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getName(),
                     "countrie_1_flag" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getIsoFlag(),
                     "countrie_2" => ($matche->getCountrie2() == null) ? "null" : $matche->getCountrie2()->getName(),
@@ -47,6 +48,7 @@ class BetController extends AbstractController
             } else {
                 $list_matches_bet[$matche->getId()][] = [
                     "id" => $matche->getId(),
+                    "groupe" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getCategories(),
                     "countrie_1" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getName(),
                     "countrie_1_flag" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getIsoFlag(),
                     "countrie_2" => ($matche->getCountrie2() == null) ? "null" : $matche->getCountrie2()->getName(),

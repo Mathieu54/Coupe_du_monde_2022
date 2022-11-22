@@ -305,8 +305,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12 d-flex align-items-center justify-content-center flex-column">
+                            <div class="row position-relative">
+                                <div class="col-12 col-md-12 d-flex align-items-center justify-content-center flex-column">
                                     {% if matche.countrie_1 != "null" or matche.countrie_2 != "null" %}
                                         {% if date("now") <= matche.date %}
                                             {% if(matche.score_countrie_1_user == "null" or matche.score_countrie_2_user == "null") %}
@@ -323,6 +323,12 @@
                                         <button type="button" class="btn btn-disabled btn-lg">Pari indisponible</button>
                                     {% endif %}
                                 </div>
+                                {% if(matche.groupe != "null") %}
+                                    <div class="position-absolute bottom-0 end-0 text-end w-25 d-flex justify-content-end align-middle flex-column">
+                                        <p class="m-0">Groupe</p>
+                                        <p class="groupe text-center fw-bold mb-0 rounded-5 ms-auto">{{ matche.groupe }}</p>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -339,7 +345,12 @@
                 height: 100px !important;
             }
         }
-
+        .groupe {
+            background-color: rgb(137, 9, 47);
+            color: white;
+            width: 25px;
+            margin-right: 11px;
+        }
         .flag-style {
             width: 50px;
             height: 50px;
