@@ -1,0 +1,540 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Coupe du monde 2022</title>
+    <style>
+        /* -------------------------------------
+            GLOBAL RESETS
+        ------------------------------------- */
+
+        /*All the styling goes here*/
+
+        img {
+            border: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100%;
+        }
+
+        body {
+            background-color: #f6f6f6;
+            font-family: sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        table {
+            border-collapse: separate;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            width: 100%; }
+        table td {
+            font-family: sans-serif;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        /* -------------------------------------
+            BODY & CONTAINER
+        ------------------------------------- */
+
+        .body {
+            background-color: #f6f6f6;
+            width: 100%;
+        }
+
+        /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+        .container {
+            display: block;
+            margin: 0 auto !important;
+            /* makes it centered */
+            max-width: 580px;
+            padding: 10px;
+            width: 580px;
+        }
+
+        /* This should also be a block element, so that it will fill 100% of the .container */
+        .content {
+            box-sizing: border-box;
+            display: block;
+            margin: 0 auto;
+            max-width: 580px;
+            padding: 10px;
+        }
+
+        /* -------------------------------------
+            HEADER, FOOTER, MAIN
+        ------------------------------------- */
+        .main {
+            background: #ffffff;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .wrapper {
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .content-block {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        .footer {
+            clear: both;
+            margin-top: 10px;
+            text-align: center;
+            width: 100%;
+        }
+        .footer td,
+        .footer p,
+        .footer span,
+        .footer a {
+            color: #999999;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* -------------------------------------
+            TYPOGRAPHY
+        ------------------------------------- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #000000;
+            font-family: sans-serif;
+            font-weight: 400;
+            line-height: 1.4;
+            margin: 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 35px;
+            font-weight: 300;
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        p,
+        ul,
+        ol {
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+            margin-bottom: 15px;
+        }
+        p li,
+        ul li,
+        ol li {
+            list-style-position: inside;
+            margin-left: 5px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        /* -------------------------------------
+            BUTTONS
+        ------------------------------------- */
+        .btn {
+            box-sizing: border-box;
+            width: 100%; }
+        .btn > tbody > tr > td {
+            padding-bottom: 15px; }
+        .btn table {
+            width: auto;
+        }
+        .btn table td {
+            background-color: #ffffff;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn a {
+            background-color: #ffffff;
+            border: solid 1px #3498db;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: #3498db;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+            padding: 12px 25px;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        .btn-primary table td {
+            background-color: #3498db;
+        }
+
+        .btn-primary a {
+            background-color: #3498db;
+            border-color: #3498db;
+            color: #ffffff;
+        }
+
+        /* -------------------------------------
+            OTHER STYLES THAT MIGHT BE USEFUL
+        ------------------------------------- */
+        .last {
+            margin-bottom: 0;
+        }
+
+        .first {
+            margin-top: 0;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .mt0 {
+            margin-top: 0;
+        }
+
+        .mb0 {
+            margin-bottom: 0;
+        }
+
+        .preheader {
+            color: transparent;
+            display: none;
+            height: 0;
+            max-height: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            mso-hide: all;
+            visibility: hidden;
+            width: 0;
+        }
+
+        .powered-by a {
+            text-decoration: none;
+        }
+
+        hr {
+            border: 0;
+            border-bottom: 1px solid #f6f6f6;
+            margin: 20px 0;
+        }
+
+        /* -------------------------------------
+            RESPONSIVE AND MOBILE FRIENDLY STYLES
+        ------------------------------------- */
+        @media only screen and (max-width: 620px) {
+            table.body h1 {
+                font-size: 28px !important;
+                margin-bottom: 10px !important;
+            }
+            table.body p,
+            table.body ul,
+            table.body ol,
+            table.body td,
+            table.body span,
+            table.body a {
+                font-size: 16px !important;
+            }
+            table.body .wrapper,
+            table.body .article {
+                padding: 10px !important;
+            }
+            table.body .content {
+                padding: 0 !important;
+            }
+            table.body .container {
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            table.body .main {
+                border-left-width: 0 !important;
+                border-radius: 0 !important;
+                border-right-width: 0 !important;
+            }
+            table.body .btn table {
+                width: 100% !important;
+            }
+            table.body .btn a {
+                width: 100% !important;
+            }
+            table.body .img-responsive {
+                height: auto !important;
+                max-width: 100% !important;
+                width: auto !important;
+            }
+        }
+
+        /* -------------------------------------
+            PRESERVE THESE STYLES IN THE HEAD
+        ------------------------------------- */
+        @media all {
+            .ExternalClass {
+                width: 100%;
+            }
+            .ExternalClass,
+            .ExternalClass p,
+            .ExternalClass span,
+            .ExternalClass font,
+            .ExternalClass td,
+            .ExternalClass div {
+                line-height: 100%;
+            }
+            .apple-link a {
+                color: inherit !important;
+                font-family: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+                text-decoration: none !important;
+            }
+            #MessageViewBody a {
+                color: inherit;
+                text-decoration: none;
+                font-size: inherit;
+                font-family: inherit;
+                font-weight: inherit;
+                line-height: inherit;
+            }
+            .btn-primary table td:hover {
+                background-color: #34495e !important;
+            }
+            .btn-primary a:hover {
+                background-color: #34495e !important;
+                border-color: #34495e !important;
+            }
+        }
+
+    </style>
+    <style>
+
+        .table-score {
+            text-align: center;
+        }
+        .marginend {
+            margin-bottom: 20px;
+        }
+        .other_place {
+            background-color: #750728;
+            color: white;
+        }
+        .marginposition {
+            margin-top: 20px;
+        }
+        .centertext {
+            text-align: center!important;
+            margin-top: 20px!important;
+        }
+        .text-recap {
+            font-size: 20px!important;
+            text-align: center;
+        }
+        .placement {
+            font-size: 60px!important;
+            text-align: center!important;
+            margin: 0;
+            padding: 50px;
+        }
+        .first_place {
+            color: white;
+            background-color: goldenrod;
+        }
+
+        .second_place {
+            color: white;
+            background-color: silver;
+        }
+
+        .third_place {
+            color: white;
+            background-color: #cc5905;
+        }
+    </style>
+</head>
+<body>
+<span class="preheader">Compte Validé !</span>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+        <td>&nbsp;</td>
+        <td class="container">
+            <div class="content">
+
+                <!-- START CENTERED WHITE CONTAINER -->
+                <table role="presentation" class="main">
+
+                    <!-- START MAIN CONTENT AREA -->
+                    <tr>
+                        <td class="wrapper">
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <h1>Bonsoir, {{ name }}</h1>
+                                        <p class="text-recap">Petit récapitulatif de la journée d'hier sur les paris de la coupe du monde 2022 !</p>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td>
+                                        {% if(position == 1) %}
+                                            <p class="placement first_place">{{ position }}er</p>
+                                            <p class="text-recap marginposition">Incroyable tu es <b>{{ position }}er</b> !</p>
+                                            <p class="text-recap">Bien joué à toi continue à parier correctement pour écraser tes adversaires !</p>
+                                        {% endif %}
+                                        {% if(position == 2) %}
+                                            <p class="placement second_place">{{ position }}ème</p>
+                                            <p class="text-recap marginposition">Wouaaa tu es <b>{{ position }}ème</b> !</p>
+                                            <p class="text-recap">Accroche toi la victoire est à porté de main !</p>
+                                        {% endif %}
+                                        {% if(position == 3) %}
+                                            <p class="placement third_place">{{ position }}ème</p>
+                                            <p class="text-recap marginposition">Super tu es <b>{{ position }}ème</b> !</p>
+                                            <p class="text-recap">Tu es dans le top 3 ! En route pour la 1er place !</p>
+                                        {% endif %}
+                                        {% if(position == 4) %}
+                                            <p class="placement other_place">{{ position }}ème</p>
+                                            <p class="text-recap marginposition">Bien joué tu es <b>{{ position }}ème</b> !</p>
+                                            <p class="text-recap">Tu n'es malheuresement pas dans le top 3 ! <br>Ne perd pas espoir tu peux remonter !</p>
+                                        {% endif %}
+                                        {% if(position == 5) %}
+                                            <p class="placement other_place">{{ position }}ème</p>
+                                            <p class="text-recap marginposition">Humm tu es <b>{{ position }}ème</b> !</p>
+                                            <p class="text-recap">Il faut penser à étudier les équipes pour faire des paris gagnants ! <br>Tu peux encore foncer pour le top 3 !</p>
+                                        {% endif %}
+                                        {% if((position >= 6) and (position < 10)) %}
+                                            <p class="placement other_place">{{ position }}ème</p>
+                                            <p class="text-recap marginposition">Aie tu es <b>{{ position }}ème</b> !</p>
+                                            <p class="text-recap">Il faut se réveiller et éviter la dernière place ! <br> Dépêche toi !</p>
+                                        {% endif %}
+                                        {% if(position >= 10) %}
+                                            <p class="placement other_place">{{ position }}ème</p>
+                                            <p class="text-recap marginposition">Catastrophique tu es <b>{{ position }}ème</b> !</p>
+                                            <p class="text-recap">Que dire... <br> Il faut un miracle la !</p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <th>Score actuel : {{ scores }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Pari(s) réussi(s) (scores exactes) : {{ bet_win_bonus }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Pari(s) réussi(s) : {{ bet_win }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="marginend">Pari(s) perdu(s) : {{ bet_loses }}</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr class="text-center" style="margin-top: 50px;">
+                                    <td>
+                                        {% if(position == 1) %}
+                                            <div style="width:100%;height:0;padding-bottom:43%;position:relative;"><iframe src="https://giphy.com/embed/JiC9wpHt3LhMNSlNAa" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+                                        {% endif %}
+                                        {% if(position == 2) %}
+                                            <div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/satADAiLNSnf2" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+                                        {% endif %}
+                                        {% if(position == 3) %}
+                                            <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/d2ZfqZY5eSCR0rza" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+                                        {% endif %}
+                                        {% if(position == 4) %}
+                                            <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/UWEZ8dWFjwzel26x2W" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+                                        {% endif %}
+                                        {% if(position == 5) %}
+                                            <div style="width:100%;height:0;padding-bottom:46%;position:relative;"><iframe src="https://giphy.com/embed/xY4GnaH8P3fc4" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+                                        {% endif %}
+                                        {% if((position >= 6) and (position < 10)) %}
+                                            <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/gBW8Qgfaa2ije" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+                                        {% endif %}
+                                        {% if(position >= 10) %}
+                                            <div style="width:100%;height:0;padding-bottom:55%;position:relative;"><iframe src="https://giphy.com/embed/Jq7y34Hgfy01y" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <table class="table-score">
+                                        <thead>
+                                        <tr>
+                                            <th><i class="fa-solid fa-ranking-star"></i></th>
+                                            <th>Joueur</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="fw-bold">
+                                        {% for res in leadboard %}
+                                            {% if (res.leadboard_number == "1") %}
+                                                <tr class="first_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                    <td class="col-4">{{ res.leadboard_number }}</td>
+                                                    <td class="col-4">{{ res.name }}</td>
+                                                    <td class="col-4">{{ res.scores }}</td>
+                                                </tr>
+                                            {% endif %}
+                                            {% if (res.leadboard_number == "2") %}
+                                                <tr class="second_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                    <td class="col-4">{{ res.leadboard_number }}</td>
+                                                    <td class="col-4">{{ res.name }}</td>
+                                                    <td class="col-4">{{ res.scores }}</td>
+                                                </tr>
+                                            {% endif %}
+                                            {% if(res.leadboard_number == "3") %}
+                                                <tr class="third_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                    <td class="col-4">{{ res.leadboard_number }}</td>
+                                                    <td class="col-4">{{ res.name }}</td>
+                                                    <td class="col-4">{{ res.scores }}</td>
+                                                </tr>
+                                            {% endif %}
+                                            {% if(res.leadboard_number != "1" and res.leadboard_number != "2" and res.leadboard_number != "3") %}
+                                                <tr onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                    <td class="col-4">{{ res.leadboard_number }}</td>
+                                                    <td class="col-4">{{ res.name }}</td>
+                                                    <td class="col-4">{{ res.scores }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </tr>
+                                <tr>
+                                    <td><p class="centertext">Cordialement l'équipe :p</p></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

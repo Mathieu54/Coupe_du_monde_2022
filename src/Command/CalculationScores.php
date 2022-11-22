@@ -57,7 +57,7 @@ class CalculationScores extends Command
                 if (($bet->getMatches()->getScoreCountrie1() == $bet->getMatches()->getScoreCountrie2()) && ($bet->getScoreCountrie1() == $bet->getScoreCountrie2())) {
                     $scores_final++;
                     $bet_win_final++;
-                    $log->info('+1 point équipe gagnante');
+                    $log->info('+1 point égalité');
                 } else if (($bet->getMatches()->getScoreCountrie1() > $bet->getMatches()->getScoreCountrie2()) && ($bet->getScoreCountrie1() > $bet->getScoreCountrie2())) {
                     $scores_final++;
                     $bet_win_final++;
