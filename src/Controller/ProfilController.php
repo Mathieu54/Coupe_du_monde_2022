@@ -83,4 +83,13 @@ class ProfilController extends AbstractController
             throw $this->createNotFoundException('L\'utilisateur n\'existe pas !');
         }
     }
+
+    #[Route('/test', name: 'app_test')]
+    public function testemail(ManagerRegistry $doctrine): Response
+    {
+            return $this->render('mail/position_scores.html.twig', [
+                'name' => "Jean",
+                'position' => 10
+            ]);
+    }
 }

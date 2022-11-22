@@ -101,11 +101,11 @@
                             <div class="table-responsive">
                                 <table class="table align-middle">
                                     <thead>
-                                        <tr>
-                                            <th scope="col">Matches</th>
-                                            <th scope="col">Paris</th>
-                                            <th scope="col">Résultats</th>
-                                            <th scope="col">Scores</th>
+                                        <tr class="text-center">
+                                            <th>Matches</th>
+                                            <th>Paris</th>
+                                            <th>Résultats</th>
+                                            <th>Scores</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,14 +114,14 @@
                                     {% for matche in res %}
                                         {% if date("now") >= matche.date %}
                                             {% if date("now") >= matche.date_2_hours %}
-                                                    <tr>
-                                                        <td><span class="fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.countrie_1 }}</span> VS <span class="fw-bold">{{ matche.countrie_2 }}</span> <span class="fi fi-{{ matche.countrie_2_flag }}"></span></td>
+                                                    <tr class="text-center">
+                                                        <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.countrie_1 }}</span> <p class="m-0 text-center d-block d-lg-inline-block">VS</p> <span class="fw-bold">{{ matche.countrie_2 }}</span> <span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_2_flag }}"></span></td>
                                                         {% if( matche.score_countrie_1_user != "null" or matche.score_countrie_2_user != "null") %}
-                                                            <td><span class="fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.score_countrie_1_user }}</span> - <span class="fw-bold">{{ matche.score_countrie_2_user }}</span> <span class="fi fi-{{ matche.countrie_2_flag }}"></span></td>
+                                                            <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.score_countrie_1_user }}</span> <p class="m-0 text-center d-block d-lg-none">---</p><p class="m-0 text-center d-none d-lg-inline-block">-</p> <span class="fw-bold ">{{ matche.score_countrie_2_user }}</span> <span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_2_flag }}"></span></td>
                                                         {% else %}
-                                                            <td><span class="fw-bold">Aucun paris</span></td>
+                                                            <td><span class="d-lg-inline-block d-block fw-bold">Aucun</span> <span class="d-lg-inline-block d-block fw-bold">pari</span></td>
                                                         {% endif %}
-                                                        <td><span class="fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.score_countrie_1 }}</span> - <span class="fw-bold">{{ matche.score_countrie_2 }}</span> <span class="fi fi-{{ matche.countrie_2_flag }}"></span></td>
+                                                        <td><span class="m-auto d-lg-inline-block d-block fw-bold fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.score_countrie_1 }}</span> <p class="m-0 text-center d-block d-lg-none">---</p><p class="m-0 text-center d-none d-lg-inline-block">-</p> <span class="fw-bold">{{ matche.score_countrie_2 }}</span> <span class="m-auto d-lg-inline-block d-block fi fi-{{ matche.countrie_2_flag }}"></span></td>
                                                         {% set scores = 0 %}
                                                         {% if((matche.score_countrie_1 == matche.score_countrie_1_user) and (matche.score_countrie_2 == matche.score_countrie_2_user)) %}
                                                             {% set scores = scores + 2 %}

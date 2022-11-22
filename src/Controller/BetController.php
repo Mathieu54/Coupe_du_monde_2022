@@ -6,6 +6,7 @@ use App\Entity\BetUser;
 use App\Entity\Matches;
 use App\Form\BetUserFormType;
 use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,8 +59,8 @@ class BetController extends AbstractController
             return $this->redirectToRoute('app_profil');
         }
         $matche = $doctrine->getRepository(Matches::class)->findOneBy(['id' => $id]);
-        if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie1() == null) {
-            return $this->render('bundles/TwigBundle/error404.html.twig', []);
+        if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie2() == null) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
         } else {
             $bet_matche = $doctrine->getRepository(BetUser::class)->findOneBy(["user" => $this->getUser()->getId(), "matches" => $matche->getId()]);
             if($bet_matche != null) {
@@ -75,19 +76,19 @@ class BetController extends AbstractController
                 ];
                 $form = $this->createForm(BetUserFormType::class);
                 $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    if ($matche->getDate()) {
-                   // TODO A FAIRE ICI
+                if(($matche->getDate()) > (new DateTime())) {
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $bet->setMatches($matche);
+                        $bet->setScoreCountrie1($form->get('score_countrie_1')->getData());
+                        $bet->setScoreCountrie2($form->get('score_countrie_2')->getData());
+                        $bet->setUser($this->getUser());
+                        $bet->setCalculate(false);
+                        $entityManager->persist($bet);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id]);
                     }
-                    $bet->setMatches($matche);
-                    $bet->setScoreCountrie1($form->get('score_countrie_1')->getData());
-                    $bet->setScoreCountrie2($form->get('score_countrie_2')->getData());
-                    $bet->setUser($this->getUser());
-                    $bet->setCalculate(false);
-                    $entityManager->persist($bet);
-                    $entityManager->flush();
-                    return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id]);
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
                 }
                 return $this->render('pages/bet_form.html.twig', ['matche' => $matche_res, "bet_form" => $form->createView()]);
             }
@@ -104,8 +105,8 @@ class BetController extends AbstractController
             return $this->redirectToRoute('app_profil');
         }
         $matche = $doctrine->getRepository(Matches::class)->findOneBy(['id' => $id]);
-        if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie1() == null) {;
-            return $this->render('bundles/TwigBundle/error404.html.twig', []);
+        if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie2() == null) {;
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
         } else {
             $bet_matche = $doctrine->getRepository(BetUser::class)->findOneBy(["user" => $this->getUser()->getId(), "matches" => $matche->getId()]);
             if($bet_matche === null) {
@@ -120,12 +121,16 @@ class BetController extends AbstractController
                 ];
                 $form = $this->createForm(BetUserFormType::class);
                 $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $bet_matche->setScoreCountrie1($form->get('score_countrie_1')->getData());
-                    $bet_matche->setScoreCountrie2($form->get('score_countrie_2')->getData());
-                    $entityManager->persist($bet_matche);
-                    $entityManager->flush();
-                    return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id] );
+                if(($matche->getDate()) > (new DateTime())) {
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $bet_matche->setScoreCountrie1($form->get('score_countrie_1')->getData());
+                        $bet_matche->setScoreCountrie2($form->get('score_countrie_2')->getData());
+                        $entityManager->persist($bet_matche);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet', ['_fragment' => 'matche_number_' . $id]);
+                    }
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
                 }
                 return $this->render('pages/bet_form.html.twig', ['matche' => $matche_res, "bet_form" => $form->createView()]);
             }
