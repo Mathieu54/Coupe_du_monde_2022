@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le site est en maintenance{% endblock %}
+
+{% block body %}
+    <section class="vh-100 bg-image">
+        <div class="d-flex align-items-center h-100">
+            <div class="container h-100">
+                <div class="row d-flex text-center justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <i class="text-warning icon fa-solid fa-screwdriver-wrench"></i>
+                                <h1>Le site est en maintenance</h1>
+                                <h3>Nous reviendrons bientôt !</h3>
+                                <img class="img-fluid" src="{{ asset("images/maintenance.gif") }}" alt="Maintenance Gif"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        .icon {
+            font-size: 50px;
+        }
+        .nav {
+            display: none !important;
+        }
+    </style>
+{% endblock %}
