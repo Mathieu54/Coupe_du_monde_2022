@@ -127,15 +127,15 @@
                                                             {% set scores = scores + 2 %}
                                                         {% endif %}
                                                         {% if(matche.score_countrie_1 == matche.score_countrie_2) %}
-                                                            {% if(matche.score_countrie_1_user == matche.score_countrie_2_user) %}
+                                                            {% if((matche.score_countrie_1_user == matche.score_countrie_2_user) and (matche.score_countrie_1_user != "null") and (matche.score_countrie_2_user != "null")) %}
                                                                 {% set scores = scores + 1 %}
                                                             {% endif %}
                                                         {% elseif(matche.score_countrie_1 > matche.score_countrie_2) %}
-                                                            {% if(matche.score_countrie_1_user > matche.score_countrie_2_user) %}
+                                                            {% if((matche.score_countrie_1_user > matche.score_countrie_2_user) and (matche.score_countrie_1_user != "null") and (matche.score_countrie_2_user != "null")) %}
                                                                 {% set scores = scores + 1 %}
                                                             {% endif %}
                                                         {% else %}
-                                                            {% if(matche.score_countrie_1_user < matche.score_countrie_2_user) %}
+                                                            {% if((matche.score_countrie_1_user < matche.score_countrie_2_user) and (matche.score_countrie_1_user != "null") and (matche.score_countrie_2_user != "null")) %}
                                                                 {% set scores = scores + 1 %}
                                                             {% endif %}
                                                         {% endif %}

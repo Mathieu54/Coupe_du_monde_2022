@@ -38,6 +38,7 @@
                 "November": "Novembre",
                 "December": "Décembre"
             } %}
+            {% set type_match_100 = false %}
             {% set type_match_7 = false %}
             {% set type_match_6 = false %}
             {% set type_match_5 = false %}
@@ -47,6 +48,23 @@
             {% set type_match_1 = false %}
             {% for key, res in matches %}
                 {% for matche in res %}
+                    {% if matche.type_match == 100 and type_match_100 == false %}
+                        {% set type_match_100 = true %}
+                        <div class="row mb-4">
+                            <div class="col select-type-match-100">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Historiques de vos paris</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                     {% if matche.type_match == 7 and type_match_7 == false %}
                         {% set type_match_7 = true %}
                         <div class="row mb-4">
@@ -326,7 +344,7 @@
             width: 50px;
             height: 50px;
         }
-        .select-type-match-7, .select-type-match-6, .select-type-match-5, .select-type-match-4, .select-type-match-3, .select-type-match-2, .select-type-match-1 {
+        .select-type-match-100, .select-type-match-7, .select-type-match-6, .select-type-match-5, .select-type-match-4, .select-type-match-3, .select-type-match-2, .select-type-match-1 {
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
@@ -336,13 +354,41 @@
         }
     </style>
     <script>
-        $('.type_match_7').toggle()
-        $('.type_match_6').toggle();
-        $('.type_match_5').toggle();
-        $('.type_match_4').toggle();
-        $('.type_match_3').toggle();
-        $('.type_match_2').toggle();
-        $('.type_match_1').toggle();
+        const date_now = new Date();
+        const type_match_6 = new Date('2022-11-25');
+        const type_match_5 = new Date('2022-11-29');
+        const type_match_4 = new Date('2022-12-01');
+        const type_match_3 = new Date('2022-12-06');
+        const type_match_2 = new Date('2022-12-10');
+        const type_match_1 = new Date('2022-12-14');
+        $('.type_match_100').toggle();
+        $('.type_match_6').toggle(false);
+        $('.type_match_5').toggle(false);
+        $('.type_match_4').toggle(false);
+        $('.type_match_3').toggle(false);
+        $('.type_match_2').toggle(false);
+        $('.type_match_1').toggle(false);
+        if(type_match_6 <= date_now) {
+            $('.type_match_6').toggle(true);
+        }
+        if(type_match_5 <= date_now) {
+            $('.type_match_5').toggle(true);
+        }
+        if(type_match_4 <= date_now) {
+            $('.type_match_4').toggle(true);
+        }
+        if(type_match_3 <= date_now) {
+            $('.type_match_3').toggle(true);
+        }
+        if(type_match_2 <= date_now) {
+            $('.type_match_2').toggle(true);
+        }
+        if(type_match_1 <= date_now) {
+            $('.type_match_1').toggle(true);
+        }
+        $('.select-type-match-100').click(function(){
+            $('.type_match_100').toggle();
+        });
         $('.select-type-match-7').click(function(){
             $('.type_match_7').toggle();
         });
