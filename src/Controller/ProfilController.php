@@ -6,9 +6,11 @@ use App\Entity\BetUser;
 use App\Entity\Matches;
 use App\Entity\User;
 use App\Entity\UserScores;
+use App\Form\ProfilEditFormType;
 use DateInterval;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,6 +35,22 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    #[Route('/profil/edit', name: 'app_profil_edit')]
+    public function profil_edit(Request $request, ManagerRegistry $doctrine): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $form = $this->createForm(ProfilEditFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump("gg");
+        }
+        return $this->render('pages/profil-edit.html.twig', [
+            'profilEditForm' => $form->createView(),
+        ]);
+    }
+
     #[Route('/profil/{id}', name: 'app_profil_other')]
     public function other_profil(int $id, ManagerRegistry $doctrine): Response
     {
@@ -47,7 +65,7 @@ class ProfilController extends AbstractController
             $all_matche = $doctrine->getRepository(BetUser::class)->findBy(["user" => $id]);
             $user_info = $doctrine->getRepository(User::class)->findOneBy(["id" => $id]);
             $get_position_leadboard = $doctrine->getRepository(UserScores::class)->findPositionLeadboardUser($id);
-            $matches_all = $doctrine->getRepository(Matches::class)->findAll();
+            $matches_all = $doctrine->getRepository(Matches::class)->findBy([], ['id' => 'DESC']);
             $list_matches_bet = [];
             foreach ($matches_all as $matche) {
                 $actual_bet_user = $doctrine->getRepository(BetUser::class)->findOneBy(["user" => $id, "matches" => $matche->getId()]);
@@ -82,14 +100,5 @@ class ProfilController extends AbstractController
         } else {
             throw $this->createNotFoundException('L\'utilisateur n\'existe pas !');
         }
-    }
-
-    #[Route('/test', name: 'app_test')]
-    public function testemail(ManagerRegistry $doctrine): Response
-    {
-            return $this->render('mail/position_scores.html.twig', [
-                'name' => "Jean",
-                'position' => 10
-            ]);
     }
 }
