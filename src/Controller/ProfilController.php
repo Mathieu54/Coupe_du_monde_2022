@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\UserScores;
 use App\Form\ProfilEditFormType;
 use DateInterval;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,18 +37,29 @@ class ProfilController extends AbstractController
     }
 
     #[Route('/profil/edit', name: 'app_profil_edit')]
-    public function profil_edit(Request $request, ManagerRegistry $doctrine): Response
+    public function profil_edit(Request $request, ManagerRegistry $doctrine, EntityManagerInterface $entityManager): Response
     {
+        $confirmationNotif = null;
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
         $form = $this->createForm(ProfilEditFormType::class);
         $form->handleRequest($request);
+        $get_user = $doctrine->getRepository(User::class)->findOneBy(["id" => $this->getUser()->getId()]);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump("gg");
+            $get_user->setStatusScoreEmail($form->get('status_score_email')->getData());
+            $get_user->setReminderBetEmail($form->get('reminder_bet_email')->getData());
+            try {
+                $entityManager->persist($get_user);
+                $entityManager->flush();
+                $confirmationNotif = "success";
+            } catch (\Exception $e) {
+                $confirmationNotif = "error";
+            }
         }
         return $this->render('pages/profil-edit.html.twig', [
             'profilEditForm' => $form->createView(),
+            'confirmationNotif' => $confirmationNotif,
         ]);
     }
 

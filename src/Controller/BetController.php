@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BetUser;
 use App\Entity\Matches;
-use App\Form\ProfilEditFormType;
+use App\Form\BetUserFormType;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,7 +93,7 @@ class BetController extends AbstractController
                     "countrie_2" => $matche->getCountrie2()->getName(),
                     "countrie_2_flag" => $matche->getCountrie2()->getIsoFlag(),
                 ];
-                $form = $this->createForm(ProfilEditFormType::class);
+                $form = $this->createForm(BetUserFormType::class);
                 $form->handleRequest($request);
                 if(($matche->getDate()) > (new DateTime())) {
                     if ($form->isSubmitted() && $form->isValid()) {
@@ -138,7 +138,7 @@ class BetController extends AbstractController
                     "countrie_2" => $matche->getCountrie2()->getName(),
                     "countrie_2_flag" => $matche->getCountrie2()->getIsoFlag(),
                 ];
-                $form = $this->createForm(ProfilEditFormType::class);
+                $form = $this->createForm(BetUserFormType::class);
                 $form->handleRequest($request);
                 if(($matche->getDate()) > (new DateTime())) {
                     if ($form->isSubmitted() && $form->isValid()) {
