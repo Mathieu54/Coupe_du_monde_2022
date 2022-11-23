@@ -43,6 +43,8 @@ class RegistrationController extends AbstractController
             $user->setPaid(false);
             $user->setValideRegister(false);
             $user->setUrlPicture("https://xsgames.co/randomusers/assets/avatars/pixel/" . rand(0,53) . ".jpg");
+            $user->setReminderBetEmail(true);
+            $user->setStatusScoreEmail(true);
             $user->setCreatedAt(new Datetime());
             $user->setModifiedAt(new Datetime());
             $user_score = new UserScores();

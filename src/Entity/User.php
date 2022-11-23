@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $modified_at = null;
 
+    #[ORM\Column]
+    private ?bool $reminder_bet_email = null;
+
+    #[ORM\Column]
+    private ?bool $status_score_email = null;
+
     public function __construct()
     {
         $this->betUsers = new ArrayCollection();
@@ -264,6 +270,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setModifiedAt(\DateTimeInterface $modified_at): self
     {
         $this->modified_at = $modified_at;
+
+        return $this;
+    }
+
+    public function isReminderBetEmail(): ?bool
+    {
+        return $this->reminder_bet_email;
+    }
+
+    public function setReminderBetEmail(bool $reminder_bet_email): self
+    {
+        $this->reminder_bet_email = $reminder_bet_email;
+
+        return $this;
+    }
+
+    public function isStatusScoreEmail(): ?bool
+    {
+        return $this->status_score_email;
+    }
+
+    public function setStatusScoreEmail(bool $status_score_email): self
+    {
+        $this->status_score_email = $status_score_email;
 
         return $this;
     }

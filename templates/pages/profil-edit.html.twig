@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer mon profil{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item"><a href="{{ path("app_profil") }}">Profil</a></li>
+                            <li class="breadcrumb-item" aria-current="page">Édition</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <h3 class="my-3">Mettre à jour votre profil :</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <p>Work in progress !</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <h3 class="my-3">Mettre à jour vos notifications :</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center d-flex justify-content-center">
+                                    {% if(confirmationNotif == "error") %}
+                                        <div class="alert alert-danger w-25" role="alert">
+                                            Une erreur est survenue !
+                                        </div>
+                                    {% endif %}
+                                    {% if(confirmationNotif == "success") %}
+                                        <div class="alert alert-success w-25" role="alert">
+                                            Succès ! Changements effectués !
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row m-auto">
+                                <div class="col-12 d-flex justify-content-center">
+                                    {{ form_start(profilEditForm) }}
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label" for="switch_status_score_email">Recevoir des emails sur le status des scores</label>
+                                        {{ form_widget(profilEditForm.status_score_email, {'attr': {'id': 'switch_status_score_email','class': 'form-check-input' ,'checked' : app.user.statusScoreEmail}}) }}
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        {{ form_widget(profilEditForm.reminder_bet_email, {'attr': {'id': 'switch_reminder_bet_email','class': 'form-check-input' ,'checked' : app.user.reminderBetEmail}}) }}
+                                        <label class="form-check-label" for="switch_reminder_bet_email">Recevoir des emails d'alertes des paris non effectués</label>
+                                    </div>
+                                    <div class="text-center my-3">
+                                        <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
+                                            Confirmer
+                                        </button>
+                                    </div>
+                                    {{ form_end(profilEditForm) }}
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
