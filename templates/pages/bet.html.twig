@@ -186,6 +186,13 @@
                     {% endif %}
                     <div class="card mb-4 type_match_{{ matche.type_match }}" id="matche_number_{{ matche.id }}">
                         <div class="card-body text-center">
+                            {% if date("now") <= matche.date %}
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <p class="mb-0">Le {{ trans_day_hash[matche.date|date("l")] }} {{ matche.date|date("j") }} {{ trans_month_hash[matche.date|date("F")] }} à {{ matche.date|date("H:i") }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="row">
@@ -311,12 +318,12 @@
                                         {% if date("now") <= matche.date %}
                                             {% if(matche.score_countrie_1_user == "null" or matche.score_countrie_2_user == "null") %}
                                                 <a href="{{ path("app_add_bet", {id: matche.id}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier ce match</a>
-                                                <p class="fs-4 mb-0 mt-3">Le pari se termine le :</p>
-                                                <p class="mb-0">{{ trans_day_hash[matche.date|date("l")] }} {{ matche.date|date("j") }} {{ trans_month_hash[matche.date|date("F")] }} à {{ matche.date|date("H:i") }}</p>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                                <p class="timer-bet mb-0" data-date-timer="{{ matche.date|date("M") }} {{ matche.date|date("j") }}, {{ matche.date|date("Y") }} {{ matche.date|date("H:i:s") }}">&nbsp;</p>
                                             {% else %}
                                                 <a href="{{ path("app_edit_bet", {id: matche.id}) }}" class="btn btn-yellow-modif btn-lg">Modifier le pari</a>
-                                                <p class="fs-4 mb-0 mt-3">Le pari se termine le :</p>
-                                                <p class="mb-0">Le {{ trans_day_hash[matche.date|date("l")] }} {{ matche.date|date("j") }} {{ trans_month_hash[matche.date|date("F")] }} à {{ matche.date|date("H:i") }}</p>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                                <p class="timer-bet mb-0" data-date-timer="{{ matche.date|date("M") }} {{ matche.date|date("j") }}, {{ matche.date|date("Y") }} {{ matche.date|date("H:i:s") }}">&nbsp;</p>
                                             {% endif %}
                                         {% endif %}
                                     {% else %}
@@ -421,5 +428,73 @@
         $('.select-type-match-1').click(function(){
             $('.type_match_1').toggle();
         });
+    </script>
+
+    <script>
+        var x = setInterval(function () {
+            $('.timer-bet').each(function (index) {
+                var countDownDate = new Date($(this).attr('data-date-timer')).getTime();
+
+                var now = new Date().getTime();
+
+                var distance = countDownDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                // Display the result in the element with id="demo"
+                if (days !== 0) {
+                    if (days === 1) {
+                        days = "<b>" + days + "</b> jour ";
+                    } else {
+                        days = "<b>" + days + "</b> jours ";
+                    }
+                } else {
+                    days = "";
+                }
+                if (hours !== 0) {
+                    if (hours === 1) {
+                        hours = "<b>" + hours + "</b> heure ";
+                    } else {
+                        hours = "<b>" + hours + "</b> heures ";
+                    }
+                } else {
+                    hours = "";
+                }
+                if (minutes !== 0) {
+                    if (minutes === 1) {
+                        minutes = "<b>" + minutes + "</b> minute ";
+                    } else {
+                        minutes = "<b>" + minutes + "</b> minutes ";
+                    }
+                } else {
+                    minutes = "";
+                }
+                if (seconds !== 0) {
+                    if (seconds === 1) {
+                        seconds = " et <b>" + seconds + "</b> seconde ";
+                    } else {
+                        seconds = " et <b>" + seconds + "</b> secondes ";
+                    }
+                } else {
+                    seconds = "";
+                }
+                if (days === "" && hours === "" && minutes === "") {
+                    console.log("il est la");
+                    seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (seconds === 1) {
+                        seconds = "<b>" + seconds + "</b> seconde ";
+                    } else {
+                        seconds = "<b>" + seconds + "</b> secondes ";
+                    }
+                }
+                $(this).html(days + hours + minutes + seconds);
+
+                if (distance <= 0) {
+                    $(this).text("Pari cloturé !");
+                }
+            });
+        }, 1000);
     </script>
 {% endblock %}

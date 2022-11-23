@@ -29,7 +29,7 @@ class BetController extends AbstractController
         $list_matches_bet = [];
         foreach ($matches_type_7 as $matche) {
             $actual_bet_user = $doctrine->getRepository(BetUser::class)->findOneBy(["user" => $this->getUser()->getId(), "matches" => $matche->getId()]);
-            if(($matche->getDate()) > (new DateTime())) {
+            if((clone $matche->getDate())->add(new DateInterval("PT3H")) > (new DateTime())) {
                 $list_matches_bet[$matche->getId()][] = [
                     "id" => $matche->getId(),
                     "groupe" => ($matche->getCountrie1() == null) ? "null" : $matche->getCountrie1()->getCategories(),
