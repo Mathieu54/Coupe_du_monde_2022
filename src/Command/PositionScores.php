@@ -2,15 +2,12 @@
 
 namespace App\Command;
 
-use App\Entity\BetUser;
 use App\Entity\User;
 use App\Entity\UserScores;
 use Doctrine\Persistence\ManagerRegistry;
-use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -48,7 +45,7 @@ class PositionScores extends Command
                 "scores" => $user_res->getScores()
             ];
         }
-        $getAllUser = $this->doctrine->getRepository(User::class)->findAll();
+        $getAllUser = $this->doctrine->getRepository(User::class)->findBy(["status_score_email" => true]);
         foreach ($getAllUser as $user) {
             $position = $this->doctrine->getRepository(UserScores::class)->findPositionLeadboardUser($user->getId());
             $email = (new TemplatedEmail())

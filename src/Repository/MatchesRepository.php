@@ -39,28 +39,12 @@ class MatchesRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Matches[] Returns an array of Matches objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Matches
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findNextMatche(): mixed
+    {
+        $qb = $this->createQueryBuilder('m')->select("m")->where("m.date > CURRENT_TIMESTAMP()")->setMaxResults(1);
+        $query = $qb->getQuery();
+        foreach ($query->execute() as $user) {
+            return $user;
+        }
+    }
 }

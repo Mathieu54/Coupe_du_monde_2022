@@ -47,16 +47,17 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-4">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card mb-4">
                                 <div class="card-body text-center">
                                     <h3>News :</h3>
-                                    <p class="mb-0 fw-bold">Mise à jour du 23 Novembre 2022</p>
+                                    <p class="mb-0 fw-bold">Mise à jour du 26 Novembre 2022</p>
                                     <ul>
-                                        <li>Temps restants affiché sur les paris.</li>
-                                        <li>Temps restants affiché sur les paris.</li>
-                                        <li>Les paris terminés sont maintenant dans la section "Historiques de vos paris"</li>
+                                        <li>Une fois qu'un match est en cours ou terminé vous pouvez voir les paris des autres joueurs en cliquant sur le paris.</li>
+                                        <li>Correction de petit bug visuel.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -111,6 +112,71 @@
                                     <p class="mb-0">Score actuel :</p>
                                     <p class="mb-0 fs-1 fw-bold">{{ scores }}</p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <h3 class="text-center my-3">Vos paris</h3>
+                            <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                <tr class="text-center">
+                                    <th>Matches</th>
+                                    <th>Paris</th>
+                                    <th>Résultats</th>
+                                    <th>Scores</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set scores_final = 0 %}
+                                {% for key, res in matches %}
+                                    {% for matche in res %}
+                                        {% if date("now") >= matche.date %}
+                                            {% if date("now") >= matche.date_2_hours %}
+                                                <tr class="text-center">
+                                                    <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.countrie_1 }}</span> <p class="m-0 text-center d-block d-lg-inline-block">VS</p> <span class="fw-bold">{{ matche.countrie_2 }}</span> <span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_2_flag }}"></span></td>
+                                                    {% if( matche.score_countrie_1_user != "null" or matche.score_countrie_2_user != "null") %}
+                                                        <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.score_countrie_1_user }}</span> <p class="m-0 text-center d-block d-lg-none">---</p><p class="m-0 text-center d-none d-lg-inline-block">-</p> <span class="fw-bold ">{{ matche.score_countrie_2_user }}</span> <span class="m-auto d-block d-lg-inline-block fi fi-{{ matche.countrie_2_flag }}"></span></td>
+                                                    {% else %}
+                                                        <td><span class="d-lg-inline-block d-block fw-bold">Aucun</span> <span class="d-lg-inline-block d-block fw-bold">pari</span></td>
+                                                    {% endif %}
+                                                    <td><span class="m-auto d-lg-inline-block d-block fw-bold fi fi-{{ matche.countrie_1_flag }}"></span> <span class="fw-bold">{{ matche.score_countrie_1 }}</span> <p class="m-0 text-center d-block d-lg-none">---</p><p class="m-0 text-center d-none d-lg-inline-block">-</p> <span class="fw-bold">{{ matche.score_countrie_2 }}</span> <span class="m-auto d-lg-inline-block d-block fi fi-{{ matche.countrie_2_flag }}"></span></td>
+                                                    {% set scores = 0 %}
+                                                    {% if((matche.score_countrie_1 == matche.score_countrie_1_user) and (matche.score_countrie_2 == matche.score_countrie_2_user)) %}
+                                                        {% set scores = scores + 2 %}
+                                                    {% endif %}
+                                                    {% if(matche.score_countrie_1 == matche.score_countrie_2) %}
+                                                        {% if((matche.score_countrie_1_user == matche.score_countrie_2_user) and (matche.score_countrie_1_user != "null") and (matche.score_countrie_2_user != "null")) %}
+                                                            {% set scores = scores + 1 %}
+                                                        {% endif %}
+                                                    {% elseif(matche.score_countrie_1 > matche.score_countrie_2) %}
+                                                        {% if((matche.score_countrie_1_user > matche.score_countrie_2_user) and (matche.score_countrie_1_user != "null") and (matche.score_countrie_2_user != "null")) %}
+                                                            {% set scores = scores + 1 %}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if((matche.score_countrie_1_user < matche.score_countrie_2_user) and (matche.score_countrie_1_user != "null") and (matche.score_countrie_2_user != "null")) %}
+                                                            {% set scores = scores + 1 %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% set scores_final = scores + scores_final %}
+                                                    {% if(scores != 0) %}
+                                                        <td class="fw-bold">+{{ scores }}</td>
+                                                    {% else %}
+                                                        <td class="fw-bold">0 <i class="fa-solid fa-face-sad-tear"></i></td>
+                                                    {% endif %}
+                                                </tr>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                                <tr>
+                                    <td class="text-end" colspan="4">Scores total : <span class="fw-bold">{{ scores_final }}</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>
@@ -190,7 +256,7 @@
                 </div>
             </div>
         </div>
-
+        <br><br><br>
         <!-- Modal lien utile -->
         <div class="modal modal-xl fade" id="suggestions" tabindex="-1" aria-labelledby="suggestions" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
