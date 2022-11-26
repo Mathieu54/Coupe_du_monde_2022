@@ -43,7 +43,7 @@ class CalculationScores extends Command
         $log->info("=============================================");
         foreach ($getBet as $bet) {
             if (($getDateNow->getTimestamp() >= $bet->getMatches()->getDate()->getTimestamp()) && ($bet->getMatches()->getScoreCountrie1() !== null) && ($bet->getMatches()->getScoreCountrie2() !== null)) {
-                $log->info('Vérification Parie N°' . $bet->getId() . ' est calculé => ' . $bet->isCalculate());
+                $log->info('Vérification Pari N°' . $bet->getId() . ' est calculé => ' . $bet->isCalculate());
                 $log->info($bet->getUser()->getName() . ' a parié => ' . $bet->getMatches()->getCountrie1()->getName() . ' ' . $bet->getScoreCountrie1() . ' - ' . $bet->getScoreCountrie2() . ' ' . $bet->getMatches()->getCountrie2()->getName());
                 $scores_final = $bet->getUser()->getUserScores()->getScores();
                 $bet_win_final = $bet->getUser()->getUserScores()->getBetWin();
@@ -75,7 +75,7 @@ class CalculationScores extends Command
                 $bet->getUser()->getUserScores()->setBetWin($bet_win_final);
                 $bet->getUser()->getUserScores()->setScores($scores_final);
                 $bet->setCalculate(true);
-                $log->info('Parie N°' . $bet->getId() . ' est calculé => ' . $bet->isCalculate() . ' TERMINE !');
+                $log->info('Pari N°' . $bet->getId() . ' est calculé => ' . $bet->isCalculate() . ' TERMINE !');
                 $log->info('=============================================================');
                 $entityManager->persist($bet);
                 $entityManager->flush();

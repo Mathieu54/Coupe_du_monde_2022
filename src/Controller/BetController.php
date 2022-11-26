@@ -155,4 +155,46 @@ class BetController extends AbstractController
             }
         }
     }
+
+    #[Route('/bet/see/{id}', name: 'app_see_bet')]
+    public function betSee(ManagerRegistry $doctrine, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+        $matche = $doctrine->getRepository(Matches::class)->findOneBy(['id' => $id]);
+        if($matche === null || $matche->getCountrie1() == null || $matche->getCountrie2() == null) {;
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $res_bet = [];
+            $res_matche = [];
+            if ((new DateTime()) > ($matche->getDate())) {
+                $getAllBet = $doctrine->getRepository(BetUser::class)->findBy(['matches' => $id]);
+              // dump($getAllBet);
+                $res_matche = [
+                    "id" => $matche->getId(),
+                    "date" => $matche->getDate(),
+                    "date_2_hours" => (clone $matche->getDate())->add(new DateInterval("PT2H")),
+                    "type_match" => $matche->getTypeMatch(),
+                    "countrie_1" => $matche->getCountrie1()->getName(),
+                    "countrie_1_flag" => $matche->getCountrie1()->getIsoFlag(),
+                    "countrie_2" => $matche->getCountrie2()->getName(),
+                    "countrie_2_flag" => $matche->getCountrie2()->getIsoFlag(),
+                    "score_countrie_1" => $matche->getScoreCountrie1(),
+                    "score_countrie_2" => $matche->getScoreCountrie2(),
+                ];
+                foreach ($getAllBet as $bet) {
+                    $res_bet[] = [
+                        "bet_score_countrie_1" => $bet->getScoreCountrie1(),
+                        "bet_score_countrie_2" => $bet->getScoreCountrie2(),
+                        "name" => $bet->getUser()->getName(),
+                    ];
+                }
+            }
+            return $this->render('pages/see_bet_other_match.html.twig', ['matche' => $res_matche, 'bet' => $res_bet]);
+        }
+    }
 }

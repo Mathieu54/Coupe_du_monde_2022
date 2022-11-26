@@ -12,6 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Monolog\Logger;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
 
 #[AsCommand(name: 'app:testemail2')]
 class TestEmail2 extends Command
@@ -28,19 +31,6 @@ class TestEmail2 extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $entityManager = $this->doctrine->getManager();
-        $getAllUser = $this->doctrine->getRepository(User::class)->findOneBy(["id" => 9]);
-            dump($getAllUser);
-            $email = (new TemplatedEmail())
-            ->from(new Address($_ENV["MAIL_BOT"], $_ENV["MAIL_BOT_NAME"]))
-            ->to($getAllUser->getEmail())
-            ->subject('Début Paris Coupe du Monde 2022')
-            ->htmlTemplate('mail/start_bet.html.twig');
-            try {
-                $this->mailerInterface->send($email);
-            } catch (TransportExceptionInterface $e) {
-                dump($e);
-            }
         return Command::SUCCESS;
     }
 }

@@ -377,7 +377,7 @@
     </style>
 </head>
 <body>
-<span class="preheader">Compte Validé !</span>
+<span class="preheader">Oublie de pari !</span>
 <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
         <td>&nbsp;</td>
@@ -393,112 +393,12 @@
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <h1>Bonsoir, {{ name }}</h1>
-                                        <p class="text-recap">Petit récapitulatif de la journée d'hier sur les paris de la coupe du monde 2022 !</p>
+                                        <h1>Bonjour, {{ name }}</h1>
+                                        <p class="text-recap">Je détecte que vous n'avez pas parié le prochain matche !</p>
+                                        <h3 style="text-align: center; font-size: 25px;">{{ countrie_1 }} - {{ countrie_2 }}</h3>
+                                        <p class="text-recap">Vous allez perdre la chance de gagner des points !</p>
+                                        <p class="text-recap">Si vous souhaitez arrêter de recevoir des emails vous pouvez changer vos préférences en cliquant <a href="http://cdm.harmant-mathieu.fr/profil/edit">ici</a> ou directement sur ce lien :<br><b>http://cdm.harmant-mathieu.fr/profil/edit</b></p>
                                     </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>
-                                        {% if(position == 1) %}
-                                            <p class="placement first_place">{{ position }}er</p>
-                                            <p class="text-recap marginposition">Incroyable tu es <b>{{ position }}er</b> !</p>
-                                            <p class="text-recap">Magnifique tu es 1er ! Que dire de plus ! </p>
-                                        {% endif %}
-                                        {% if(position == 2) %}
-                                            <p class="placement second_place">{{ position }}ème</p>
-                                            <p class="text-recap marginposition">Wouaaa tu es <b>{{ position }}ème</b> !</p>
-                                            <p class="text-recap">Tu es 2ème encore un petit effort pour décrocher le top 1 !</p>
-                                        {% endif %}
-                                        {% if(position == 3) %}
-                                            <p class="placement third_place">{{ position }}ème</p>
-                                            <p class="text-recap marginposition">Super tu es <b>{{ position }}ème</b> !</p>
-                                            <p class="text-recap">Tu es dans le top 3 ! Rien n'est perdu ! Accroche toi et fonce !</p>
-                                        {% endif %}
-                                        {% if(position == 4) %}
-                                            <p class="placement other_place">{{ position }}ème</p>
-                                            <p class="text-recap marginposition">Bien joué tu es <b>{{ position }}ème</b> !</p>
-                                            <p class="text-recap">Tu n'es malheuresement pas dans le top 3 ! <br>Ne jamais perdre espoir ! La victoire est proche !</p>
-                                        {% endif %}
-                                        {% if(position == 5) %}
-                                            <p class="placement other_place">{{ position }}ème</p>
-                                            <p class="text-recap marginposition">Humm tu es <b>{{ position }}ème</b> !</p>
-                                            <p class="text-recap">Rien n'est perdu !<br> Ils restent beaucoup de paris ! Concentre toi et bonne chance !</p>
-                                        {% endif %}
-                                        {% if((position >= 6) and (position < 10)) %}
-                                            <p class="placement other_place">{{ position }}ème</p>
-                                            <p class="text-recap marginposition">Aie tu es <b>{{ position }}ème</b> !</p>
-                                            <p class="text-recap">N'abandonne pas ! <br> Pourquoi arrêter alors qu'il suffit d'un score exacte pour gagner 3 points !</p>
-                                        {% endif %}
-                                        {% if(position >= 10) %}
-                                            <p class="placement other_place">{{ position }}ème</p>
-                                            <p class="text-recap marginposition">Catastrophique tu es <b>{{ position }}ème</b> !</p>
-                                            <p class="text-recap">La remontada est possible tu sais ! <br> Je crois en toi !</p>
-                                        {% endif %}
-                                        <p class="text-recap">Il est possible d'arrêter de recevoir les emails en modifiant vos préférences sur votre profil !</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <th>Score actuel : {{ scores }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Pari(s) réussi(s) (scores exactes) : {{ bet_win_bonus }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Pari(s) réussi(s) : {{ bet_win }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="marginend">Pari(s) perdu(s) : {{ bet_loses }}</th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <table class="table-score">
-                                        <thead>
-                                        <tr>
-                                            <th><i class="fa-solid fa-ranking-star"></i></th>
-                                            <th>Joueur</th>
-                                            <th>Points</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="fw-bold">
-                                        {% for res in leadboard %}
-                                            {% if (res.leadboard_number == "1") %}
-                                                <tr class="first_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                    <td class="col-4">{{ res.leadboard_number }}</td>
-                                                    <td class="col-4">{{ res.name }}</td>
-                                                    <td class="col-4">{{ res.scores }}</td>
-                                                </tr>
-                                            {% endif %}
-                                            {% if (res.leadboard_number == "2") %}
-                                                <tr class="second_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                    <td class="col-4">{{ res.leadboard_number }}</td>
-                                                    <td class="col-4">{{ res.name }}</td>
-                                                    <td class="col-4">{{ res.scores }}</td>
-                                                </tr>
-                                            {% endif %}
-                                            {% if(res.leadboard_number == "3") %}
-                                                <tr class="third_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                    <td class="col-4">{{ res.leadboard_number }}</td>
-                                                    <td class="col-4">{{ res.name }}</td>
-                                                    <td class="col-4">{{ res.scores }}</td>
-                                                </tr>
-                                            {% endif %}
-                                            {% if(res.leadboard_number != "1" and res.leadboard_number != "2" and res.leadboard_number != "3") %}
-                                                <tr onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                    <td class="col-4">{{ res.leadboard_number }}</td>
-                                                    <td class="col-4">{{ res.name }}</td>
-                                                    <td class="col-4">{{ res.scores }}</td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
                                 </tr>
                                 <tr>
                                     <td><p class="centertext">Cordialement l'équipe :p</p></td>

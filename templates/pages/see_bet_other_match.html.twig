@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des paris{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item" aria-current="page">Pari</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card mb-4 type_match_{{ matche.type_match }}" id="matche_number_{{ matche.id }}">
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-4 text-center g-0">
+                            <span class="flag-style fi fi-{{ matche.countrie_1_flag }}"></span>
+                            <p>{{ matche.countrie_1 }}</p>
+                        </div>
+                        <div class="col-4 d-flex align-items-center justify-content-center g-0">
+                            {% if date("now") >= matche.date %}
+                                {% if date("now") <= matche.date_2_hours %}
+                                    <p class="size_score">Match en cours...</p>
+                                {% else %}
+                                    <p class="size_score">{{ matche.score_countrie_1 }}
+                                        -{{ matche.score_countrie_2 }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="size_score">-</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-4 g-0">
+                            <span class="flag-style fi fi-{{ matche.countrie_2_flag }}"></span>
+                            <p>{{ matche.countrie_2 }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {% if date("now") >= matche.date %}
+                                {% if date("now") >= matche.date_2_hours %}
+                                    {% if(matche.score_countrie_1 == matche.score_countrie_2) %}
+                                        <p>Égalité !</p>
+                                    {% elseif(matche.score_countrie_1 > matche.score_countrie_2) %}
+                                        <p>{{ matche.countrie_1 }} à remporté ce match !</p>
+                                    {% else %}
+                                        <p>{{ matche.countrie_2 }} à remporté ce match !</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <h2 class="text-center">Paris des autres joueurs</h2>
+                                <div class="table-responsive">
+                                    <table class="table caption-top p-5">
+                                        <thead>
+                                        <tr>
+                                            <th>Joueur</th>
+                                            <th>Paris</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for key, res in bet %}
+                                            {% if(app.user.name == res.name) %}
+                                            <tr class="">
+                                                <td class="col-4"><b>{{ res.name }}</b> (Votre pari)</td>
+                                                <td class="col-4 fw-bold">{{ matche.countrie_1 }} <span class="fi fi-{{ matche.countrie_1_flag }}"></span> {{ res.bet_score_countrie_1 }} - {{ res.bet_score_countrie_2 }} <span class="fi fi-{{ matche.countrie_2_flag }}"></span> {{ matche.countrie_2 }}</td>
+                                            </tr>
+                                            {% else %}
+                                                <tr class="">
+                                                    <td class="col-4"><b>{{ res.name }}</b></td>
+                                                    <td class="col-4 fw-bold">{{ matche.countrie_1 }} <span class="fi fi-{{ matche.countrie_1_flag }}"></span> {{ res.bet_score_countrie_1 }} - {{ res.bet_score_countrie_2 }} <span class="fi fi-{{ matche.countrie_2_flag }}"></span> {{ matche.countrie_2 }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </section>
+    <style>
+        @media (min-width: 576px) {
+            .flag-style {
+                width: 100px !important;
+                height: 100px !important;
+            }
+        }
+        .flag-style {
+            width: 50px;
+            height: 50px;
+        }
+        .select-type-match-100, .select-type-match-7, .select-type-match-6, .select-type-match-5, .select-type-match-4, .select-type-match-3, .select-type-match-2, .select-type-match-1 {
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .size_score {
+            font-size: 25px;
+        }
+    </style>
+{% endblock %}
