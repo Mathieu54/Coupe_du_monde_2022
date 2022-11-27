@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix d'un groupe de pari{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item" aria-current="page">Paris bonus</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            {% set trans_day_hash = {
+                "Monday": "Lundi",
+                "Tuesday": "Mardi",
+                "Wednesday": "Mercredi",
+                "Thursday": "Jeudi",
+                "Friday": "Vendredi",
+                "Saturday": "Samedi",
+                "Sunday": "Dimanche"
+            } %}
+            {% set trans_month_hash = {
+                "January": "Janvier",
+                "February": "Février",
+                "March": "Mars",
+                "April": "Avril",
+                "May": "Mai",
+                "June": "Juin",
+                "July": "Juillet",
+                "August": "Août",
+                "September": "Septembre",
+                "October": "Octobre",
+                "November": "Novembre",
+                "December": "Décembre"
+            } %}
+            {% for key, res in qualifCountries %}
+                {% for qualifCountries in res %}
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="row mb-4">
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-12 mb-md-0 mb-2">
+                                            <h6>Équipe possible pouvant aller<br>en quarts de finale :</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if ((qualifCountries.countrie_1 != null) or (qualifCountries.countrie_2 != null) or (qualifCountries.countrie_3 != null) or (qualifCountries.countrie_4 != null)) %}
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_1_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_1 }}</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_2_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_2 }}</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_3_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_3 }}</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_4_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_4 }}</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-12 mt-md-0 mt-4">
+                                            <h6>Votre pari :</h6>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if ((qualifCountries.user_select_countrie_1 != null) or (qualifCountries.user_select_countrie_2 != null)) %}
+                                            <div class="col-5 col-md-5">
+                                                <span class="flag-style fi fi-{{ qualifCountries.user_select_countrie_1_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.user_select_countrie_1 }}</p>
+                                            </div>
+                                            <div class="col-2 col-md-2 m-auto">
+                                                <p class="m-0">VS</p>
+                                            </div>
+                                            <div class="col-5 col-md-5">
+                                                <span class="flag-style fi fi-{{ qualifCountries.user_select_countrie_2_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.user_select_countrie_2 }}</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-12 col-md-12">
+                                                <p class="my-4 text-dark"><i class="fs-2 fa-solid fa-face-sad-tear"></i></p>
+                                                <p class="mb-0">Aucun pari ! Dommage...</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                {% if ((qualifCountries.countrie_1 != null) or (qualifCountries.countrie_2 != null) or (qualifCountries.countrie_3 != null) or (qualifCountries.countrie_4 != null)) %}
+                                    <div class="col-12">
+                                        {% if date("now") <= qualifCountries.date %}
+                                            {% if (qualifCountries.user_select_countrie_1 != null) or (qualifCountries.user_select_countrie_2 != null) %}
+                                                <a href="{{ path("app_edit_bet_bonus", {"id": qualifCountries.id}) }}" type="button" class="btn btn-yellow-modif btn-lg">Modifier le pari</a>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                            {% else %}
+                                                <a href="{{ path("app_add_bet_bonus", {"id": qualifCountries.id}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier les équipes</a>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                {% else %}
+                                    <div class="col-12 col-md-12 d-flex align-items-center justify-content-center flex-column">
+                                        <button type="button" class="btn btn-disabled btn-lg">Pari indisponible</button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <br>
+        <br>
+        <br>
+    </section>
+    <style>
+        @media (min-width: 576px) {
+            .flag-style {
+                width: 100px !important;
+                height: 100px !important;
+            }
+        }
+        .groupe {
+            background-color: rgb(137, 9, 47);
+            color: white;
+            width: 25px;
+            margin-right: 11px;
+        }
+        .flag-style {
+            width: 50px;
+            height: 50px;
+        }
+        .select-type-match-100, .select-type-match-7, .select-type-match-6, .select-type-match-5, .select-type-match-4, .select-type-match-3, .select-type-match-2, .select-type-match-1 {
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .size_score {
+            font-size: 25px;
+        }
+    </style>
+{% endblock %}

@@ -11,7 +11,7 @@
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">Accueil</li>
                             <li class="breadcrumb-item"><a href="{{ path("app_bet") }}">Paris</a></li>
-                            <li class="breadcrumb-item" aria-current="page">1er Journée Phases de groupes</li>
+                            <li class="breadcrumb-item" aria-current="page">Pari <b>{{ matche.countrie_1 }}</b> - <b>{{ matche.countrie_2 }}</b></li>
                         </ol>
                     </nav>
                 </div>
@@ -125,12 +125,12 @@
                             {{ form_widget(bet_form.score_countrie_2, {'attr': {'class': 'form-control form-control-lg', 'inputmode' : 'numeric', 'pattern' : '[0-9]*', 'min' : 0 , 'max' : 999}}) }}
                         </div>
                         <div class="col-12 col-md-12">
+                            <a href="{{ path("app_bet") }}" class="btn btn-danger btn-block btn-lg">
+                                Annuler
+                            </a>
                             <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
                                 Valider
                             </button>
-                            <a href="{{ path("app_bet") }}" class="btn btn-bordeaux btn-block btn-lg">
-                                Annuler
-                            </a>
                         </div>
                     </div>
                     {{ form_end(bet_form) }}
