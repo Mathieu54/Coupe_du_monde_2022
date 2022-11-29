@@ -68,9 +68,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $status_score_email = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: BetQualificationCountries::class, orphanRemoval: true)]
+    private Collection $betQualificationCountries;
+
     public function __construct()
     {
         $this->betUsers = new ArrayCollection();
+        $this->betQualificationCountries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -294,6 +298,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatusScoreEmail(bool $status_score_email): self
     {
         $this->status_score_email = $status_score_email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BetQualificationCountries>
+     */
+    public function getBetQualificationCountries(): Collection
+    {
+        return $this->betQualificationCountries;
+    }
+
+    public function addBetQualificationCountry(BetQualificationCountries $betQualificationCountry): self
+    {
+        if (!$this->betQualificationCountries->contains($betQualificationCountry)) {
+            $this->betQualificationCountries->add($betQualificationCountry);
+            $betQualificationCountry->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBetQualificationCountry(BetQualificationCountries $betQualificationCountry): self
+    {
+        if ($this->betQualificationCountries->removeElement($betQualificationCountry)) {
+            // set the owning side to null (unless already changed)
+            if ($betQualificationCountry->getUser() === $this) {
+                $betQualificationCountry->setUser(null);
+            }
+        }
 
         return $this;
     }

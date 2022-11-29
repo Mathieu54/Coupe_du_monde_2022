@@ -1,0 +1,301 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix d'un groupe de pari{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item" aria-current="page">Paris bonus</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            {% set trans_day_hash = {
+                "Monday": "Lundi",
+                "Tuesday": "Mardi",
+                "Wednesday": "Mercredi",
+                "Thursday": "Jeudi",
+                "Friday": "Vendredi",
+                "Saturday": "Samedi",
+                "Sunday": "Dimanche"
+            } %}
+            {% set trans_month_hash = {
+                "January": "Janvier",
+                "February": "Février",
+                "March": "Mars",
+                "April": "Avril",
+                "May": "Mai",
+                "June": "Juin",
+                "July": "Juillet",
+                "August": "Août",
+                "September": "Septembre",
+                "October": "Octobre",
+                "November": "Novembre",
+                "December": "Décembre"
+            } %}
+            {% set type_phase_quarts = false %}
+            {% set type_phase_demi = false %}
+            {% set type_phase_finale = false %}
+            {% for key, res in qualifCountries %}
+                {% for qualifCountries in res %}
+                    {% if qualifCountries.type_phase == "quarts" and type_phase_quarts == false %}
+                        {% set type_phase_quarts = true %}
+                        <div class="row mb-4">
+                            <div class="col select-type-phase-quarts">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Parier sur les potentielles équipes en quarts de finale</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if qualifCountries.type_phase == "demi" and type_phase_demi == false %}
+                        {% set type_phase_demi = true %}
+                        <div class="row mb-4 mt">
+                            <div class="col select-type-phase-demi">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Parier sur les potentielles équipes en demi-finales</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if qualifCountries.type_phase == "finale" and type_phase_finale == false %}
+                        {% set type_phase_finale = true %}
+                        <div class="row mb-4">
+                            <div class="col select-type-phase-finale">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Parier sur les potentielles équipes en finale</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="card my-4 type_phase_{{ qualifCountries.type_phase }}">
+                        <div class="card-body text-center">
+                            <div class="row mb-4">
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-12 mb-md-0 mb-2">
+                                            <h6>Équipe possible pouvant aller<br>en quarts de finale :</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if ((qualifCountries.countrie_1 != null) or (qualifCountries.countrie_2 != null) or (qualifCountries.countrie_3 != null) or (qualifCountries.countrie_4 != null)) %}
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_1_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_1 }}</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_2_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_2 }}</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_3_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_3 }}</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_4_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.countrie_4 }}</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <i class="flag-style fa-solid fa-circle-question"></i>
+                                                <p class="mb-0">À venir</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-12 mt-md-0 mt-4">
+                                            <h6>Votre pari :</h6>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% if ((qualifCountries.user_select_countrie_1 != null) or (qualifCountries.user_select_countrie_2 != null)) %}
+                                            <div class="col-5 col-md-5">
+                                                <span class="flag-style fi fi-{{ qualifCountries.user_select_countrie_1_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.user_select_countrie_1 }}</p>
+                                            </div>
+                                            <div class="col-2 col-md-2 m-auto">
+                                                <p class="m-0">VS</p>
+                                            </div>
+                                            <div class="col-5 col-md-5">
+                                                <span class="flag-style fi fi-{{ qualifCountries.user_select_countrie_2_flag }}"></span>
+                                                <p class="m-0">{{ qualifCountries.user_select_countrie_2 }}</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-12 col-md-12">
+                                                <p class="my-4 text-dark"><i class="fs-2 fa-solid fa-face-sad-tear"></i></p>
+                                                <p class="mb-0">Aucun pari ! Dommage...</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                {% if ((qualifCountries.countrie_1 != null) or (qualifCountries.countrie_2 != null) or (qualifCountries.countrie_3 != null) or (qualifCountries.countrie_4 != null)) %}
+                                    <div class="col-12">
+                                        {% if date("now") <= qualifCountries.date %}
+                                            {% if (qualifCountries.user_select_countrie_1 != null) or (qualifCountries.user_select_countrie_2 != null) %}
+                                                <a href="{{ path("app_edit_bet_bonus", {"id": qualifCountries.id}) }}" type="button" class="btn btn-yellow-modif btn-lg">Modifier le pari</a>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                                <p class="timer-bet mb-0" data-date-timer="{{ qualifCountries.date|date("M") }} {{ qualifCountries.date|date("j") }}, {{ qualifCountries.date|date("Y") }} {{ qualifCountries.date|date("H:i:s") }}">&nbsp;</p>
+                                            {% else %}
+                                                <a href="{{ path("app_add_bet_bonus", {"id": qualifCountries.id}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier les équipes</a>
+                                                <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                                <p class="timer-bet mb-0" data-date-timer="{{ qualifCountries.date|date("M") }} {{ qualifCountries.date|date("j") }}, {{ qualifCountries.date|date("Y") }} {{ qualifCountries.date|date("H:i:s") }}">&nbsp;</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                {% else %}
+                                    <div class="col-12 col-md-12 d-flex align-items-center justify-content-center flex-column">
+                                        <button type="button" class="btn btn-disabled btn-lg">Pari indisponible</button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <br>
+        <br>
+        <br>
+    </section>
+    <style>
+        @media (min-width: 576px) {
+            .flag-style {
+                width: 100px !important;
+                height: 100px !important;
+            }
+        }
+        .flag-style {
+            width: 50px;
+            height: 50px;
+        }
+        .select-type-phase-quarts, .select-type-phase-demi, .select-type-phase-finale {
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $('.type_phase_quarts').toggle(false);
+        $('.type_phase_demi').toggle(false);
+        $('.type_phase_finale').toggle(false);
+        $('.select-type-phase-quarts').click(function(){
+            $('.type_phase_quarts').toggle();
+        });
+        $('.select-type-phase-demi').click(function(){
+            $('.type_phase_demi').toggle();
+        });
+        $('.select-type-phase-finale').click(function(){
+            $('.type_phase_finale').toggle();
+        });
+    </script>
+    <script>
+        var x = setInterval(function () {
+            $('.timer-bet').each(function (index) {
+                var countDownDate = new Date($(this).attr('data-date-timer')).getTime();
+
+                var now = new Date().getTime();
+
+                var distance = countDownDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                // Display the result in the element with id="demo"
+                if (days !== 0) {
+                    if (days === 1) {
+                        days = "<b>" + days + "</b> jour ";
+                    } else {
+                        days = "<b>" + days + "</b> jours ";
+                    }
+                } else {
+                    days = "";
+                }
+                if (hours !== 0) {
+                    if (hours === 1) {
+                        hours = "<b>" + hours + "</b> heure ";
+                    } else {
+                        hours = "<b>" + hours + "</b> heures ";
+                    }
+                } else {
+                    hours = "";
+                }
+                if (minutes !== 0) {
+                    if (minutes === 1) {
+                        minutes = "<b>" + minutes + "</b> minute ";
+                    } else {
+                        minutes = "<b>" + minutes + "</b> minutes ";
+                    }
+                } else {
+                    minutes = "";
+                }
+                if (seconds !== 0) {
+                    if (seconds === 1) {
+                        seconds = " et <b>" + seconds + "</b> seconde ";
+                    } else {
+                        seconds = " et <b>" + seconds + "</b> secondes ";
+                    }
+                } else {
+                    seconds = "";
+                }
+                if (days === "" && hours === "" && minutes === "") {
+                    console.log("il est la");
+                    seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (seconds === 1) {
+                        seconds = "<b>" + seconds + "</b> seconde ";
+                    } else {
+                        seconds = "<b>" + seconds + "</b> secondes ";
+                    }
+                }
+                $(this).html(days + hours + minutes + seconds);
+
+                if (distance <= 0) {
+                    $(this).text("Pari cloturé !");
+                }
+            });
+        }, 1000);
+    </script>
+{% endblock %}

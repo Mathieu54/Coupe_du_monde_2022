@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\BetQualificationCountries;
 use App\Entity\BetUser;
 use App\Entity\Matches;
+use App\Entity\QualificationCountries;
 use App\Form\BetUserFormType;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -195,6 +198,145 @@ class BetController extends AbstractController
                 }
             }
             return $this->render('pages/see_bet_other_match.html.twig', ['matche' => $res_matche, 'bet' => $res_bet]);
+        }
+    }
+
+    #[Route('/bet/bonus', name: 'app_bet_bonus')]
+    public function betBonus(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+
+        $getAllQualificationCountries = $doctrine->getRepository(QualificationCountries::class)->findAll();
+        $list_qualif_countries = [];
+        foreach ($getAllQualificationCountries as $qualifCountries) {
+            $actual_bet_user = $doctrine->getRepository(BetQualificationCountries::class)->findOneBy(["user" => $this->getUser()->getId(), "qualification_countries" => $qualifCountries->getId()]);
+
+                $list_qualif_countries[$qualifCountries->getId()][] = [
+                    "id" => $qualifCountries->getId(),
+                    "first_countrie_res" => ($qualifCountries->getFirstCountryRes() == null) ? null : $qualifCountries->getFirstCountryRes()->getName(),
+                    "first_countrie_res_flag" => ($qualifCountries->getFirstCountryRes() == null) ? null : $qualifCountries->getFirstCountryRes()->getIsoFlag(),
+                    "second_countrie_res" => ($qualifCountries->getSecondCountryRes() == null) ? null : $qualifCountries->getSecondCountryRes()->getName(),
+                    "second_countrie_res_flag" => ($qualifCountries->getSecondCountryRes() == null) ? null : $qualifCountries->getSecondCountryRes()->getIsoFlag(),
+                    "countrie_1" => ($qualifCountries->getCountrie1Eighth() == null) ? null : $qualifCountries->getCountrie1Eighth()->getName(),
+                    "countrie_1_flag" => ($qualifCountries->getCountrie1Eighth() == null) ? null : $qualifCountries->getCountrie1Eighth()->getIsoFlag(),
+                    "countrie_2" => ($qualifCountries->getCountrie2Eighth() == null) ? null : $qualifCountries->getCountrie2Eighth()->getName(),
+                    "countrie_2_flag" => ($qualifCountries->getCountrie2Eighth() == null) ? null : $qualifCountries->getCountrie2Eighth()->getIsoFlag(),
+                    "countrie_3" => ($qualifCountries->getCountrie3Eighth() == null) ? null : $qualifCountries->getCountrie3Eighth()->getName(),
+                    "countrie_3_flag" => ($qualifCountries->getCountrie3Eighth() == null) ? null : $qualifCountries->getCountrie3Eighth()->getIsoFlag(),
+                    "countrie_4" => ($qualifCountries->getCountrie4Eighth() == null) ? null : $qualifCountries->getCountrie4Eighth()->getName(),
+                    "countrie_4_flag" => ($qualifCountries->getCountrie4Eighth() == null) ? null : $qualifCountries->getCountrie4Eighth()->getIsoFlag(),
+                    "date" => $qualifCountries->getDate(),
+                    "date_4_hours" => (clone $qualifCountries->getDate())->add(new DateInterval("PT4H")),
+                    "user_select_countrie_1" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie1()->getName(),
+                    "user_select_countrie_1_flag" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie1()->getIsoFlag(),
+                    "user_select_countrie_2" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie2()->getName(),
+                    "user_select_countrie_2_flag" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie2()->getIsoFlag(),
+                    "type_phase" => $qualifCountries->getTypePhase()
+                ];
+        }
+
+        return $this->render('pages/bet_bonus.html.twig', ["qualifCountries" => $list_qualif_countries]);
+
+    }
+
+    #[Route('/bet/bonus/edit/{id}', name: 'app_edit_bet_bonus')]
+    public function betEditBonus(ManagerRegistry $doctrine, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+        $qualifCountrie = $doctrine->getRepository(QualificationCountries::class)->findOneBy(['id' => $id]);
+        if($qualifCountrie === null || $qualifCountrie->getCountrie1Eighth() == null || $qualifCountrie->getCountrie2Eighth() == null || $qualifCountrie->getCountrie3Eighth() == null || $qualifCountrie->getCountrie4Eighth() == null) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $bet_qualif_countrie = $doctrine->getRepository(BetQualificationCountries::class)->findOneBy(["user" => $this->getUser()->getId(), "qualification_countries" => $qualifCountrie->getId()]);
+            if($bet_qualif_countrie === null) {
+                return $this->redirectToRoute('app_add_bet_bonus', ['id' => $id]);
+            } else {
+                if(($qualifCountrie->getDate()) > (new DateTime())) {
+                    $form = $this->createFormBuilder($bet_qualif_countrie)
+                        ->add('countrie_1',ChoiceType::class, [
+                            'choices'  => [
+                                $qualifCountrie->getCountrie1Eighth()->getName() => $qualifCountrie->getCountrie1Eighth(),
+                                $qualifCountrie->getCountrie2Eighth()->getName() => $qualifCountrie->getCountrie2Eighth(),
+                            ],
+                        ])->add('countrie_2',ChoiceType::class, [
+                            'choices'  => [
+                                $qualifCountrie->getCountrie3Eighth()->getName() => $qualifCountrie->getCountrie3Eighth(),
+                                $qualifCountrie->getCountrie4Eighth()->getName() => $qualifCountrie->getCountrie4Eighth(),
+                            ],
+                        ])->getForm();
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $bet_qualif_countrie->setCountrie1($form->get('countrie_1')->getData());
+                        $bet_qualif_countrie->setCountrie2($form->get('countrie_2')->getData());
+                        $entityManager->persist($bet_qualif_countrie);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet_bonus');
+                    }
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
+                }
+                return $this->render('pages/bet_form_bonus.html.twig', ["bet_form" => $form->createView()]);
+            }
+        }
+    }
+
+    #[Route('/bet/bonus/add/{id}', name: 'app_add_bet_bonus')]
+    public function betAddBonus(ManagerRegistry $doctrine, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+        $qualifCountrie = $doctrine->getRepository(QualificationCountries::class)->findOneBy(['id' => $id]);
+        if($qualifCountrie === null || $qualifCountrie->getCountrie1Eighth() == null || $qualifCountrie->getCountrie2Eighth() == null || $qualifCountrie->getCountrie3Eighth() == null || $qualifCountrie->getCountrie4Eighth() == null) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $bet_qualif_countrie = $doctrine->getRepository(BetQualificationCountries::class)->findOneBy(["user" => $this->getUser()->getId(), "qualification_countries" => $qualifCountrie->getId()]);
+            if($bet_qualif_countrie != null) {
+                return $this->redirectToRoute('app_edit_bet_bonus', ['id' => $id]);
+            } else {
+                if(($qualifCountrie->getDate()) > (new DateTime())) {
+                    $new_bet = new BetQualificationCountries();
+                    $form = $this->createFormBuilder($new_bet)
+                        ->add('countrie_1',ChoiceType::class, [
+                            'choices'  => [
+                                $qualifCountrie->getCountrie1Eighth()->getName() => $qualifCountrie->getCountrie1Eighth(),
+                                $qualifCountrie->getCountrie2Eighth()->getName() => $qualifCountrie->getCountrie2Eighth(),
+                            ],
+                        ])->add('countrie_2',ChoiceType::class, [
+                            'choices'  => [
+                                $qualifCountrie->getCountrie3Eighth()->getName() => $qualifCountrie->getCountrie3Eighth(),
+                                $qualifCountrie->getCountrie4Eighth()->getName() => $qualifCountrie->getCountrie4Eighth(),
+                            ],
+                        ])->getForm();
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $new_bet->setCountrie1($form->get('countrie_1')->getData());
+                        $new_bet->setCountrie2($form->get('countrie_2')->getData());
+                        $new_bet->setQualificationCountries($qualifCountrie);
+                        $new_bet->setUser($this->getUser());
+                        $new_bet->setCalculation(false);
+                        $entityManager->persist($new_bet);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet_bonus');
+                    }
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
+                }
+                return $this->render('pages/bet_form_bonus.html.twig', ["bet_form" => $form->createView()]);
+            }
         }
     }
 }

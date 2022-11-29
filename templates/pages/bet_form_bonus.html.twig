@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix d'un groupe de pari{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">Accueil</li>
+                            <li class="breadcrumb-item"><a href="{{ path("app_bet_bonus") }}">Paris bonus</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <h3>Sélectionner les deux pays<br>qui vont se rencontrer</h3>
+                        </div>
+                    </div>
+                    {{ form_start(bet_form) }}
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            {{ form_widget(bet_form.countrie_1, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
+                        </div>
+                        <div class="col-12 col-md-4 m-auto fw-bold">
+                            <p class="m-md-0 my-4">VS</p>
+                        </div>
+                        <div class="col-12 col-md-4 text-center">
+                            {{ form_widget(bet_form.countrie_2, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
+                        </div>
+                        <div class="col-12 col-md-12 mt-5">
+                            <a href="{{ path("app_bet_bonus") }}" class="btn btn-danger btn-block btn-lg">
+                                Annuler
+                            </a>
+                            <button type="submit" class="btn btn-bordeaux btn-block btn-lg">
+                                Valider
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(bet_form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        @media (min-width: 576px) {
+            .flag-style {
+                width: 100px !important;
+                height: 100px !important;
+            }
+        }
+
+        .flag-style {
+            width: 50px;
+            height: 50px;
+        }
+        select {
+            -webkit-appearance:none;
+        }
+    </style>
+{% endblock %}

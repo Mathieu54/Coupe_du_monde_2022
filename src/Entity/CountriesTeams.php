@@ -27,9 +27,29 @@ class CountriesTeams
     #[ORM\OneToMany(mappedBy: 'countrie_1', targetEntity: Matches::class)]
     private Collection $matches;
 
+    #[ORM\OneToMany(mappedBy: 'countrie_1', targetEntity: BetQualificationCountries::class, orphanRemoval: true)]
+    private Collection $betQualificationCountries;
+
+    #[ORM\OneToMany(mappedBy: 'countrie_1_eighth', targetEntity: QualificationCountries::class)]
+    private Collection $qualificationCountriesRes;
+
+    #[ORM\OneToMany(mappedBy: 'countrie_2_eighth', targetEntity: QualificationCountries::class)]
+    private Collection $qualificationCountriesRes2;
+
+    #[ORM\OneToMany(mappedBy: 'countrie_3_eighth', targetEntity: QualificationCountries::class)]
+    private Collection $qualificationCountriesRes3;
+
+    #[ORM\OneToMany(mappedBy: 'countrie_4_eighth', targetEntity: QualificationCountries::class)]
+    private Collection $qualificationCountriesRes4;
+
     public function __construct()
     {
         $this->matches = new ArrayCollection();
+        $this->betQualificationCountries = new ArrayCollection();
+        $this->qualificationCountriesRes = new ArrayCollection();
+        $this->qualificationCountriesRes2 = new ArrayCollection();
+        $this->qualificationCountriesRes3 = new ArrayCollection();
+        $this->qualificationCountriesRes4 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +117,156 @@ class CountriesTeams
             // set the owning side to null (unless already changed)
             if ($match->getCountrie1() === $this) {
                 $match->setCountrie1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BetQualificationCountries>
+     */
+    public function getBetQualificationCountries(): Collection
+    {
+        return $this->betQualificationCountries;
+    }
+
+    public function addBetQualificationCountry(BetQualificationCountries $betQualificationCountry): self
+    {
+        if (!$this->betQualificationCountries->contains($betQualificationCountry)) {
+            $this->betQualificationCountries->add($betQualificationCountry);
+            $betQualificationCountry->setCountrie1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBetQualificationCountry(BetQualificationCountries $betQualificationCountry): self
+    {
+        if ($this->betQualificationCountries->removeElement($betQualificationCountry)) {
+            // set the owning side to null (unless already changed)
+            if ($betQualificationCountry->getCountrie1() === $this) {
+                $betQualificationCountry->setCountrie1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QualificationCountries>
+     */
+    public function getQualificationCountriesRes(): Collection
+    {
+        return $this->qualificationCountriesRes;
+    }
+
+    public function addQualificationCountriesRe(QualificationCountries $qualificationCountriesRe): self
+    {
+        if (!$this->qualificationCountriesRes->contains($qualificationCountriesRe)) {
+            $this->qualificationCountriesRes->add($qualificationCountriesRe);
+            $qualificationCountriesRe->setCountrie1Eighth($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQualificationCountriesRe(QualificationCountries $qualificationCountriesRe): self
+    {
+        if ($this->qualificationCountriesRes->removeElement($qualificationCountriesRe)) {
+            // set the owning side to null (unless already changed)
+            if ($qualificationCountriesRe->getCountrie1Eighth() === $this) {
+                $qualificationCountriesRe->setCountrie1Eighth(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QualificationCountries>
+     */
+    public function getQualificationCountriesRes2(): Collection
+    {
+        return $this->qualificationCountriesRes2;
+    }
+
+    public function addQualificationCountriesRes2(QualificationCountries $qualificationCountriesRes2): self
+    {
+        if (!$this->qualificationCountriesRes2->contains($qualificationCountriesRes2)) {
+            $this->qualificationCountriesRes2->add($qualificationCountriesRes2);
+            $qualificationCountriesRes2->setCountrie2Eighth($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQualificationCountriesRes2(QualificationCountries $qualificationCountriesRes2): self
+    {
+        if ($this->qualificationCountriesRes2->removeElement($qualificationCountriesRes2)) {
+            // set the owning side to null (unless already changed)
+            if ($qualificationCountriesRes2->getCountrie2Eighth() === $this) {
+                $qualificationCountriesRes2->setCountrie2Eighth(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QualificationCountries>
+     */
+    public function getQualificationCountriesRes3(): Collection
+    {
+        return $this->qualificationCountriesRes3;
+    }
+
+    public function addQualificationCountriesRes3(QualificationCountries $qualificationCountriesRes3): self
+    {
+        if (!$this->qualificationCountriesRes3->contains($qualificationCountriesRes3)) {
+            $this->qualificationCountriesRes3->add($qualificationCountriesRes3);
+            $qualificationCountriesRes3->setCountrie3Eighth($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQualificationCountriesRes3(QualificationCountries $qualificationCountriesRes3): self
+    {
+        if ($this->qualificationCountriesRes3->removeElement($qualificationCountriesRes3)) {
+            // set the owning side to null (unless already changed)
+            if ($qualificationCountriesRes3->getCountrie3Eighth() === $this) {
+                $qualificationCountriesRes3->setCountrie3Eighth(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QualificationCountries>
+     */
+    public function getQualificationCountriesRes4(): Collection
+    {
+        return $this->qualificationCountriesRes4;
+    }
+
+    public function addQualificationCountriesRes4(QualificationCountries $qualificationCountriesRes4): self
+    {
+        if (!$this->qualificationCountriesRes4->contains($qualificationCountriesRes4)) {
+            $this->qualificationCountriesRes4->add($qualificationCountriesRes4);
+            $qualificationCountriesRes4->setCountrie4Eighth($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQualificationCountriesRes4(QualificationCountries $qualificationCountriesRes4): self
+    {
+        if ($this->qualificationCountriesRes4->removeElement($qualificationCountriesRes4)) {
+            // set the owning side to null (unless already changed)
+            if ($qualificationCountriesRes4->getCountrie4Eighth() === $this) {
+                $qualificationCountriesRes4->setCountrie4Eighth(null);
             }
         }
 

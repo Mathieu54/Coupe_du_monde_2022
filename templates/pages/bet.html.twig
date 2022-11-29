@@ -193,7 +193,6 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <a href="{{ path("app_see_bet", {"id": matche.id}) }}" class="text-decoration-none text-black">
                                 <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="row">
@@ -313,7 +312,6 @@
                                     </div>
                                 </div>
                             </div>
-                            </a>
                             <div class="row position-relative">
                                 <div class="col-12 col-md-12 d-flex align-items-center justify-content-center flex-column">
                                     {% if matche.countrie_1 != "null" or matche.countrie_2 != "null" %}
@@ -327,6 +325,8 @@
                                                 <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
                                                 <p class="timer-bet mb-0" data-date-timer="{{ matche.date|date("M") }} {{ matche.date|date("j") }}, {{ matche.date|date("Y") }} {{ matche.date|date("H:i:s") }}">&nbsp;</p>
                                             {% endif %}
+                                        {% else %}
+                                            <a href="{{ path("app_see_bet", {id: matche.id}) }}" class="btn btn-primary btn-lg">Voir tous les paris</a>
                                         {% endif %}
                                     {% else %}
                                         <button type="button" class="btn btn-disabled btn-lg">Pari indisponible</button>
@@ -344,6 +344,8 @@
                 {% endfor %}
             {% endfor %}
         </div>
+        <br>
+        <br>
         <br>
         <br>
     </section>
