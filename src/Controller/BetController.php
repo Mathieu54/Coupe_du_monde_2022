@@ -359,7 +359,19 @@ class BetController extends AbstractController
                 $res_matche = [
                     "id" => $qualifCountrie->getId(),
                     "date" => $qualifCountrie->getDate(),
-                    "date_2_hours" => (clone $qualifCountrie->getDate())->add(new DateInterval("PT4H")),
+                    "type_phase" => $qualifCountrie->getTypePhase(),
+                    "first_countrie_res" => ($qualifCountrie->getFirstCountryRes() == null) ? null : $qualifCountrie->getFirstCountryRes()->getName(),
+                    "first_countrie_res_flag" => ($qualifCountrie->getFirstCountryRes() == null) ? null : $qualifCountrie->getFirstCountryRes()->getIsoFlag(),
+                    "second_countrie_res" => ($qualifCountrie->getSecondCountryRes() == null) ? null : $qualifCountrie->getSecondCountryRes()->getName(),
+                    "second_countrie_res_flag" => ($qualifCountrie->getSecondCountryRes() == null) ? null : $qualifCountrie->getSecondCountryRes()->getIsoFlag(),
+                    "countrie_1" => ($qualifCountrie->getCountrie1Eighth() == null) ? null : $qualifCountrie->getCountrie1Eighth()->getName(),
+                    "countrie_1_flag" => ($qualifCountrie->getCountrie1Eighth() == null) ? null : $qualifCountrie->getCountrie1Eighth()->getIsoFlag(),
+                    "countrie_2" => ($qualifCountrie->getCountrie2Eighth() == null) ? null : $qualifCountrie->getCountrie2Eighth()->getName(),
+                    "countrie_2_flag" => ($qualifCountrie->getCountrie2Eighth() == null) ? null : $qualifCountrie->getCountrie2Eighth()->getIsoFlag(),
+                    "countrie_3" => ($qualifCountrie->getCountrie3Eighth() == null) ? null : $qualifCountrie->getCountrie3Eighth()->getName(),
+                    "countrie_3_flag" => ($qualifCountrie->getCountrie3Eighth() == null) ? null : $qualifCountrie->getCountrie3Eighth()->getIsoFlag(),
+                    "countrie_4" => ($qualifCountrie->getCountrie4Eighth() == null) ? null : $qualifCountrie->getCountrie4Eighth()->getName(),
+                    "countrie_4_flag" => ($qualifCountrie->getCountrie4Eighth() == null) ? null : $qualifCountrie->getCountrie4Eighth()->getIsoFlag(),
                 ];
                 foreach ($getAllBet as $bet) {
                     $res_bet[] = [
@@ -370,7 +382,7 @@ class BetController extends AbstractController
                         "name" => $bet->getUser()->getName(),
                     ];
                 }
-                return $this->render('pages/see_bet_bonus_other.html.twig', ['matche' => $res_matche, 'bet' => $res_bet]);
+                return $this->render('pages/see_bet_bonus_other.html.twig', ['qualifCountries' => $res_matche, 'bet' => $res_bet]);
             } else {
                 return $this->render('bundles/TwigBundle/Exception/you_cant_see.html.twig');
             }
