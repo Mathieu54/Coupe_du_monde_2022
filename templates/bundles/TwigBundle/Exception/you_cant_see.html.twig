@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trop tard{% endblock %}
+{% block title %}Impossible de voir les paris{% endblock %}
 
 {% block body %}
     <section class="vh-100 bg-image">
@@ -12,7 +12,7 @@
                             <div class="card-body p-5 text-center">
                                 <p class="fs-1 m-0 text-warning"><i class="fa-solid fa-stopwatch"></i></p>
                                 <h2 class="text-uppercase fs-1">Impossible</h2>
-                                <p class="fs-5">Il est trop tard pour faire ou modifier ce pari !</p>
+                                <p class="fs-5">Petit malin !<br>Il faut attendre la fin du temps pour voir les paris !</p>
                                 <a href="{{ path("app_bet") }}" class="btn btn-bordeaux">Revenir aux paris</a>
                                 <a href="{{ path("app_bet_bonus") }}" class="btn btn-bordeaux">Revenir aux paris bonus</a>
                             </div>

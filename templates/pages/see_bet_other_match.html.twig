@@ -73,13 +73,13 @@
                                         {% for key, res in bet %}
                                             {% if(app.user.name == res.name) %}
                                             <tr class="">
-                                                <td class="col-4"><b>{{ res.name }}</b> (Votre pari)</td>
-                                                <td class="col-4 fw-bold">{{ matche.countrie_1 }} <span class="fi fi-{{ matche.countrie_1_flag }}"></span> {{ res.bet_score_countrie_1 }} - {{ res.bet_score_countrie_2 }} <span class="fi fi-{{ matche.countrie_2_flag }}"></span> {{ matche.countrie_2 }}</td>
+                                                <td class="col-2 col-md-6"><b>{{ res.name }}</b><br>(Votre pari)</td>
+                                                <td class="col-6 col-md-6 fw-bold">{{ matche.countrie_1 }} <span class="fi fi-{{ matche.countrie_1_flag }}"></span> {{ res.bet_score_countrie_1 }} - {{ res.bet_score_countrie_2 }} <span class="fi fi-{{ matche.countrie_2_flag }}"></span> {{ matche.countrie_2 }}</td>
                                             </tr>
                                             {% else %}
                                                 <tr class="">
-                                                    <td class="col-4"><b>{{ res.name }}</b></td>
-                                                    <td class="col-4 fw-bold">{{ matche.countrie_1 }} <span class="fi fi-{{ matche.countrie_1_flag }}"></span> {{ res.bet_score_countrie_1 }} - {{ res.bet_score_countrie_2 }} <span class="fi fi-{{ matche.countrie_2_flag }}"></span> {{ matche.countrie_2 }}</td>
+                                                    <td class="col-2 col-md-6"><b>{{ res.name }}</b></td>
+                                                    <td class="col-6 col-md-6 fw-bold">{{ matche.countrie_1 }} <span class="fi fi-{{ matche.countrie_1_flag }}"></span> {{ res.bet_score_countrie_1 }} - {{ res.bet_score_countrie_2 }} <span class="fi fi-{{ matche.countrie_2_flag }}"></span> {{ matche.countrie_2 }}</td>
                                                 </tr>
                                             {% endif %}
                                         {% endfor %}

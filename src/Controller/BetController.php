@@ -173,10 +173,8 @@ class BetController extends AbstractController
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
         } else {
             $res_bet = [];
-            $res_matche = [];
             if ((new DateTime()) > ($matche->getDate())) {
                 $getAllBet = $doctrine->getRepository(BetUser::class)->findBy(['matches' => $id]);
-              // dump($getAllBet);
                 $res_matche = [
                     "id" => $matche->getId(),
                     "date" => $matche->getDate(),
@@ -196,6 +194,8 @@ class BetController extends AbstractController
                         "name" => $bet->getUser()->getName(),
                     ];
                 }
+            } else {
+                return $this->render('bundles/TwigBundle/Exception/you_cant_see.html.twig');
             }
             return $this->render('pages/see_bet_other_match.html.twig', ['matche' => $res_matche, 'bet' => $res_bet]);
         }
@@ -336,6 +336,55 @@ class BetController extends AbstractController
                     return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
                 }
                 return $this->render('pages/bet_form_bonus.html.twig', ["bet_form" => $form->createView()]);
+            }
+        }
+    }
+
+    #[Route('/bet/bonus/see/{id}', name: 'app_see_bet_bonus')]
+    public function betBonusSee(ManagerRegistry $doctrine, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+        $qualifCountrie = $doctrine->getRepository(QualificationCountries::class)->findOneBy(['id' => $id]);
+        if($qualifCountrie === null || $qualifCountrie->getCountrie1Eighth() == null || $qualifCountrie->getCountrie2Eighth() == null || $qualifCountrie->getCountrie3Eighth() == null || $qualifCountrie->getCountrie4Eighth() == null) {;
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $res_bet = [];
+            if ((new DateTime()) > ($qualifCountrie ->getDate())) {
+                $getAllBet = $doctrine->getRepository(BetQualificationCountries::class)->findBy(['qualification_countries' => $id]);
+                $res_matche = [
+                    "id" => $qualifCountrie->getId(),
+                    "date" => $qualifCountrie->getDate(),
+                    "type_phase" => $qualifCountrie->getTypePhase(),
+                    "first_countrie_res" => ($qualifCountrie->getFirstCountryRes() == null) ? null : $qualifCountrie->getFirstCountryRes()->getName(),
+                    "first_countrie_res_flag" => ($qualifCountrie->getFirstCountryRes() == null) ? null : $qualifCountrie->getFirstCountryRes()->getIsoFlag(),
+                    "second_countrie_res" => ($qualifCountrie->getSecondCountryRes() == null) ? null : $qualifCountrie->getSecondCountryRes()->getName(),
+                    "second_countrie_res_flag" => ($qualifCountrie->getSecondCountryRes() == null) ? null : $qualifCountrie->getSecondCountryRes()->getIsoFlag(),
+                    "countrie_1" => ($qualifCountrie->getCountrie1Eighth() == null) ? null : $qualifCountrie->getCountrie1Eighth()->getName(),
+                    "countrie_1_flag" => ($qualifCountrie->getCountrie1Eighth() == null) ? null : $qualifCountrie->getCountrie1Eighth()->getIsoFlag(),
+                    "countrie_2" => ($qualifCountrie->getCountrie2Eighth() == null) ? null : $qualifCountrie->getCountrie2Eighth()->getName(),
+                    "countrie_2_flag" => ($qualifCountrie->getCountrie2Eighth() == null) ? null : $qualifCountrie->getCountrie2Eighth()->getIsoFlag(),
+                    "countrie_3" => ($qualifCountrie->getCountrie3Eighth() == null) ? null : $qualifCountrie->getCountrie3Eighth()->getName(),
+                    "countrie_3_flag" => ($qualifCountrie->getCountrie3Eighth() == null) ? null : $qualifCountrie->getCountrie3Eighth()->getIsoFlag(),
+                    "countrie_4" => ($qualifCountrie->getCountrie4Eighth() == null) ? null : $qualifCountrie->getCountrie4Eighth()->getName(),
+                    "countrie_4_flag" => ($qualifCountrie->getCountrie4Eighth() == null) ? null : $qualifCountrie->getCountrie4Eighth()->getIsoFlag(),
+                ];
+                foreach ($getAllBet as $bet) {
+                    $res_bet[] = [
+                        "bet_countrie_1" => $bet->getCountrie1()->getName(),
+                        "bet_countrie_1_flag" => $bet->getCountrie1()->getIsoFlag(),
+                        "bet_countrie_2" => $bet->getCountrie2()->getName(),
+                        "bet_countrie_2_flag" => $bet->getCountrie2()->getIsoFlag(),
+                        "name" => $bet->getUser()->getName(),
+                    ];
+                }
+                return $this->render('pages/see_bet_bonus_other.html.twig', ['qualifCountries' => $res_matche, 'bet' => $res_bet]);
+            } else {
+                return $this->render('bundles/TwigBundle/Exception/you_cant_see.html.twig');
             }
         }
     }

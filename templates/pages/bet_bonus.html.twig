@@ -100,27 +100,70 @@
                                 <div class="col-12 col-md-6">
                                     <div class="row">
                                         <div class="col-12 mb-md-0 mb-2">
-                                            <h6>Équipe possible pouvant aller<br>en quarts de finale :</h6>
+                                            {% if((qualifCountries.first_countrie_res == null) or (qualifCountries.second_countrie_res == null)) %}
+                                                {% if(qualifCountries.type_phase == "quarts") %}
+                                                    <h5 class="mb-0">Équipes potentielles pour aller en<br>quarts de finale !</h5>
+                                                {% endif %}
+                                                {% if(qualifCountries.type_phase == "demi") %}
+                                                    <h5 class="mb-0">Équipes potentielles pour aller en<br>demi-finales !</h5>
+                                                {% endif %}
+                                                {% if(qualifCountries.type_phase == "finale") %}
+                                                    <h5 class="mb-0">Équipes potentielles pour aller en<br>finale !</h5>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if(qualifCountries.type_phase == "quarts") %}
+                                                    <h5 class="mb-0">Équipes qualifiées pour aller en<br>quarts de finale !</h5>
+                                                {% endif %}
+                                                {% if(qualifCountries.type_phase == "demi") %}
+                                                    <h5 class="mb-0">Équipes qualifiées pour aller en<br>demi-finales !</h5>
+                                                {% endif %}
+                                                {% if(qualifCountries.type_phase == "finale") %}
+                                                    <h5 class="mb-0">Équipes qualifiées pour aller en<br>finale !</h5>
+                                                {% endif %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="row">
                                         {% if ((qualifCountries.countrie_1 != null) or (qualifCountries.countrie_2 != null) or (qualifCountries.countrie_3 != null) or (qualifCountries.countrie_4 != null)) %}
-                                            <div class="col-6 col-md-3">
-                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_1_flag }}"></span>
-                                                <p class="m-0">{{ qualifCountries.countrie_1 }}</p>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_2_flag }}"></span>
-                                                <p class="m-0">{{ qualifCountries.countrie_2 }}</p>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_3_flag }}"></span>
-                                                <p class="m-0">{{ qualifCountries.countrie_3 }}</p>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <span class="flag-style fi fi-{{ qualifCountries.countrie_4_flag }}"></span>
-                                                <p class="m-0">{{ qualifCountries.countrie_4 }}</p>
-                                            </div>
+                                            {% if((qualifCountries.first_countrie_res == null) or (qualifCountries.second_countrie_res == null)) %}
+                                                <div class="col-6 col-md-3">
+                                                    <span class="flag-style fi fi-{{ qualifCountries.countrie_1_flag }}"></span>
+                                                    <p class="m-0">{{ qualifCountries.countrie_1 }}</p>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <span class="flag-style fi fi-{{ qualifCountries.countrie_2_flag }}"></span>
+                                                    <p class="m-0">{{ qualifCountries.countrie_2 }}</p>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <span class="flag-style fi fi-{{ qualifCountries.countrie_3_flag }}"></span>
+                                                    <p class="m-0">{{ qualifCountries.countrie_3 }}</p>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <span class="flag-style fi fi-{{ qualifCountries.countrie_4_flag }}"></span>
+                                                    <p class="m-0">{{ qualifCountries.countrie_4 }}</p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p class="mb-0 mt-4">En attente des résultats officiels</p>
+                                                </div>
+                                            {% else %}
+                                                <div class="col-6 col-md-6">
+                                                    <span class="flag-style fi fi-{{ qualifCountries.first_countrie_res_flag }}"></span>
+                                                    <p class="m-0">{{ qualifCountries.first_countrie_res }}</p>
+                                                </div>
+                                                <div class="col-6 col-md-6">
+                                                    <span class="flag-style fi fi-{{ qualifCountries.second_countrie_res_flag }}"></span>
+                                                    <p class="m-0">{{ qualifCountries.second_countrie_res}}</p>
+                                                </div>
+                                                {% if(qualifCountries.type_phase == "quarts") %}
+                                                    <p class="mb-0 pt-3"><b>{{ qualifCountries.first_countrie_res }}</b> et <b>{{ qualifCountries.second_countrie_res }}</b> sont qualifiés pour aller en quarts de finale !</p>
+                                                {% endif %}
+                                                {% if(qualifCountries.type_phase == "demi") %}
+                                                    <p class="mb-0 pt-3"><b>{{ qualifCountries.first_countrie_res }}</b> et <b>{{ qualifCountries.second_countrie_res }}</b> sont qualifiés pour aller en demi-finales !</p>
+                                                {% endif %}
+                                                {% if(qualifCountries.type_phase == "finale") %}
+                                                    <p class="mb-0 pt-3"><b>{{ qualifCountries.first_countrie_res }}</b> et <b>{{ qualifCountries.second_countrie_res }}</b> sont qualifiés pour aller en finale !</p>
+                                                {% endif %}
+                                            {% endif %}
                                         {% else %}
                                             <div class="col-6 col-md-3">
                                                 <i class="flag-style fa-solid fa-circle-question"></i>
@@ -161,6 +204,19 @@
                                                 <span class="flag-style fi fi-{{ qualifCountries.user_select_countrie_2_flag }}"></span>
                                                 <p class="m-0">{{ qualifCountries.user_select_countrie_2 }}</p>
                                             </div>
+                                            {% if((qualifCountries.first_countrie_res != null) or (qualifCountries.second_countrie_res != null)) %}
+                                                {% set score_exact = false %}
+                                                {% if((qualifCountries.first_countrie_res == qualifCountries.user_select_countrie_1) and (qualifCountries.second_countrie_res == qualifCountries.user_select_countrie_2 )) %}
+                                                    {% set score_exact = true %}
+                                                    <p class="mb-0 pt-3">+5 points (scores exactes)</p>
+                                                {% endif %}
+                                                {% if((qualifCountries.first_countrie_res == qualifCountries.user_select_countrie_1) and (score_exact == false)) %}
+                                                    <p class="mb-0 pt-3">+2 points (1 pays trouvé)</p>
+                                                {% endif %}
+                                                {% if((qualifCountries.second_countrie_res == qualifCountries.user_select_countrie_2) and (score_exact == false)) %}
+                                                    <p class="mb-0 pt-3">+2 points (1 pays trouvé)</p>
+                                                {% endif %}
+                                            {% endif %}
                                         {% else %}
                                             <div class="col-12 col-md-12">
                                                 <p class="my-4 text-dark"><i class="fs-2 fa-solid fa-face-sad-tear"></i></p>
@@ -183,6 +239,8 @@
                                                 <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
                                                 <p class="timer-bet mb-0" data-date-timer="{{ qualifCountries.date|date("M") }} {{ qualifCountries.date|date("j") }}, {{ qualifCountries.date|date("Y") }} {{ qualifCountries.date|date("H:i:s") }}">&nbsp;</p>
                                             {% endif %}
+                                        {% else %}
+                                            <a href="{{ path("app_see_bet_bonus", {id: qualifCountries.id}) }}" class="btn btn-primary btn-lg">Voir tous les paris</a>
                                         {% endif %}
                                     </div>
                                 {% else %}
