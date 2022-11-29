@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -237,6 +236,7 @@ class BetController extends AbstractController
                     "user_select_countrie_1_flag" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie1()->getIsoFlag(),
                     "user_select_countrie_2" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie2()->getName(),
                     "user_select_countrie_2_flag" => ($actual_bet_user == null) ? null : $actual_bet_user->getCountrie2()->getIsoFlag(),
+                    "type_phase" => $qualifCountries->getTypePhase()
                 ];
         }
 
@@ -253,8 +253,41 @@ class BetController extends AbstractController
         if (!$this->getUser()->isValideRegister()) {
             return $this->redirectToRoute('app_profil');
         }
-        $matche = $doctrine->getRepository(QualificationCountries::class)->findOneBy(['id' => $id]);
-        return false;
+        $qualifCountrie = $doctrine->getRepository(QualificationCountries::class)->findOneBy(['id' => $id]);
+        if($qualifCountrie === null || $qualifCountrie->getCountrie1Eighth() == null || $qualifCountrie->getCountrie2Eighth() == null || $qualifCountrie->getCountrie3Eighth() == null || $qualifCountrie->getCountrie4Eighth() == null) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $bet_qualif_countrie = $doctrine->getRepository(BetQualificationCountries::class)->findOneBy(["user" => $this->getUser()->getId(), "qualification_countries" => $qualifCountrie->getId()]);
+            if($bet_qualif_countrie === null) {
+                return $this->redirectToRoute('app_add_bet_bonus', ['id' => $id]);
+            } else {
+                if(($qualifCountrie->getDate()) > (new DateTime())) {
+                    $form = $this->createFormBuilder($bet_qualif_countrie)
+                        ->add('countrie_1',ChoiceType::class, [
+                            'choices'  => [
+                                $qualifCountrie->getCountrie1Eighth()->getName() => $qualifCountrie->getCountrie1Eighth(),
+                                $qualifCountrie->getCountrie2Eighth()->getName() => $qualifCountrie->getCountrie2Eighth(),
+                            ],
+                        ])->add('countrie_2',ChoiceType::class, [
+                            'choices'  => [
+                                $qualifCountrie->getCountrie3Eighth()->getName() => $qualifCountrie->getCountrie3Eighth(),
+                                $qualifCountrie->getCountrie4Eighth()->getName() => $qualifCountrie->getCountrie4Eighth(),
+                            ],
+                        ])->getForm();
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $bet_qualif_countrie->setCountrie1($form->get('countrie_1')->getData());
+                        $bet_qualif_countrie->setCountrie2($form->get('countrie_2')->getData());
+                        $entityManager->persist($bet_qualif_countrie);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet_bonus');
+                    }
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
+                }
+                return $this->render('pages/bet_form_bonus.html.twig', ["bet_form" => $form->createView()]);
+            }
+        }
     }
 
     #[Route('/bet/bonus/add/{id}', name: 'app_add_bet_bonus')]
@@ -279,17 +312,25 @@ class BetController extends AbstractController
                     $form = $this->createFormBuilder($new_bet)
                         ->add('countrie_1',ChoiceType::class, [
                             'choices'  => [
-                                $qualifCountrie->getCountrie1Eighth()->getName() => $qualifCountrie->getCountrie1Eighth()->getId(),
-                                $qualifCountrie->getCountrie2Eighth()->getName() => $qualifCountrie->getCountrie2Eighth()->getId(),
+                                $qualifCountrie->getCountrie1Eighth()->getName() => $qualifCountrie->getCountrie1Eighth(),
+                                $qualifCountrie->getCountrie2Eighth()->getName() => $qualifCountrie->getCountrie2Eighth(),
                             ],
                         ])->add('countrie_2',ChoiceType::class, [
                             'choices'  => [
-                                $qualifCountrie->getCountrie3Eighth()->getName() => $qualifCountrie->getCountrie3Eighth()->getId(),
-                                $qualifCountrie->getCountrie4Eighth()->getName() => $qualifCountrie->getCountrie4Eighth()->getId(),
+                                $qualifCountrie->getCountrie3Eighth()->getName() => $qualifCountrie->getCountrie3Eighth(),
+                                $qualifCountrie->getCountrie4Eighth()->getName() => $qualifCountrie->getCountrie4Eighth(),
                             ],
                         ])->getForm();
+                    $form->handleRequest($request);
                     if ($form->isSubmitted() && $form->isValid()) {
-
+                        $new_bet->setCountrie1($form->get('countrie_1')->getData());
+                        $new_bet->setCountrie2($form->get('countrie_2')->getData());
+                        $new_bet->setQualificationCountries($qualifCountrie);
+                        $new_bet->setUser($this->getUser());
+                        $new_bet->setCalculation(false);
+                        $entityManager->persist($new_bet);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet_bonus');
                     }
                 } else {
                     return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');

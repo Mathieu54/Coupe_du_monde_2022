@@ -10,8 +10,7 @@
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">Accueil</li>
-                            <li class="breadcrumb-item"><a href="{{ path("app_bet") }}">Paris</a></li>
-                            <li class="breadcrumb-item" aria-current="page">Page</li>
+                            <li class="breadcrumb-item"><a href="{{ path("app_bet_bonus") }}">Paris bonus</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -35,7 +34,7 @@
                             {{ form_widget(bet_form.countrie_2, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
                         </div>
                         <div class="col-12 col-md-12 mt-5">
-                            <a href="{{ path("app_bet") }}" class="btn btn-danger btn-block btn-lg">
+                            <a href="{{ path("app_bet_bonus") }}" class="btn btn-danger btn-block btn-lg">
                                 Annuler
                             </a>
                             <button type="submit" class="btn btn-bordeaux btn-block btn-lg">

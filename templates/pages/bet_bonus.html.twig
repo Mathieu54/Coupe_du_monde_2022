@@ -38,9 +38,63 @@
                 "November": "Novembre",
                 "December": "Décembre"
             } %}
+            {% set type_phase_quarts = false %}
+            {% set type_phase_demi = false %}
+            {% set type_phase_finale = false %}
             {% for key, res in qualifCountries %}
                 {% for qualifCountries in res %}
-                    <div class="card">
+                    {% if qualifCountries.type_phase == "quarts" and type_phase_quarts == false %}
+                        {% set type_phase_quarts = true %}
+                        <div class="row mb-4">
+                            <div class="col select-type-phase-quarts">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Parier sur les potentielles équipes en quarts de finale</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if qualifCountries.type_phase == "demi" and type_phase_demi == false %}
+                        {% set type_phase_demi = true %}
+                        <div class="row mb-4 mt">
+                            <div class="col select-type-phase-demi">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Parier sur les potentielles équipes en demi-finales</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if qualifCountries.type_phase == "finale" and type_phase_finale == false %}
+                        {% set type_phase_finale = true %}
+                        <div class="row mb-4">
+                            <div class="col select-type-phase-finale">
+                                <div class="card">
+                                    <div class="card-body text-center row">
+                                        <div class="col-11">
+                                            <p class="m-0">Parier sur les potentielles équipes en finale</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="card my-4 type_phase_{{ qualifCountries.type_phase }}">
                         <div class="card-body text-center">
                             <div class="row mb-4">
                                 <div class="col-12 col-md-6">
@@ -116,16 +170,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-4">
+                            <div class="row mb-1">
                                 {% if ((qualifCountries.countrie_1 != null) or (qualifCountries.countrie_2 != null) or (qualifCountries.countrie_3 != null) or (qualifCountries.countrie_4 != null)) %}
                                     <div class="col-12">
                                         {% if date("now") <= qualifCountries.date %}
                                             {% if (qualifCountries.user_select_countrie_1 != null) or (qualifCountries.user_select_countrie_2 != null) %}
                                                 <a href="{{ path("app_edit_bet_bonus", {"id": qualifCountries.id}) }}" type="button" class="btn btn-yellow-modif btn-lg">Modifier le pari</a>
                                                 <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                                <p class="timer-bet mb-0" data-date-timer="{{ qualifCountries.date|date("M") }} {{ qualifCountries.date|date("j") }}, {{ qualifCountries.date|date("Y") }} {{ qualifCountries.date|date("H:i:s") }}">&nbsp;</p>
                                             {% else %}
                                                 <a href="{{ path("app_add_bet_bonus", {"id": qualifCountries.id}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier les équipes</a>
                                                 <p class="fs-4 mb-0 mt-3">Le pari se termine dans :</p>
+                                                <p class="timer-bet mb-0" data-date-timer="{{ qualifCountries.date|date("M") }} {{ qualifCountries.date|date("j") }}, {{ qualifCountries.date|date("Y") }} {{ qualifCountries.date|date("H:i:s") }}">&nbsp;</p>
                                             {% endif %}
                                         {% endif %}
                                     </div>
@@ -151,23 +207,95 @@
                 height: 100px !important;
             }
         }
-        .groupe {
-            background-color: rgb(137, 9, 47);
-            color: white;
-            width: 25px;
-            margin-right: 11px;
-        }
         .flag-style {
             width: 50px;
             height: 50px;
         }
-        .select-type-match-100, .select-type-match-7, .select-type-match-6, .select-type-match-5, .select-type-match-4, .select-type-match-3, .select-type-match-2, .select-type-match-1 {
+        .select-type-phase-quarts, .select-type-phase-demi, .select-type-phase-finale {
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
         }
-        .size_score {
-            font-size: 25px;
-        }
     </style>
+    <script>
+        $('.type_phase_quarts').toggle(false);
+        $('.type_phase_demi').toggle(false);
+        $('.type_phase_finale').toggle(false);
+        $('.select-type-phase-quarts').click(function(){
+            $('.type_phase_quarts').toggle();
+        });
+        $('.select-type-phase-demi').click(function(){
+            $('.type_phase_demi').toggle();
+        });
+        $('.select-type-phase-finale').click(function(){
+            $('.type_phase_finale').toggle();
+        });
+    </script>
+    <script>
+        var x = setInterval(function () {
+            $('.timer-bet').each(function (index) {
+                var countDownDate = new Date($(this).attr('data-date-timer')).getTime();
+
+                var now = new Date().getTime();
+
+                var distance = countDownDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                // Display the result in the element with id="demo"
+                if (days !== 0) {
+                    if (days === 1) {
+                        days = "<b>" + days + "</b> jour ";
+                    } else {
+                        days = "<b>" + days + "</b> jours ";
+                    }
+                } else {
+                    days = "";
+                }
+                if (hours !== 0) {
+                    if (hours === 1) {
+                        hours = "<b>" + hours + "</b> heure ";
+                    } else {
+                        hours = "<b>" + hours + "</b> heures ";
+                    }
+                } else {
+                    hours = "";
+                }
+                if (minutes !== 0) {
+                    if (minutes === 1) {
+                        minutes = "<b>" + minutes + "</b> minute ";
+                    } else {
+                        minutes = "<b>" + minutes + "</b> minutes ";
+                    }
+                } else {
+                    minutes = "";
+                }
+                if (seconds !== 0) {
+                    if (seconds === 1) {
+                        seconds = " et <b>" + seconds + "</b> seconde ";
+                    } else {
+                        seconds = " et <b>" + seconds + "</b> secondes ";
+                    }
+                } else {
+                    seconds = "";
+                }
+                if (days === "" && hours === "" && minutes === "") {
+                    console.log("il est la");
+                    seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (seconds === 1) {
+                        seconds = "<b>" + seconds + "</b> seconde ";
+                    } else {
+                        seconds = "<b>" + seconds + "</b> secondes ";
+                    }
+                }
+                $(this).html(days + hours + minutes + seconds);
+
+                if (distance <= 0) {
+                    $(this).text("Pari cloturé !");
+                }
+            });
+        }, 1000);
+    </script>
 {% endblock %}
