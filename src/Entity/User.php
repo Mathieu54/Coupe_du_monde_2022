@@ -71,10 +71,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: BetQualificationCountries::class, orphanRemoval: true)]
     private Collection $betQualificationCountries;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: BetPodium::class)]
+    private Collection $betPodia;
+
     public function __construct()
     {
         $this->betUsers = new ArrayCollection();
         $this->betQualificationCountries = new ArrayCollection();
+        $this->betPodia = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -326,6 +330,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($betQualificationCountry->getUser() === $this) {
                 $betQualificationCountry->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BetPodium>
+     */
+    public function getBetPodia(): Collection
+    {
+        return $this->betPodia;
+    }
+
+    public function addBetPodium(BetPodium $betPodium): self
+    {
+        if (!$this->betPodia->contains($betPodium)) {
+            $this->betPodia->add($betPodium);
+            $betPodium->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBetPodium(BetPodium $betPodium): self
+    {
+        if ($this->betPodia->removeElement($betPodium)) {
+            // set the owning side to null (unless already changed)
+            if ($betPodium->getUser() === $this) {
+                $betPodium->setUser(null);
             }
         }
 
