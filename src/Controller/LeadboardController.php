@@ -33,6 +33,7 @@ class LeadboardController extends AbstractController
                 "leadboard_number" => $leadboard,
                 "id" => $user->getUser()->getId(),
                 "name" => $user->getUser()->getName(),
+                "message" => $user->getUser()->getMessage(),
                 "scores" => $user->getScores(),
                 "bet_win" => $user->getBetWin(),
                 "bet_win_bonus" => $user->getBetWinBonus(),
@@ -52,6 +53,7 @@ class LeadboardController extends AbstractController
                 $user_list_groups[] = [
                     "leadboard_number" => $leadboard,
                     "name" => $user->getName(),
+                    "message" => $user->getMessage(),
                     "scores" => $user->getUserScores()->getScores(),
                     "bet_win" => $user->getUserScores()->getBetWin(),
                     "bet_win_bonus" => $user->getUserScores()->getBetWinBonus(),

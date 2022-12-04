@@ -26,24 +26,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 text-center">
-                                    <p>Work in progress !</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    <h3 class="my-3">Mettre à jour vos notifications :</h3>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-12 text-center d-flex justify-content-center">
                                     {% if(confirmationNotif == "error") %}
-                                        <div class="alert alert-danger w-25" role="alert">
+                                        <div class="alert alert-danger w-50" role="alert">
                                             Une erreur est survenue !
                                         </div>
                                     {% endif %}
                                     {% if(confirmationNotif == "success") %}
-                                        <div class="alert alert-success w-25" role="alert">
+                                        <div class="alert alert-success w-50" role="alert">
                                             Succès ! Changements effectués !
                                         </div>
                                     {% endif %}
@@ -52,6 +42,10 @@
                             <div class="row m-auto">
                                 <div class="col-12 d-flex justify-content-center">
                                     {{ form_start(profilEditForm) }}
+                                    <div class="mb-3">
+                                        <label for="punchline_message" class="form-label">Punchline :</label>
+                                        {{ form_widget(profilEditForm.punchline_message, {'attr': {'id': 'punchline_message','class': 'form-control'}}) }}
+                                    </div>
                                     <div class="form-check form-switch">
                                         <label class="form-check-label" for="switch_status_score_email">Recevoir des emails sur le status des scores</label>
                                         {{ form_widget(profilEditForm.status_score_email, {'attr': {'id': 'switch_status_score_email','class': 'form-check-input' ,'checked' : app.user.statusScoreEmail}}) }}

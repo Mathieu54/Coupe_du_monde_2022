@@ -36,31 +36,31 @@
                                     <tbody class="fw-bold">
                                     {% for res in leadboard %}
                                         {% if (res.leadboard_number == "1") %}
-                                            <tr class="first_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="first_place align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                         {% if (res.leadboard_number == "2") %}
-                                            <tr class="second_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="second_place align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                         {% if(res.leadboard_number == "3") %}
-                                            <tr class="third_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="third_place align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                         {% if(res.leadboard_number != "1" and res.leadboard_number != "2" and res.leadboard_number != "3") %}
-                                            <tr onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}
@@ -87,31 +87,31 @@
                                     <tbody class="fw-bold">
                                     {% for res in leadboard_groups %}
                                         {% if (res.leadboard_number == "1") %}
-                                            <tr class="first_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="first_place align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                         {% if (res.leadboard_number == "2") %}
-                                            <tr class="second_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="second_place align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                         {% if(res.leadboard_number == "3") %}
-                                            <tr class="third_place" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="third_place align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                         {% if(res.leadboard_number != "1" and res.leadboard_number != "2" and res.leadboard_number != "3") %}
-                                            <tr onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
-                                                <td class="col-4">{{ res.leadboard_number }}</td>
-                                                <td class="col-4">{{ res.name }}</td>
-                                                <td class="col-4">{{ res.scores }}</td>
+                                            <tr class="align-middle" onclick="location.href='{{ path("app_profil_other", {id: res.id}) }}'">
+                                                <td class="col-1">{{ res.leadboard_number }}</td>
+                                                <td class="col-10">{{ res.name }}<br><span class="fw-normal punchline">{{ res.message }}</span></td>
+                                                <td class="col-1">{{ res.scores }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}
@@ -131,6 +131,14 @@
         <br>
     </section>
     <style>
+        @media (min-width: 576px) {
+            .punchline {
+                font-size: 16px !important;
+            }
+        }
+        .punchline {
+            font-size: 10px;
+        }
         tbody tr {
             cursor: pointer;
         }

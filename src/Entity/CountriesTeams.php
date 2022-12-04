@@ -42,6 +42,12 @@ class CountriesTeams
     #[ORM\OneToMany(mappedBy: 'countrie_4_eighth', targetEntity: QualificationCountries::class)]
     private Collection $qualificationCountriesRes4;
 
+    #[ORM\OneToMany(mappedBy: 'first_place', targetEntity: PodiumCountries::class)]
+    private Collection $podiumCountries;
+
+    #[ORM\OneToMany(mappedBy: 'first_countrie_user', targetEntity: BetPodium::class)]
+    private Collection $betPodia;
+
     public function __construct()
     {
         $this->matches = new ArrayCollection();
@@ -50,6 +56,8 @@ class CountriesTeams
         $this->qualificationCountriesRes2 = new ArrayCollection();
         $this->qualificationCountriesRes3 = new ArrayCollection();
         $this->qualificationCountriesRes4 = new ArrayCollection();
+        $this->podiumCountries = new ArrayCollection();
+        $this->betPodia = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +275,66 @@ class CountriesTeams
             // set the owning side to null (unless already changed)
             if ($qualificationCountriesRes4->getCountrie4Eighth() === $this) {
                 $qualificationCountriesRes4->setCountrie4Eighth(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PodiumCountries>
+     */
+    public function getPodiumCountries(): Collection
+    {
+        return $this->podiumCountries;
+    }
+
+    public function addPodiumCountry(PodiumCountries $podiumCountry): self
+    {
+        if (!$this->podiumCountries->contains($podiumCountry)) {
+            $this->podiumCountries->add($podiumCountry);
+            $podiumCountry->setFirstPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removePodiumCountry(PodiumCountries $podiumCountry): self
+    {
+        if ($this->podiumCountries->removeElement($podiumCountry)) {
+            // set the owning side to null (unless already changed)
+            if ($podiumCountry->getFirstPlace() === $this) {
+                $podiumCountry->setFirstPlace(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BetPodium>
+     */
+    public function getBetPodia(): Collection
+    {
+        return $this->betPodia;
+    }
+
+    public function addBetPodium(BetPodium $betPodium): self
+    {
+        if (!$this->betPodia->contains($betPodium)) {
+            $this->betPodia->add($betPodium);
+            $betPodium->setFirstCountrieUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBetPodium(BetPodium $betPodium): self
+    {
+        if ($this->betPodia->removeElement($betPodium)) {
+            // set the owning side to null (unless already changed)
+            if ($betPodium->getFirstCountrieUser() === $this) {
+                $betPodium->setFirstCountrieUser(null);
             }
         }
 

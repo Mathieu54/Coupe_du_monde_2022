@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Choix d'un groupe de pari{% endblock %}
+{% block title %}Parier sur le classement final{% endblock %}
 
 {% block body %}
     <section>
@@ -17,21 +17,19 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col-12 my-2">
-                            <h3>Sélectionner les deux pays<br>qui vont se rencontrer</h3>
-                        </div>
-                    </div>
                     {{ form_start(bet_form) }}
                     <div class="row">
-                        <div class="col-12 col-md-4">
-                            {{ form_widget(bet_form.countrie_1, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
+                        <div class="col-12 col-md-4 mb-md-0 mb-4">
+                            <h3>Sélectionner un pays en<br>2ème position :</h3>
+                            {{ form_widget(bet_form.second_countrie_user, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
                         </div>
-                        <div class="col-12 col-md-4 m-auto fw-bold">
-                            <p class="m-md-0 my-4">VS</p>
+                        <div class="col-12 col-md-4 m-auto fw-bold mb-md-0 mb-4">
+                            <h3>Sélectionner un pays en<br>1er position :</h3>
+                            {{ form_widget(bet_form.first_countrie_user, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
                         </div>
-                        <div class="col-12 col-md-4 text-center">
-                            {{ form_widget(bet_form.countrie_2, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
+                        <div class="col-12 col-md-4 text-center mb-md-0">
+                            <h3>Sélectionner un pays en<br>3ème position :</h3>
+                            {{ form_widget(bet_form.third_countrie_user, {'attr': {'class': 'fs-4 text-center form-select p-3'}}) }}
                         </div>
                         <div class="col-12 col-md-12 mt-5">
                             <a href="{{ path("app_bet_bonus") }}" class="btn btn-danger btn-block btn-lg">
