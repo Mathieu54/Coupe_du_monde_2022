@@ -67,6 +67,7 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
         $get_user = $doctrine->getRepository(User::class)->findOneBy(["id" => $this->getUser()->getId()]);
         if ($form->isSubmitted() && $form->isValid()) {
+            $get_user->setMessage($form->get('punchline_message')->getData());
             $get_user->setStatusScoreEmail($form->get('status_score_email')->getData());
             $get_user->setReminderBetEmail($form->get('reminder_bet_email')->getData());
             try {

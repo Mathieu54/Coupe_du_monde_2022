@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\BetPodium;
 use App\Entity\BetQualificationCountries;
 use App\Entity\BetUser;
+use App\Entity\CountriesTeams;
 use App\Entity\Matches;
+use App\Entity\PodiumCountries;
 use App\Entity\QualificationCountries;
 use App\Form\BetUserFormType;
 use DateInterval;
@@ -240,8 +243,36 @@ class BetController extends AbstractController
                 ];
         }
 
-        return $this->render('pages/bet_bonus.html.twig', ["qualifCountries" => $list_qualif_countries]);
-
+        $getPodiumId = $doctrine->getRepository(PodiumCountries::class)->findOneBy(["id" => 1]);
+        $actual_bet_podium_user = $doctrine->getRepository(BetPodium::class)->findOneBy(["user" => $this->getUser()->getId(), "podium_countrie" => $getPodiumId->getId()]);
+        $firstBetCountry = null;
+        $firstBetCountryFlag = null;
+        $secondBetCountry = null;
+        $secondBetCountryFlag = null;
+        $thirdBetCountry = null;
+        $thirdBetCountryFlag = null;
+        if($actual_bet_podium_user != null) {
+            if($actual_bet_podium_user->getFirstCountrieUser() != null) {
+                $firstBetCountry = $actual_bet_podium_user->getFirstCountrieUser()->getName();
+                $firstBetCountryFlag = $actual_bet_podium_user->getFirstCountrieUser()->getIsoFlag();
+            }
+            if($actual_bet_podium_user->getSecondCountrieUser() != null) {
+                $secondBetCountry = $actual_bet_podium_user->getSecondCountrieUser()->getName();
+                $secondBetCountryFlag = $actual_bet_podium_user->getSecondCountrieUser()->getIsoFlag();
+            }
+            if($actual_bet_podium_user->getThirdCountrieUser() != null) {
+                $thirdBetCountry = $actual_bet_podium_user->getThirdCountrieUser()->getName();
+                $thirdBetCountryFlag = $actual_bet_podium_user->getThirdCountrieUser()->getIsoFlag();
+            }
+        }
+        return $this->render('pages/bet_bonus.html.twig', ["qualifCountries" => $list_qualif_countries, "datePodium" => $getPodiumId->getDate(),
+            "firstBetCountry" => $firstBetCountry,
+            "firstBetCountryFlag" => $firstBetCountryFlag,
+            "secondBetCountry" => $secondBetCountry,
+            "secondBetCountryFlag" => $secondBetCountryFlag,
+            "thirdBetCountry" => $thirdBetCountry,
+            "thirdBetCountryFlag" => $thirdBetCountryFlag
+        ]);
     }
 
     #[Route('/bet/bonus/edit/{id}', name: 'app_edit_bet_bonus')]
@@ -354,7 +385,7 @@ class BetController extends AbstractController
             return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
         } else {
             $res_bet = [];
-            if ((new DateTime()) > ($qualifCountrie ->getDate())) {
+            if ((new DateTime()) > ($qualifCountrie->getDate())) {
                 $getAllBet = $doctrine->getRepository(BetQualificationCountries::class)->findBy(['qualification_countries' => $id]);
                 $res_matche = [
                     "id" => $qualifCountrie->getId(),
@@ -385,6 +416,138 @@ class BetController extends AbstractController
                 return $this->render('pages/see_bet_bonus_other.html.twig', ['qualifCountries' => $res_matche, 'bet' => $res_bet]);
             } else {
                 return $this->render('bundles/TwigBundle/Exception/you_cant_see.html.twig');
+            }
+        }
+    }
+
+    #[Route('/bet/bonus/podium/add/{id}', name: 'app_add_bet_bonus_podium')]
+    public function betAddBonusPodium(ManagerRegistry $doctrine, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+        $podium = $doctrine->getRepository(PodiumCountries::class)->findOneBy(['id' => $id]);
+        if($podium === null) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $bet_podium = $doctrine->getRepository(BetPodium::class)->findOneBy(["user" => $this->getUser()->getId(), "podium_countrie" => $podium->getId()]);
+            if($bet_podium != null) {
+                return $this->redirectToRoute('app_edit_bet_bonus_podium', ['id' => $id]);
+            } else {
+                if(($podium->getDate()) > (new DateTime())) {
+                    $new_bet = new BetPodium();
+                    $list_countrie = [
+                        "" => null,
+                        "Pays-Bas" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 4]),
+                        "Argentine" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 9]),
+                        "Japon" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 20]),
+                        "Croatie" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 24]),
+                        "Brésil" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 25]),
+                        "Corée du Sud" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 32]),
+                        "France" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 13]),
+                        "Pologne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 12]),
+                        "Angleterre" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 5]),
+                        "Sénégal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 3]),
+                        "Maroc" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 23]),
+                        "Espagne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 17]),
+                        "Portugal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 29]),
+                        "Suisse" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 27]),
+                    ];
+                    $form = $this->createFormBuilder($new_bet)
+                        ->add('first_countrie_user',ChoiceType::class, [
+                            'choices'  => $list_countrie
+                        ])->add('second_countrie_user',ChoiceType::class, [
+                            'choices'  => $list_countrie
+                        ])->add('third_countrie_user',ChoiceType::class, [
+                            'choices'  => $list_countrie
+                        ])->getForm();
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $new_bet->setPodiumCountrie($podium);
+                        $new_bet->setFirstCountrieUser($form->get('first_countrie_user')->getData() == null ? null : $form->get('first_countrie_user')->getData());
+                        $new_bet->setSecondCountrieUser($form->get('second_countrie_user')->getData() == null ? null : $form->get('second_countrie_user')->getData());
+                        $new_bet->setThirdCountrieUser($form->get('third_countrie_user')->getData() == null ? null : $form->get('third_countrie_user')->getData());
+                        $new_bet->setCalculation(0);
+                        $new_bet->setUser($this->getUser());
+                        $entityManager->persist($new_bet);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet_bonus');
+                    }
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
+                }
+                return $this->render('pages/bet_form_bonus_podium.html.twig', ["bet_form" => $form->createView()]);
+            }
+        }
+    }
+
+    #[Route('/bet/bonus/podium/edit/{id}', name: 'app_edit_bet_bonus_podium')]
+    public function betEditBonusPodium(ManagerRegistry $doctrine, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$this->getUser()->isValideRegister()) {
+            return $this->redirectToRoute('app_profil');
+        }
+        $podium = $doctrine->getRepository(PodiumCountries::class)->findOneBy(['id' => $id]);
+        if($podium === null) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig', []);
+        } else {
+            $bet_podium = $doctrine->getRepository(BetPodium::class)->findOneBy(["user" => $this->getUser()->getId(), "podium_countrie" => $podium->getId()]);
+            if($bet_podium === null) {
+                return $this->redirectToRoute('app_add_bet_bonus_podium', ['id' => $id]);
+            } else {
+                if(($podium->getDate()) > (new DateTime())) {
+                    //Yeah i know very ugly code but i have no time (3 days) !!!
+                    $list_countrie = [
+                        "" => null,
+                        "Pays-Bas" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 4]),
+                        "Argentine" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 9]),
+                        "Japon" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 20]),
+                        "Croatie" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 24]),
+                        "Brésil" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 25]),
+                        "Corée du Sud" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 32]),
+                        "France" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 13]),
+                        "Pologne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 12]),
+                        "Angleterre" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 5]),
+                        "Sénégal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 3]),
+                        "Maroc" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 23]),
+                        "Espagne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 17]),
+                        "Portugal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 29]),
+                        "Suisse" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 27]),
+                    ];
+                    $form = $this->createFormBuilder($bet_podium)
+                        ->add('first_countrie_user',ChoiceType::class, [
+                            'choices'  => $list_countrie
+                        ])->add('second_countrie_user',ChoiceType::class, [
+                            'choices'  => $list_countrie
+                        ])->add('third_countrie_user',ChoiceType::class, [
+                            'choices'  => $list_countrie
+                        ])->getForm();
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $bet_podium->setPodiumCountrie($podium);
+                        if($form->get('first_countrie_user')->getData() != null) {
+                            $bet_podium->setFirstCountrieUser($form->get('first_countrie_user')->getData());
+                        }
+                        if($form->get('second_countrie_user')->getData() != null) {
+                            $bet_podium->setSecondCountrieUser($form->get('second_countrie_user')->getData());
+                        }
+                        if($form->get('third_countrie_user')->getData() != null) {
+                            $bet_podium->setThirdCountrieUser($form->get('third_countrie_user')->getData());
+                        }
+                        $entityManager->persist($bet_podium);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_bet_bonus');
+                    }
+                } else {
+                    return $this->render('bundles/TwigBundle/Exception/toolate.html.twig');
+                }
+                return $this->render('pages/bet_form_bonus_podium.html.twig', ["bet_form" => $form->createView()]);
             }
         }
     }

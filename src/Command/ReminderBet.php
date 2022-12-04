@@ -5,7 +5,6 @@ namespace App\Command;
 use App\Entity\BetUser;
 use App\Entity\Matches;
 use App\Entity\User;
-use App\Entity\UserScores;
 use Doctrine\Persistence\ManagerRegistry;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;

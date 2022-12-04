@@ -74,6 +74,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: BetPodium::class)]
     private Collection $betPodia;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $message = null;
+
     public function __construct()
     {
         $this->betUsers = new ArrayCollection();
@@ -362,6 +365,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $betPodium->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(?string $message): self
+    {
+        $this->message = $message;
 
         return $this;
     }

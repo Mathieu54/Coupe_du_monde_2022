@@ -15,6 +15,10 @@
                     </nav>
                 </div>
             </div>
+            <div class="alert alert-warning text-center" role="alert">
+                Petit soucis pour l'instant les points bonus ne sont pas pris en compte dans le classement !<br>
+                Ils seront calculés en fin de semaine prochaine.
+            </div>
             {% set trans_day_hash = {
                 "Monday": "Lundi",
                 "Tuesday": "Mardi",
@@ -254,27 +258,63 @@
                 {% endfor %}
             {% endfor %}
             <div class="row mb-4">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <p class="mb-0 select-type-podium">Parier sur l'équipe qui finira en 2ème position</p>
-                            <h3>Disponible quelques jours. Patiente...</h3>
+                            <p class="mb-0 select-type-podium mb-2">Parier sur l'équipe qui finira en 2ème position</p>
+                            {% if date("now") <= datePodium %}
+                                {% if(secondBetCountry != null) %}
+                                    <span class="flag-style fi fi-{{ secondBetCountryFlag }}"></span>
+                                    <p class="m-0">{{ secondBetCountry }}</p>
+                                    <a href="{{ path("app_edit_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-yellow-modif btn-lg mt-4">Modifier le pari</a>
+                                {% else %}
+                                    <span class="flag-style fa-solid fa-face-sad-tear"></span>
+                                    <p class="m-0 mb-3">Aucun pays !</p>
+                                    <a href="{{ path("app_add_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier une équipe</a>
+                                {% endif %}
+                            {% else %}
+                                <p>A venir...</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-4" >
                     <div class="card">
                         <div class="card-body text-center">
-                            <p class="mb-0 select-type-podium">Parier sur l'équipe qui finira en 1ère position</p>
-                            <h3>Disponible quelques jours. Patiente...</h3>
+                            <p class="mb-0 select-type-podium mb-2">Parier sur l'équipe qui finira en 1ère position</p>
+                            {% if date("now") <= datePodium %}
+                                {% if(firstBetCountry != null) %}
+                                    <span class="flag-style fi fi-{{ firstBetCountryFlag }}"></span>
+                                    <p class="m-0">{{ firstBetCountry }}</p>
+                                    <a href="{{ path("app_edit_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-yellow-modif btn-lg mt-4">Modifier le pari</a>
+                                {% else %}
+                                    <span class="flag-style fa-solid fa-face-sad-tear"></span>
+                                    <p class="m-0 mb-3">Aucun pays !</p>
+                                    <a href="{{ path("app_add_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier une équipe</a>
+                                {% endif %}
+                            {% else %}
+                                <p>A venir...</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <p class="mb-0 select-type-podium">Parier sur l'équipe qui finira en 3ème position</p>
-                            <h3>Disponible quelques jours. Patiente...</h3>
+                            <p class="mb-0 select-type-podium mb-2">Parier sur l'équipe qui finira en 3ème position</p>
+                            {% if date("now") <= datePodium %}
+                                {% if(thirdBetCountry != null) %}
+                                    <span class="flag-style fi fi-{{ thirdBetCountryFlag }}"></span>
+                                    <p class="m-0">{{ thirdBetCountry }}</p>
+                                    <a href="{{ path("app_edit_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-yellow-modif btn-lg mt-4">Modifier le pari</a>
+                                {% else %}
+                                    <span class="flag-style fa-solid fa-face-sad-tear"></span>
+                                    <p class="m-0 mb-3">Aucun pays !</p>
+                                    <a href="{{ path("app_add_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier une équipe</a>
+                                {% endif %}
+                            {% else %}
+                                <p>A venir...</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
