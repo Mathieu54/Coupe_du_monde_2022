@@ -15,9 +15,8 @@
                     </nav>
                 </div>
             </div>
-            <div class="alert alert-warning text-center" role="alert">
-                Petit soucis pour l'instant les points bonus ne sont pas pris en compte dans le classement !<br>
-                Ils seront calculés en fin de semaine prochaine.
+            <div class="alert alert-info text-center" role="alert">
+                Hello there les points et les points bonus seront calculés ce soir à 23h00 !
             </div>
             <div class="row">
                 <div class="col-lg-4">
@@ -57,13 +56,12 @@
                             <div class="card mb-4">
                                 <div class="card-body text-center">
                                     <h3>News :</h3>
-                                    <p class="mb-0 fw-bold">Mise à jour du 26 Novembre 2022</p>
+                                    <p class="mb-0 fw-bold">Mise à jour du 9 Décembre 2022</p>
                                     <ul>
-                                        <li>Ajout des paris sur le classement des équipes (podium).</li>
-                                        <li>Le bouton valider est maintenant en vert pour différencier le bouton annuler</li>
-                                        <li>Vous pouvez ajouter une punchline visible dans le classement par les autres joueurs.</li>
-                                        <li>Correction de petit bug.</li>
-                                        <li>Correction de style.</li>
+                                        <li>Les points bonus sont calculés ! Voir le classement :p</li>
+                                        <li>Vous pouvez voir vos points bonus dans votre profil.</li>
+                                        <li>En cours les points bonus seront bientôt affichés sur les profils des autres joueurs</li>
+                                        <li>Correction de divers bugs</li>
                                     </ul>
                                 </div>
                             </div>
@@ -122,7 +120,68 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <h3 class="text-center my-3">Vos paris bonus</h3>
+                            <div class="table-responsive">
+                                <table class="table align-middle">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th>Types</th>
+                                        <th>Qualifications</th>
+                                        <th>Paris</th>
+                                        <th>Résultats</th>
+                                        <th>Scores</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% set scores_final = 0 %}
+                                    {% for key, res in qualification_list %}
+                                        {% for qualifCountrie in res %}
+                                            {% if date("now") >= qualifCountrie.date %}
+                                                {% if date("now") >= qualifCountrie.date_2_hours %}
+                                                    <tr class="text-center">
+                                                        <td>{{ qualifCountrie.type_phase }}</td>
+                                                        <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_1 }}"></span><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_2 }}"></span><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_3 }}"></span><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_4 }}"></span></td>
+                                                        {% if( qualifCountrie.bet_bonus_flag_1_user != "null" or qualifCountrie.bet_bonus_flag_2_user != "null") %}
+                                                            <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_1_user}}"></span><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_2_user }}"></span></td>
+                                                        {% else %}
+                                                            <td><span class="d-lg-inline-block d-block fw-bold">Aucun</span> <span class="d-lg-inline-block d-block fw-bold">pari</span></td>
+                                                        {% endif %}
+                                                        <td><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_1_res }}"></span><span class="m-auto d-block d-lg-inline-block fi fi-{{ qualifCountrie.bet_bonus_flag_2_res }}"></span></td>
+                                                        {% set scores = 0 %}
+                                                        {% if((qualifCountrie.bet_bonus_flag_1_res == qualifCountrie.bet_bonus_flag_1_user) and (qualifCountrie.bet_bonus_flag_2_res == qualifCountrie.bet_bonus_flag_2_user)) %}
+                                                            {% set scores = scores + 5 %}
+                                                        {% else %}
+                                                            {% if((qualifCountrie.bet_bonus_flag_1_res == qualifCountrie.bet_bonus_flag_1_user)) %}
+                                                                {% set scores = scores + 2 %}
+                                                            {% endif %}
+                                                            {% if((qualifCountrie.bet_bonus_flag_2_res == qualifCountrie.bet_bonus_flag_2_user)) %}
+                                                                {% set scores = scores + 2 %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                        {% set scores_final = scores + scores_final %}
+                                                        {% if(scores != 0) %}
+                                                            <td class="fw-bold">+{{ scores }}</td>
+                                                        {% else %}
+                                                            <td class="fw-bold">0 <i class="fa-solid fa-face-sad-tear"></i></td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    <tr>
+                                        <td class="text-end" colspan="6">Scores total : <span class="fw-bold">{{ scores_final }}</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
                     <div class="card mb-4 mb-lg-0">
                         <div class="card-body p-0">
                             <h3 class="text-center my-3">Vos paris</h3>

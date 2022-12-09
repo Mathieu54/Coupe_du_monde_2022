@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\BetQualificationCountries;
 use App\Entity\BetUser;
 use App\Entity\Matches;
+use App\Entity\QualificationCountries;
 use App\Entity\User;
 use App\Entity\UserScores;
 use App\Form\ProfilEditFormType;
@@ -45,6 +47,25 @@ class ProfilController extends AbstractController
                 "score_countrie_2_user" => ($actual_bet_user == null) ? "null" : $actual_bet_user->getScoreCountrie2(),
             ];
         }
+        $qualification = $doctrine->getRepository(QualificationCountries::class)->findBy([], ['id' => 'DESC']);
+        $list_test = [];
+        foreach ($qualification as $list_qualif) {
+            $actual_bet_user = $doctrine->getRepository(BetQualificationCountries::class)->findOneBy(["user" => $this->getUser()->getId(), "qualification_countries" => $list_qualif->getId()]);
+            $list_test[$list_qualif->getId()][] = [
+                "id" => $list_qualif->getId(),
+                "date" => $list_qualif->getDate(),
+                "date_2_hours" => (clone $list_qualif->getDate())->add(new DateInterval("PT2H")),
+                "bet_bonus_flag_1_user" => ($actual_bet_user == null) ? "null" : $actual_bet_user->getCountrie1()->getIsoFlag(),
+                "bet_bonus_flag_2_user" => ($actual_bet_user == null) ? "null" : $actual_bet_user->getCountrie2()->getIsoFlag(),
+                "bet_bonus_flag_1_res" => ($list_qualif->getFirstCountryRes() == null) ? "null" : $list_qualif->getFirstCountryRes()->getIsoFlag(),
+                "bet_bonus_flag_2_res" => ($list_qualif->getSecondCountryRes() == null) ? "null" : $list_qualif->getSecondCountryRes()->getIsoFlag(),
+                "bet_bonus_flag_1" => ($list_qualif->getCountrie1Eighth() == null) ? "null" : $list_qualif->getCountrie1Eighth()->getIsoFlag(),
+                "bet_bonus_flag_2" => ($list_qualif->getCountrie2Eighth() == null) ? "null" : $list_qualif->getCountrie2Eighth()->getIsoFlag(),
+                "bet_bonus_flag_3" => ($list_qualif->getCountrie3Eighth() == null) ? "null" : $list_qualif->getCountrie3Eighth()->getIsoFlag(),
+                "bet_bonus_flag_4" => ($list_qualif->getCountrie4Eighth() == null) ? "null" : $list_qualif->getCountrie4Eighth()->getIsoFlag(),
+                "type_phase" => $list_qualif->getTypePhase()
+            ];
+        }
         return $this->render('pages/profil.html.twig', [
             'matches' => $list_matches_bet,
             'number_bet_matche' => count($all_matche),
@@ -52,7 +73,8 @@ class ProfilController extends AbstractController
             'bet_win' => $get_scores->getBetWin(),
             'bet_loses' => $get_scores->getBetLose(),
             'bet_win_bonus' => $get_scores->getBetWinBonus(),
-            'position' => $get_position_leadboard
+            'position' => $get_position_leadboard,
+            'qualification_list' => $list_test
         ]);
     }
 
