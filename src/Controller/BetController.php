@@ -441,20 +441,10 @@ class BetController extends AbstractController
                     $new_bet = new BetPodium();
                     $list_countrie = [
                         "" => null,
-                        "Pays-Bas" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 4]),
                         "Argentine" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 9]),
-                        "Japon" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 20]),
                         "Croatie" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 24]),
-                        "Brésil" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 25]),
-                        "Corée du Sud" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 32]),
                         "France" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 13]),
-                        "Pologne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 12]),
-                        "Angleterre" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 5]),
-                        "Sénégal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 3]),
                         "Maroc" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 23]),
-                        "Espagne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 17]),
-                        "Portugal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 29]),
-                        "Suisse" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 27]),
                     ];
                     $form = $this->createFormBuilder($new_bet)
                         ->add('first_countrie_user',ChoiceType::class, [
@@ -505,20 +495,10 @@ class BetController extends AbstractController
                     //Yeah i know very ugly code but i have no time (3 days) !!!
                     $list_countrie = [
                         "" => null,
-                        "Pays-Bas" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 4]),
                         "Argentine" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 9]),
-                        "Japon" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 20]),
                         "Croatie" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 24]),
-                        "Brésil" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 25]),
-                        "Corée du Sud" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 32]),
                         "France" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 13]),
-                        "Pologne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 12]),
-                        "Angleterre" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 5]),
-                        "Sénégal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 3]),
                         "Maroc" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 23]),
-                        "Espagne" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 17]),
-                        "Portugal" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 29]),
-                        "Suisse" => $doctrine->getRepository(CountriesTeams::class)->findOneBy(["id" => 27]),
                     ];
                     $form = $this->createFormBuilder($bet_podium)
                         ->add('first_countrie_user',ChoiceType::class, [

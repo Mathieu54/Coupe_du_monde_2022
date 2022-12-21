@@ -15,9 +15,6 @@
                     </nav>
                 </div>
             </div>
-            <div class="alert alert-info text-center" role="alert">
-                Hello there les points et les points bonus seront calculés ce soir à 23h00 !
-            </div>
             {% set trans_day_hash = {
                 "Monday": "Lundi",
                 "Tuesday": "Mardi",
@@ -272,7 +269,13 @@
                                     <a href="{{ path("app_add_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier une équipe</a>
                                 {% endif %}
                             {% else %}
-                                <p>A venir...</p>
+                                {% if(secondBetCountry != null) %}
+                                    <span class="flag-style fi fi-{{ secondBetCountryFlag }}"></span>
+                                    <p class="m-0">{{ secondBetCountry }}</p>
+                                {% else %}
+                                    <span class="flag-style fa-solid fa-face-sad-tear"></span>
+                                    <p class="m-0 mb-3">Vous n'avez parié aucun pays !</p>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -292,7 +295,13 @@
                                     <a href="{{ path("app_add_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier une équipe</a>
                                 {% endif %}
                             {% else %}
-                                <p>A venir...</p>
+                                {% if(firstBetCountry != null) %}
+                                    <span class="flag-style fi fi-{{ firstBetCountryFlag }}"></span>
+                                    <p class="m-0">{{ firstBetCountry }}</p>
+                                {% else %}
+                                    <span class="flag-style fa-solid fa-face-sad-tear"></span>
+                                    <p class="m-0 mb-3">Vous n'avez parié aucun pays !</p>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -312,7 +321,13 @@
                                     <a href="{{ path("app_add_bet_bonus_podium", {"id": 1}) }}" type="button" class="btn btn-bordeaux btn-lg">Parier une équipe</a>
                                 {% endif %}
                             {% else %}
-                                <p>A venir...</p>
+                                {% if(thirdBetCountry != null) %}
+                                    <span class="flag-style fi fi-{{ thirdBetCountryFlag }}"></span>
+                                    <p class="m-0">{{ thirdBetCountry }}</p>
+                                {% else %}
+                                    <span class="flag-style fa-solid fa-face-sad-tear"></span>
+                                    <p class="m-0 mb-3">Vous n'avez parié aucun pays !</p>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
